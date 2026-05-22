@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 
-export const Taxonomy: React.FC = () => {
+export const TechStack: React.FC = () => {
   const { t } = usePortfolio();
 
   return (
@@ -27,4 +27,4 @@ export const Taxonomy: React.FC = () => {
   );
 };
 
-export default Taxonomy;
+export default TechStack;

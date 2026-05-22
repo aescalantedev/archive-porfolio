@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
-import AmbientBackground from './AmbientBackground';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+import AmbientBackground from '../layout/AmbientBackground';
+import Sidebar from '../layout/Sidebar';
+import Footer from '../layout/Footer';
 
 interface PostData {
   slug: string;

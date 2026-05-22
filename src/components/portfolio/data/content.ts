@@ -22,6 +22,7 @@ export interface InfraCategory {
 export interface TranslationDictionary {
   sidebar: {
     index: string;
+    projects: string;
     archive: string;
     infrastructure: string;
     manifesto: string;
@@ -66,9 +67,10 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
   en: {
     sidebar: {
       index: "[01] INDEX",
-      archive: "[02] ARCHIVE",
-      infrastructure: "[03] INFRASTRUCTURE",
-      manifesto: "[04] MANIFESTO",
+      projects: "[02] PROJECTS",
+      archive: "[03] ARCHIVE",
+      infrastructure: "[04] TECH STACK",
+      manifesto: "[05] MANIFESTO",
       operator: "OPR: ANTHONY ESCALANTE",
       status: "STATUS: ACTIVE",
       region: "REGION: LATAM",
@@ -128,7 +130,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       ]
     },
     infra: {
-      title: "TECHNICAL TAXONOMY",
+      title: "TECH STACK",
       categories: [
         { name: "Frontend Systems", tools: "Astro, Next.js, React, SAPUI5, OpenUI5" },
         { name: "Backend Architecture", tools: "ASP.NET, Python, Node.js" },
@@ -147,9 +149,10 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
   es: {
     sidebar: {
       index: "[01] ÍNDICE",
-      archive: "[02] ARCHIVO",
-      infrastructure: "[03] INFRAESTRUCTURA",
-      manifesto: "[04] MANIFIESTO",
+      projects: "[02] PROYECTOS",
+      archive: "[03] ARCHIVO",
+      infrastructure: "[04] STACK TÉCNICO",
+      manifesto: "[05] MANIFIESTO",
       operator: "OPR: ANTHONY ESCALANTE",
       status: "ESTADO: ACTIVO",
       region: "REGIÓN: LATAM",
@@ -209,7 +212,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       ]
     },
     infra: {
-      title: "TAXONOMÍA TÉCNICA",
+      title: "STACK TÉCNICO",
       categories: [
         { name: "Sistemas Frontend", tools: "Astro, Next.js, React, SAPUI5, OpenUI5" },
         { name: "Arquitectura Backend", tools: "ASP.NET, Python, Node.js" },

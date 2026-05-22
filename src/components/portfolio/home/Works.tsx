@@ -6,7 +6,7 @@ export const Works: React.FC = () => {
   const { t } = usePortfolio();
 
   return (
-    <section id="archive" className="px-6 py-20 lg:px-16 bg-bg-primary transition-all duration-300">
+    <section id="works" className="px-6 py-20 lg:px-16 bg-bg-primary transition-all duration-300">
       <div className="max-w-3xl mb-24">
         <h2 className="font-serif text-4xl lg:text-5xl mb-6 text-text-primary">{t.works.title}</h2>
         <p className="font-sans text-text-secondary leading-relaxed text-sm">

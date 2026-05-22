@@ -38,7 +38,7 @@ export const Hero: React.FC = () => {
         {/* Action Controls */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 font-mono text-[11px] tracking-widest">
           <a 
-            href="#archive" 
+            href="#works" 
             className="bg-text-primary text-bg-primary px-8 py-4 uppercase border border-text-primary hover:bg-accent hover:border-accent transition-colors duration-300 cursor-pointer"
           >
             {t.hero.btn_projects}

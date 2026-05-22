@@ -1,12 +1,12 @@
 import React from 'react';
 import { PortfolioProvider } from './context/PortfolioContext';
-import AmbientBackground from './components/AmbientBackground';
-import Sidebar from './components/Sidebar';
-import Hero from './components/Hero';
-import Profile from './components/Profile';
-import Works from './components/Works';
-import Taxonomy from './components/Taxonomy';
-import Footer from './components/Footer';
+import AmbientBackground from './layout/AmbientBackground';
+import Sidebar from './layout/Sidebar';
+import Hero from './home/Hero';
+import Profile from './home/Profile';
+import Works from './home/Works';
+import TechStack from './home/TechStack';
+import Footer from './layout/Footer';
 
 export const PortfolioLayout: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ export const PortfolioLayout: React.FC = () => {
             <Hero />
             <Profile />
             <Works />
-            <Taxonomy />
+            <TechStack />
             <Footer />
           </main>
           

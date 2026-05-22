@@ -25,6 +25,12 @@ export const Sidebar: React.FC = () => {
             {t.sidebar.index}
           </a>
           <a 
+            href="/#works" 
+            className="block text-text-primary hover:text-accent transition-colors duration-200 cursor-pointer"
+          >
+            {t.sidebar.projects}
+          </a>
+          <a 
             href="/archive" 
             className="block text-text-primary hover:text-accent transition-colors duration-200 cursor-pointer"
           >
