@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BlogIndex from '../../components/portfolio/components/BlogIndex';
+import Layout from '../../layouts/Layout.astro';
+
+// Fetch all markdown posts at build time, including metadata
+const posts = await getCollection('blog');
+
+// Format schema structures safely to serializable JSON for React hydration
+const formattedPosts = posts.map(post => ({
+  slug: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  pubDate: post.data.pubDate.toISOString(),
+  tags: post.data.tags,
+  lang: post.data.lang,
+}));
+---
+
+<Layout 
+  title="Manifesto // Anthony Escalante // Software Architect" 
+  description="Technical insights, engineering philosophy, systemic minimalism, and architectural rules authored by Anthony Escalante."
+>
+	<BlogIndex client:load posts={formattedPosts} />
+</Layout>

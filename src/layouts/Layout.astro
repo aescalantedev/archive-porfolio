@@ -1,23 +1,73 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Anthony Escalante // Software Architect // Archive.OS Portfolio",
+	description = "Executive engineering portfolio of Anthony Escalante, specializing in scalable software architectures, relational databases, mobile engineering, and minimalist interface designs."
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		{/* Primary SEO Meta Tags */}
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Anthony Escalante" />
+		<meta name="keywords" content="Software Architect, Full Stack Developer, Flutter, SAPUI5, Next.js, OpenUI5, Curses CLI, App Ecology, Latin America Developer" />
+		
+		{/* OpenGraph Social Tags */}
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Anthony Escalante Archive" />
+		<meta property="og:locale" content="en_US" />
+		
+		{/* Twitter Social Tags */}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		{/* Theme controls for modern browser engine compliance */}
+		<meta name="color-scheme" content="light dark" />
+
+		<script is:inline>
+			// Inline blocking script to prevent theme flash before React hydration
+			(function() {
+				const theme = localStorage.getItem('portfolio-theme') || 'light';
+				const root = document.documentElement;
+				if (theme === 'light') {
+					root.style.setProperty('--bg-primary', '#F6F4EB');
+					root.style.setProperty('--bg-secondary', '#EBE9DF');
+					root.style.setProperty('--text-primary', '#1A1C20');
+					root.style.setProperty('--text-secondary', '#646464');
+					root.style.setProperty('--accent', '#8C7355');
+					root.style.setProperty('--border', '#D8D2C5');
+					root.classList.remove('dark');
+				} else {
+					root.style.setProperty('--bg-primary', '#1A1918');
+					root.style.setProperty('--bg-secondary', '#242220');
+					root.style.setProperty('--text-primary', '#E3E1D9');
+					root.style.setProperty('--text-secondary', '#8A8680');
+					root.style.setProperty('--accent', '#A68A64');
+					root.style.setProperty('--border', '#34302C');
+					root.classList.add('dark');
+				}
+			})();
+		</script>
 	</head>
-	<body>
+	<body class="bg-bg-primary text-text-primary antialiased font-sans transition-colors duration-300">
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
