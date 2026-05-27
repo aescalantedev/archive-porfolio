@@ -3,6 +3,14 @@ export interface ProjectLink {
   url: string;
 }
 
+export interface PlatformVariant {
+  label: string;
+  stack: string[];
+  mockup: 'dashboard' | 'terminal' | 'mobile' | 'android';
+  desc?: string;
+  links?: ProjectLink[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -12,6 +20,7 @@ export interface Project {
   challenges?: string;
   deployment?: string;
   links: ProjectLink[];
+  platforms?: PlatformVariant[];
 }
 
 export interface InfraCategory {
@@ -97,10 +106,24 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         {
           id: "01",
           title: "B1 Route",
-          desc: "Enterprise logistics and tracking system built with SAPUI5/OpenUI5. Designed for large-scale fleet management, offering real-time delivery tracking and comprehensive operational dashboards. The architecture prioritizes data density and rapid decision-making in high-pressure environments.",
-          stack: ["SAPUI5", "OpenUI5", "OData"],
-          role: "Lead Frontend Architect",
+          desc: "Enterprise logistics and tracking system for large-scale fleet management with real-time delivery tracking and comprehensive operational dashboards. Built across two platforms with shared Mapbox cartography.",
+          stack: ["SAPUI5", "OpenUI5", "Fiori", "Kotlin", "Jetpack Compose", "Mapbox"],
+          role: "Lead Architect — Web & Mobile",
           challenges: "Real-time data synchronization across thousands of endpoints with minimal latency. Handling complex role-based access control within legacy SAP environments.",
+          platforms: [
+            {
+              label: "Web",
+              stack: ["SAPUI5", "OpenUI5", "Fiori", "OData v4", "Mapbox"],
+              mockup: "dashboard",
+              links: [{ label: "Live View", url: "#" }]
+            },
+            {
+              label: "Android",
+              stack: ["Kotlin", "Jetpack Compose M3", "Mapbox", "Firebase"],
+              mockup: "android",
+              links: [{ label: "GitHub", url: "#" }]
+            }
+          ],
           links: [{ label: "Live View", url: "#" }, { label: "GitHub", url: "#" }]
         },
         {
@@ -179,10 +202,24 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         {
           id: "01",
           title: "B1 Route",
-          desc: "Plataforma de logística y rastreo empresarial construida con SAPUI5/OpenUI5. Diseñada para la gestión de flotas a gran escala, ofreciendo seguimiento de entregas en tiempo real y paneles operativos integrales. La arquitectura prioriza la densidad de datos y la toma de decisiones rápida.",
-          stack: ["SAPUI5", "OpenUI5", "OData"],
-          role: "Arquitecto Frontend Principal",
+          desc: "Plataforma de logística y rastreo empresarial para gestión de flotas a gran escala con seguimiento en tiempo real y paneles operativos integrales. Construida sobre dos plataformas con cartografía Mapbox compartida.",
+          stack: ["SAPUI5", "OpenUI5", "Fiori", "Kotlin", "Jetpack Compose", "Mapbox"],
+          role: "Arquitecto Principal — Web y Móvil",
           challenges: "Sincronización de datos en tiempo real a través de miles de puntos finales con latencia mínima. Manejo de control de acceso basado en roles complejos en entornos SAP heredados.",
+          platforms: [
+            {
+              label: "Web",
+              stack: ["SAPUI5", "OpenUI5", "Fiori", "OData v4", "Mapbox"],
+              mockup: "dashboard",
+              links: [{ label: "Ver en vivo", url: "#" }]
+            },
+            {
+              label: "Android",
+              stack: ["Kotlin", "Jetpack Compose M3", "Mapbox", "Firebase"],
+              mockup: "android",
+              links: [{ label: "GitHub", url: "#" }]
+            }
+          ],
           links: [{ label: "Ver en vivo", url: "#" }, { label: "GitHub", url: "#" }]
         },
         {

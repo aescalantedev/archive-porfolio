@@ -35,8 +35,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const t = content[lang];
 
   const toggleTheme = (event?: React.MouseEvent | MouseEvent) => {
-    console.log("[PortfolioContext] toggleTheme triggered.");
-    
     const x = event ? event.clientX : undefined;
     const y = event ? event.clientY : undefined;
 
@@ -44,14 +42,10 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const supportsViewTransition = typeof doc.startViewTransition === 'function';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Fallback if coordinates are missing, browser doesn't support View Transitions, or user prefers reduced motion
     if (x === undefined || y === undefined || !supportsViewTransition || prefersReducedMotion) {
-      console.log("[PortfolioContext] Running fallback direct state toggle.");
       setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
       return;
     }
-
-    console.log(`[PortfolioContext] Launching radial ripple transition at coordinates: X=${x}, Y=${y}`);
 
     const STYLE_ID = 'astro-theme-toggle-temporary-styles';
     const STYLE_CONTENT = '::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }';
@@ -111,7 +105,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const changeLang = (newLang: Language) => {
-    console.log("[PortfolioContext] changeLang clicked. Current:", lang, "Target:", newLang);
     setLang(newLang);
   };
 
@@ -146,11 +139,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       localStorage.setItem('portfolio-lang', lang);
     }
   }, [lang]);
-
-  // Initial mount diagnostics
-  useEffect(() => {
-    console.log("[PortfolioContext] Provider successfully mounted in client browser.");
-  }, []);
 
   return (
     <PortfolioContext.Provider value={{ theme, lang, t, toggleTheme, setLang: changeLang }}>

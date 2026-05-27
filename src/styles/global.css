@@ -49,3 +49,44 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+
+/* ─── Boot Sequence Animations ─── */
+
+@keyframes boot-clip {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes boot-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes boot-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-boot-clip {
+  animation: boot-clip 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.anim-boot-fade {
+  animation: boot-fade 0.6s ease-out both;
+}
+
+.anim-boot-slide-up {
+  animation: boot-slide-up 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.anim-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.anim-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}

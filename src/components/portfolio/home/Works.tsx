@@ -1,6 +1,17 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { DashboardMockup, TerminalMockup, MobileMockup } from './Mockups';
+import { useInView } from '../hooks/useInView';
+import { DashboardMockup, TerminalMockup, MobileMockup, AndroidMockup } from './Mockups';
+
+const ProjectCard: React.FC<{ index: number; children: React.ReactNode }> = ({ index, children }) => {
+  const [ref, inView] = useInView<HTMLDivElement>();
+
+  return (
+    <div ref={ref} className={`anim-reveal${inView ? ' in-view' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
+      {children}
+    </div>
+  );
+};
 
 export const Works: React.FC = () => {
   const { t } = usePortfolio();
@@ -16,10 +27,10 @@ export const Works: React.FC = () => {
 
       <div className="space-y-32">
         {t.works.projects.map((project, index) => (
-          <article 
-            key={project.id} 
-            className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-16 border-t border-border-custom pt-16 first:border-t-0 first:pt-0"
-          >
+          <ProjectCard key={project.id} index={index}>
+            <article 
+              className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-16 border-t border-border-custom pt-16 first:border-t-0 first:pt-0"
+            >
             
             {/* Meta Column (Archival record info) */}
             <div className="xl:col-span-3 font-mono text-[10px] tracking-widest text-text-secondary uppercase">
@@ -59,30 +70,59 @@ export const Works: React.FC = () => {
               </p>
 
               {/* Tech Stack Tags */}
-              <div className="flex flex-wrap gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider">
-                {project.stack.map(tech => (
-                  <span 
-                    key={tech} 
-                    className="bg-bg-secondary px-3 py-1.5 border border-border-custom text-text-primary transition-colors duration-200 hover:border-accent"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+              {project.platforms ? (
+                <div className="space-y-4 mb-8">
+                  {project.platforms.map((platform) => (
+                    <div key={platform.label}>
+                      <span className="font-mono text-[9px] tracking-widest text-accent uppercase mr-3">{platform.label}</span>
+                      <div className="inline-flex flex-wrap gap-2 mt-1 font-mono text-[10px] uppercase tracking-wider">
+                        {platform.stack.map(tech => (
+                          <span key={tech} className="bg-bg-secondary px-3 py-1.5 border border-border-custom text-text-primary transition-colors duration-200 hover:border-accent">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider">
+                  {project.stack.map(tech => (
+                    <span key={tech} className="bg-bg-secondary px-3 py-1.5 border border-border-custom text-text-primary transition-colors duration-200 hover:border-accent">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
 
               {/* Responsive SVG Mockup Grid */}
-              <div className="w-full aspect-[16/10] bg-bg-secondary border border-border-custom p-4 flex items-center justify-center overflow-hidden mb-8 transition-colors duration-300">
-                {index === 0 && <DashboardMockup />}
-                {index === 1 && <DashboardMockup />}
-                {index === 2 && <TerminalMockup />}
-                {index === 3 && <MobileMockup />}
+              <div className="w-full bg-bg-secondary border border-border-custom p-4 mb-8 transition-colors duration-300">
+                {project.platforms ? (
+                  <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 scrollbar-none">
+                    {project.platforms.map((platform) => (
+                      <div key={platform.label} className="snap-center shrink-0 w-full">
+                        {platform.mockup === 'dashboard' && <DashboardMockup />}
+                        {platform.mockup === 'terminal' && <TerminalMockup />}
+                        {platform.mockup === 'mobile' && <MobileMockup />}
+                        {platform.mockup === 'android' && <AndroidMockup />}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full aspect-[16/10] flex items-center justify-center overflow-hidden">
+                    {index === 1 && <DashboardMockup />}
+                    {index === 2 && <TerminalMockup />}
+                    {index === 3 && <MobileMockup />}
+                  </div>
+                )}
               </div>
 
               {/* Action Anchors */}
               <div className="flex flex-wrap gap-4 font-mono text-[10px] tracking-widest uppercase mb-4">
-                {project.links.map((link, idx) => (
+                {(project.platforms ? project.platforms.flatMap(p => p.links || []) : project.links)
+                .map((link, idx) => (
                   <a 
-                    key={link.label} 
+                    key={`${link.label}-${idx}`} 
                     href={link.url} 
                     className={`px-6 py-3 transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                       idx === 0 
@@ -97,6 +137,7 @@ export const Works: React.FC = () => {
 
             </div>
           </article>
+          </ProjectCard>
         ))}
       </div>
     </section>

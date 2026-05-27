@@ -96,3 +96,72 @@ export const MobileMockup: React.FC = () => (
     <rect x="360" y="346" width="80" height="8" rx="4" fill="var(--text-primary)" />
   </svg>
 );
+
+export const AndroidMockup: React.FC = () => (
+  <svg 
+    className="w-full h-full object-cover" 
+    viewBox="0 0 800 500" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Android Jetpack Compose fleet management app mockup"
+  >
+    <rect width="800" height="500" fill="var(--bg-secondary)" />
+    
+    {/* Phone Frame */}
+    <rect x="250" y="25" width="300" height="600" rx="24" fill="var(--bg-primary)" stroke="var(--border)" strokeWidth="3" />
+    
+    {/* Status Bar */}
+    <rect x="250" y="25" width="300" height="36" rx="24" fill="var(--bg-primary)" />
+    <rect x="250" y="49" width="300" height="12" fill="var(--bg-primary)" />
+    <circle cx="490" cy="43" r="4" fill="var(--text-secondary)" />
+    <rect x="430" y="41" width="30" height="4" rx="2" fill="var(--text-secondary)" />
+    
+    {/* Top App Bar (Material 3) */}
+    <rect x="265" y="60" width="270" height="48" rx="12" fill="var(--bg-secondary)" />
+    <path d="M280 84 L290 74 L290 94 Z" fill="var(--text-primary)" />
+    <rect x="310" y="78" width="100" height="12" rx="4" fill="var(--text-primary)" />
+    <circle cx="510" cy="84" r="10" fill="var(--accent)" opacity="0.2" />
+    
+    {/* Route Card */}
+    <rect x="270" y="128" width="260" height="90" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" strokeWidth="1" />
+    <rect x="286" y="144" width="80" height="8" rx="4" fill="var(--accent)" opacity="0.6" />
+    <rect x="286" y="162" width="150" height="14" rx="4" fill="var(--text-primary)" />
+    <rect x="286" y="184" width="120" height="8" rx="4" fill="var(--text-secondary)" opacity="0.5" />
+    <rect x="470" y="148" width="44" height="44" rx="12" fill="var(--accent)" opacity="0.15" />
+    <path d="M492 166 L492 174 M492 178 L492 180" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
+    
+    {/* Map Area Placeholder */}
+    <rect x="270" y="238" width="260" height="120" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" strokeWidth="1" strokeDasharray="4 4" />
+    <circle cx="400" cy="298" r="20" fill="none" stroke="var(--accent)" strokeWidth="2" />
+    <circle cx="400" cy="298" r="6" fill="var(--accent)" />
+    <path d="M360 280 L340 260 M440 280 L460 260 M370 330 L350 360 M430 330 L450 360" stroke="var(--border)" strokeWidth="1" />
+    
+    {/* Bottom Sheet Card */}
+    <rect x="270" y="370" width="260" height="110" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" strokeWidth="1" />
+    <rect x="286" y="386" width="60" height="6" rx="3" fill="var(--text-secondary)" opacity="0.4" />
+    <rect x="286" y="402" width="120" height="10" rx="4" fill="var(--text-primary)" />
+    <rect x="286" y="418" width="200" height="8" rx="4" fill="var(--text-secondary)" opacity="0.5" />
+    
+    {/* Driver Info Row */}
+    <circle cx="300" cy="450" r="12" fill="var(--accent)" opacity="0.2" />
+    <rect x="320" y="444" width="80" height="8" rx="4" fill="var(--text-primary)" />
+    <rect x="320" y="456" width="50" height="6" rx="3" fill="var(--text-secondary)" opacity="0.5" />
+    
+    {/* Status Chip */}
+    <rect x="440" y="440" width="60" height="22" rx="11" fill="var(--accent)" opacity="0.15" />
+    <rect x="448" y="446" width="44" height="10" rx="3" fill="var(--accent)" />
+    
+    {/* Bottom Navigation (Material 3) */}
+    <rect x="265" y="500" width="270" height="48" rx="12" fill="var(--bg-secondary)" />
+    <rect x="294" y="515" width="16" height="16" rx="4" fill="var(--accent)" />
+    <rect x="352" y="515" width="16" height="16" rx="4" fill="var(--text-secondary)" opacity="0.4" />
+    <rect x="410" y="515" width="16" height="16" rx="4" fill="var(--text-secondary)" opacity="0.4" />
+    <rect x="468" y="515" width="16" height="16" rx="4" fill="var(--text-secondary)" opacity="0.4" />
+    
+    {/* Labels */}
+    <rect x="288" y="534" width="28" height="4" rx="2" fill="var(--accent)" />
+    <rect x="348" y="534" width="24" height="4" rx="2" fill="var(--text-secondary)" opacity="0.3" />
+    <rect x="406" y="534" width="24" height="4" rx="2" fill="var(--text-secondary)" opacity="0.3" />
+    <rect x="464" y="534" width="24" height="4" rx="2" fill="var(--text-secondary)" opacity="0.3" />
+  </svg>
+);
