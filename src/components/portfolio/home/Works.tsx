@@ -101,10 +101,16 @@ export const Works: React.FC = () => {
                   <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 scrollbar-none">
                     {project.platforms.map((platform) => (
                       <div key={platform.label} className="snap-center shrink-0 w-full">
-                        {platform.mockup === 'dashboard' && <DashboardMockup />}
-                        {platform.mockup === 'terminal' && <TerminalMockup />}
-                        {platform.mockup === 'mobile' && <MobileMockup />}
-                        {platform.mockup === 'android' && <AndroidMockup />}
+                        {platform.image ? (
+                          <img src={platform.image} alt={`${project.title} ${platform.label}`} className="w-full aspect-[16/10] object-cover object-top" />
+                        ) : (
+                          <>
+                            {platform.mockup === 'dashboard' && <DashboardMockup />}
+                            {platform.mockup === 'terminal' && <TerminalMockup />}
+                            {platform.mockup === 'mobile' && <MobileMockup />}
+                            {platform.mockup === 'android' && <AndroidMockup />}
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>

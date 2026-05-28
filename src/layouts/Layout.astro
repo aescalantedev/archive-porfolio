@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { 
-	title = "Anthony Escalante // Software Architect // Archive.OS Portfolio",
-	description = "Executive engineering portfolio of Anthony Escalante, specializing in scalable software architectures, relational databases, mobile engineering, and minimalist interface designs."
+	title = "Antoni Escalante // Software Engineer // Archive.OS Portfolio",
+	description = "Software Engineer specializing in end-to-end development. I build robust backends, fluid mobile experiences, and modern web apps. Driven by strong engineering fundamentals and the ability to adapt fast to any tech stack."
 } = Astro.props;
 ---
 
@@ -24,28 +24,49 @@ const {
 		{/* Primary SEO Meta Tags */}
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="author" content="Anthony Escalante" />
-		<meta name="keywords" content="Software Architect, Full Stack Developer, Flutter, SAPUI5, Next.js, OpenUI5, Curses CLI, App Ecology, Latin America Developer" />
+		<meta name="author" content="Antoni Escalante" />
+		<meta name="keywords" content="Software Engineer, Full Stack Developer, Flutter, SAPUI5, Next.js, OpenUI5, Kotlin, Jetpack Compose, .NET, PostgreSQL, Latin America Developer" />
 		
+		{/* Canonical URL */}
+		<link rel="canonical" href={`https://aescalante.dev${Astro.url.pathname}`} />
+
 		{/* OpenGraph Social Tags */}
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Anthony Escalante Archive" />
+		<meta property="og:site_name" content="Antoni Escalante Archive" />
 		<meta property="og:locale" content="en_US" />
+		<meta property="og:url" content={`https://aescalante.dev${Astro.url.pathname}`} />
+		<meta property="og:image" content="https://aescalante.dev/og-image.png" />
 		
 		{/* Twitter Social Tags */}
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 
-		{/* Theme controls for modern browser engine compliance */}
+		{/* Theme controls & mobile browser chrome */}
 		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#F6F4EB" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#1A1918" media="(prefers-color-scheme: dark)" />
 
 		{/* Font preconnect & preload to prevent render blocking */}
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@100;300;400&display=swap" />
+
+		{/* JSON-LD Structured Data */}
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Antoni Escalante",
+			"url": "https://aescalante.dev",
+			"jobTitle": "Software Engineer",
+			"sameAs": [
+				"https://github.com/AnthonyXJ99",
+				"https://linkedin.com/in/antoni-escalante",
+				"https://instagram.com/a_nthony.r"
+			]
+		})} />
 
 		<script is:inline>
 			// Inline blocking script to prevent theme flash before React hydration

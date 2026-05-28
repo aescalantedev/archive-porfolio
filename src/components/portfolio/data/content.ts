@@ -7,6 +7,7 @@ export interface PlatformVariant {
   label: string;
   stack: string[];
   mockup: 'dashboard' | 'terminal' | 'mobile' | 'android';
+  image?: string;
   desc?: string;
   links?: ProjectLink[];
 }
@@ -80,7 +81,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       archive: "[03] ARCHIVE",
       infrastructure: "[04] TECH STACK",
       manifesto: "[05] MANIFESTO",
-      operator: "OPR: ANTHONY ESCALANTE",
+      operator: "OPR: ANTONI ESCALANTE",
       status: "STATUS: ACTIVE",
       region: "REGION: LATAM",
       build: "BUILD: v2.4",
@@ -90,18 +91,18 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       lang_es: "ES"
     },
     hero: {
-      title: "ENGINEERING SCALABLE SOFTWARE ARCHITECTURES.",
+      title: "BUILDING ROBUST SOFTWARE SYSTEMS.",
       subtitle: "FULL-STACK SYSTEMS // MOBILE APPLICATIONS // SCALABLE APIS // ENTERPRISE INTERFACES",
       btn_projects: "EXPLORE PROJECTS",
       btn_arch: "VIEW ARCHITECTURES"
     },
     profile: {
-      title: "EXECUTIVE PROFILE : A. ESCALANTE",
-      body: "Specialized in end-to-end software solutions. From scalable backend systems and relational databases to production-ready mobile applications and enterprise-grade interfaces. Prioritizing complex logic, operational efficiency, and minimalist presentation."
+      title: "// DEVELOPER PROFILE : A. ESCALANTE",
+      body: "Specialized in end-to-end software development. I design fluid and minimalist user experiences on the frontend, powered by scalable backend engines built with FastAPI and ASP.NET 8. An adaptable programmer, focused on delivering quality code and solving complex technical challenges."
     },
     works: {
-      title: "Selected Works Case Studies.",
-      subtitle: "Present projects as curated museum-grade entries. An archive of technical architecture and interface design, demonstrating a synthesis of complex logic and minimalist presentation.",
+      title: "ENGINEERED WORKS.",
+      subtitle: "Built from the ground up. End-to-end software solutions and mobile ecosystems.",
       projects: [
         {
           id: "01",
@@ -115,6 +116,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               label: "Web",
               stack: ["SAPUI5", "OpenUI5", "Fiori", "OData v4", "Mapbox"],
               mockup: "dashboard",
+              image: "/images/b1route.webp",
               links: [{ label: "Live View", url: "#" }]
             },
             {
@@ -176,7 +178,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       archive: "[03] ARCHIVO",
       infrastructure: "[04] STACK TÉCNICO",
       manifesto: "[05] MANIFIESTO",
-      operator: "OPR: ANTHONY ESCALANTE",
+      operator: "OPR: ANTONI ESCALANTE",
       status: "ESTADO: ACTIVO",
       region: "REGIÓN: LATAM",
       build: "COMPILACIÓN: v2.4",
@@ -186,18 +188,18 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       lang_es: "ES"
     },
     hero: {
-      title: "INGENIERÍA DE ARQUITECTURAS DE SOFTWARE ESCALABLES.",
+      title: "CONSTRUYENDO SISTEMAS DE SOFTWARE ROBUSTOS.",
       subtitle: "SISTEMAS FULL-STACK // APLICACIONES MÓVILES // APIS ESCALABLES // INTERFACES EMPRESARIALES",
       btn_projects: "EXPLORAR PROYECTOS",
       btn_arch: "VER ARQUITECTURAS"
     },
     profile: {
-      title: "PERFIL EJECUTIVO : A. ESCALANTE",
-      body: "Especializado en soluciones de software de extremo a extremo. Desde sistemas backend escalables y bases de datos relacionales, hasta aplicaciones móviles listas para producción e interfaces de nivel empresarial. Priorizando la lógica compleja, eficiencia operativa y presentación minimalista."
+      title: "// PERFIL DE DESARROLLADOR : A. ESCALANTE",
+      body: "Especializado en el desarrollo de software de extremo a extremo. Diseño experiencias de usuario fluidas y minimalistas en el frontend, potenciadas por motores backend escalables construidos con FastAPI y ASP.NET 8. Un programador adaptable, enfocado en entregar código de calidad y resolver desafíos técnicos complejos."
     },
     works: {
-      title: "Casos de Estudio Seleccionados.",
-      subtitle: "Proyectos presentados como entradas de archivo curadas. Un registro de arquitectura técnica y diseño de interfaces, demostrando una síntesis de lógica compleja y presentación minimalista.",
+      title: "PROYECTOS TÉCNICOS.",
+      subtitle: "Construidos desde cero. Soluciones de software integrales y ecosistemas móviles.",
       projects: [
         {
           id: "01",
@@ -211,6 +213,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               label: "Web",
               stack: ["SAPUI5", "OpenUI5", "Fiori", "OData v4", "Mapbox"],
               mockup: "dashboard",
+              image: "/images/b1route.webp",
               links: [{ label: "Ver en vivo", url: "#" }]
             },
             {

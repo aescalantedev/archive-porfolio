@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
           {t.contact.github}
         </a>
         <a 
-          href="https://linkedin.com/in/anthonyescalante" 
+          href="https://linkedin.com/in/antoni-escalante" 
           target="_blank" 
           rel="noreferrer" 
           className="hover:text-accent uppercase transition-colors duration-200 cursor-pointer text-text-primary"
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           {t.contact.linkedin}
         </a>
         <a 
-          href="https://instagram.com/anthony_xj99" 
+          href="https://instagram.com/a_nthony.r" 
           target="_blank" 
           rel="noreferrer" 
           className="hover:text-accent uppercase transition-colors duration-200 cursor-pointer text-text-primary"
