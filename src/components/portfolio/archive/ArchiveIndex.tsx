@@ -40,10 +40,10 @@ const ArchiveIndexContent: React.FC = () => {
         },
         {
           year: "2024",
-          title: "Player CLI",
+          title: "Cyberdeck Term-OS Music Player",
           category: "Multimedia / Utilidad Terminal",
-          role: "Creador / Creador Solitario",
-          stack: ["Python", "FFmpeg", "Curses"],
+          role: "Creador Solitario",
+          stack: ["Python", "Textual", "Rich", "Numpy"],
           links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
         },
         {
@@ -116,10 +116,10 @@ const ArchiveIndexContent: React.FC = () => {
         },
         {
           year: "2024",
-          title: "Player CLI",
+          title: "Cyberdeck Term-OS Music Player",
           category: "Multimedia / CLI Utility",
           role: "Solo Creator",
-          stack: ["Python", "FFmpeg", "Curses"],
+          stack: ["Python", "Textual", "Rich", "Numpy"],
           links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
         },
         {
