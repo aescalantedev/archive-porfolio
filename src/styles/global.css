@@ -90,3 +90,21 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Custom Cursor default cursor hides */
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  select,
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
+  }
+  
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: none !important;
+  }
+}
