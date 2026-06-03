@@ -101,17 +101,16 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
     const currentSlide = slides[activeImageIdx] || [];
     
     return (
-      <div className="w-full aspect-[16/10] flex items-center justify-center overflow-hidden relative group bg-bg-secondary transition-colors duration-300">
+      <div className={`w-full ${layout === 'side-by-side' ? 'aspect-[4/3]' : 'aspect-[16/10]'} flex items-center justify-center overflow-hidden relative group bg-bg-secondary transition-colors duration-300`}>
         {layout === 'side-by-side' ? (
-          <div className="w-full h-full p-4 md:p-6 grid grid-cols-2 gap-4 md:gap-8 bg-[#1A1918]/5 hover:bg-[#1A1918]/10 transition-all duration-300">
+          <div className="w-full h-full p-4 md:p-6 flex justify-center items-center gap-4 md:gap-8 bg-[#1A1918]/5 hover:bg-[#1A1918]/10 transition-all duration-300">
             {currentSlide.map((imgSrc, imgIdx) => (
-              <div key={imgIdx} className="w-full h-full flex items-center justify-center">
-                <img 
-                  src={imgSrc} 
-                  alt={`${project.title} screenshot ${imgIdx + 1}`} 
-                  className="max-h-[95%] w-auto object-contain rounded-md shadow-lg border border-border-custom bg-bg-primary transition-all duration-300 hover:scale-[1.02] cursor-zoom-in"
-                />
-              </div>
+              <img 
+                key={imgIdx}
+                src={imgSrc} 
+                alt={`${project.title} screenshot ${imgIdx + 1}`} 
+                className="max-h-[95%] w-auto object-contain rounded-md shadow-lg border border-border-custom bg-bg-primary transition-all duration-300 hover:scale-[1.02] cursor-zoom-in"
+              />
             ))}
           </div>
         ) : (

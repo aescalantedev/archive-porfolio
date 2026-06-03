@@ -20,6 +20,7 @@ export interface Project {
   desc: string;
   stack: string[];
   image?: string;
+  images?: string[];
   role?: string;
   challenges?: string;
   deployment?: string;
@@ -181,9 +182,50 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         {
           id: "04",
           title: "App Ecology",
-          desc: "A suite of elegant mobile applications deployed to the Play Store, including Arcons Billetera and Colegio Contabilidad. The design language emphasizes high legibility, tactile micro-interactions, and robust state management for financial tools.",
-          stack: ["Flutter", "Kotlin", "SQLite"],
-          deployment: "Google Play Store, AWS Mobile Services",
+          desc: "A premium suite of native-performance mobile applications engineered under consistent clean design patterns. It features tailored user interfaces, tactile micro-interactions, robust offline caching, and real-time state synchronization for financial, educational, and corporate operations.",
+          stack: ["Flutter", "Dart", "Kotlin", "SQLite", "REST APIs", "State Management"],
+          image: "/images/appsarcons/01.webp",
+          role: "Lead Mobile Architect",
+          challenges: "Designing a shared codebase framework to coordinate features across 4 distinct corporate apps. Optimizing local encrypted databases, ensuring secure background synchronization, and managing complex real-time balance calculations with zero latency.",
+          deployment: "Google Play Store // Flutter Release Channels",
+          platforms: [
+            {
+              label: "Billetera",
+              desc: "A digital wallet mobile application focused on the efficient management of financial transactions. Engineered with strict security protocols, high legibility for numerical data, and a robust state management system to reflect balances and transaction history in real time.",
+              stack: ["Flutter", "Dart", "SQLite", "State Management", "Encrypted Storage"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
+            },
+            {
+              label: "Contabilidad",
+              desc: "A specialized mobile solution designed specifically for the accounting sector. Facilitates seamless access to tools, profile management, and resources for accounting professionals, prioritizing a clean user interface and intuitive navigation for dense information layouts.",
+              stack: ["Flutter", "Dart", "Local Cache", "JSON Parsing", "Clean UI"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
+            },
+            {
+              label: "Portal",
+              desc: "The central application of the Arcons ecosystem, acting as the main portal for clients. Integrates multiple diverse services into a single hub, delivering a fluid user experience through tactile micro-interactions and an optimized data syncing architecture.",
+              stack: ["Flutter", "Dart", "Ecosystem Integration", "Micro-interactions", "REST APIs"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
+            },
+            {
+              label: "Company",
+              desc: "An enterprise tool engineered for internal and operational management. Implements corporate business logic into an elegant mobile interface, enabling secure synchronization of business data and reliable operation monitoring.",
+              stack: ["Flutter", "Dart", "Enterprise Sync", "Operational Security", "Data Encryption"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
+            }
+          ],
           links: [{ label: "Play Store", url: "#" }]
         }
       ]
@@ -309,9 +351,50 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         {
           id: "04",
           title: "App Ecology",
-          desc: "Un conjunto de aplicaciones móviles elegantes desplegadas en la Play Store, incluyendo Arcons Billetera y Colegio Contabilidad. El lenguaje de diseño enfatiza alta legibilidad, micro-interacciones táctiles y gestión de estado robusta para herramientas financieras y educativas.",
-          stack: ["Flutter", "Kotlin", "SQLite"],
-          deployment: "Google Play Store, AWS Mobile Services",
+          desc: "Una suite premium de aplicaciones móviles de alto rendimiento desarrolladas bajo un ecosistema de diseño limpio y unificado. Cuenta con interfaces personalizadas, microinteracciones táctiles fluidas, almacenamiento local optimizado y lógicas de sincronización asíncrona para operaciones financieras, educativas y corporativas.",
+          stack: ["Flutter", "Dart", "Kotlin", "SQLite", "APIs REST", "Gestión de Estado"],
+          image: "/images/appsarcons/01.webp",
+          role: "Arquitecto Móvil Principal",
+          challenges: "Diseñar un núcleo de desarrollo compartido (shared framework) para coordinar las lógicas de 4 aplicaciones corporativas distintas. Optimizar bases de datos locales SQLite encriptadas, asegurar la sincronización en segundo plano y calcular saldos en tiempo real sin latencia.",
+          deployment: "Google Play Store // Canales de Distribución Flutter",
+          platforms: [
+            {
+              label: "Billetera",
+              desc: "Aplicación móvil de billetera digital orientada a la gestión eficiente de transacciones financieras. Diseñada con un enfoque en la seguridad, alta legibilidad de datos numéricos y una gestión de estado robusta para reflejar saldos e historial de movimientos en tiempo real.",
+              stack: ["Flutter", "Dart", "SQLite", "Gestión de Estado", "Almacenamiento Seguro"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
+            },
+            {
+              label: "Contabilidad",
+              desc: "Solución móvil desarrollada específicamente para el sector contable. Facilita el acceso a herramientas, gestión de perfiles y recursos para profesionales de la contabilidad, priorizando una interfaz limpia y una navegación intuitiva para el manejo de información densa.",
+              stack: ["Flutter", "Dart", "Caché Local", "Procesamiento JSON", "UI Limpia"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
+            },
+            {
+              label: "Portal",
+              desc: "Aplicación central del ecosistema Arcons. Actúa como el portal principal para los clientes, integrando diversos servicios en un solo lugar y ofreciendo una experiencia de usuario fluida mediante micro-interacciones táctiles y una arquitectura de datos optimizada.",
+              stack: ["Flutter", "Dart", "Integración de Ecosistemas", "Microinteracciones", "APIs REST"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
+            },
+            {
+              label: "Company",
+              desc: "Herramienta corporativa diseñada para la gestión interna y operativa. Implementa lógicas de negocio en una interfaz móvil elegante, permitiendo la sincronización de datos empresariales y el monitoreo de operaciones con alta fiabilidad.",
+              stack: ["Flutter", "Dart", "Sincronización Corporativa", "Seguridad Operativa", "Encriptación de Datos"],
+              mockup: "android",
+              image: "/images/appsarcons/01.webp",
+              layout: "single",
+              links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
+            }
+          ],
           links: [{ label: "Play Store", url: "#" }]
         }
       ]

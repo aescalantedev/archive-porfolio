@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
 import AmbientBackground from '../layout/AmbientBackground';
 import Sidebar from '../layout/Sidebar';
@@ -17,34 +17,80 @@ interface ArchiveProject {
 const ArchiveIndexContent: React.FC = () => {
   const { lang } = usePortfolio();
   const [searchQuery, setSearchQuery] = useState('');
+  const [repos, setRepos] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  // Structured multi-lingual list of all historical works
-  const allProjects = useMemo<ArchiveProject[]>(() => {
+  // Fetch public repositories dynamically when page changes
+  useEffect(() => {
+    if (!hasMore) return;
+
+    setIsLoading(true);
+    fetch(`https://api.github.com/users/AnthonyXJ99/repos?sort=updated&per_page=5&page=${page}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then((data) => {
+        if (!Array.isArray(data)) {
+          setHasMore(false);
+          setIsLoading(false);
+          return;
+        }
+
+        if (data.length < 5) {
+          setHasMore(false);
+        }
+
+        setRepos((prev) => {
+          const existingIds = new Set(prev.map(r => r.id));
+          const newRepos = data.filter(r => !existingIds.has(r.id));
+          return [...prev, ...newRepos];
+        });
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch GitHub repositories:', err);
+        setHasMore(false);
+        setIsLoading(false);
+      });
+  }, [page]);
+
+  // Setup intersection observer to trigger loading next page
+  useEffect(() => {
+    if (isLoading || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isLoading, hasMore]);
+
+  // Structured multi-lingual list of static Play Store mobile apps
+  const staticProjects = useMemo<ArchiveProject[]>(() => {
     if (lang === 'es') {
       return [
         {
           year: "2025",
           title: "B1 Route",
           category: "Logística y Transporte",
-          role: "Arquitecto Frontend Principal",
-          stack: ["SAPUI5", "OpenUI5", "OData", "JavaScript"],
+          role: "Arquitecto Principal — Web y Móvil",
+          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
           links: [{ label: "Caso de Estudio", url: "/#works" }]
-        },
-        {
-          year: "2025",
-          title: "StrixUI Dashboard",
-          category: "Herramienta de Desarrollo (SaaS)",
-          role: "Desarrollador Full Stack",
-          stack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/strixui" }]
-        },
-        {
-          year: "2024",
-          title: "Cyberdeck Term-OS Music Player",
-          category: "Multimedia / Utilidad Terminal",
-          role: "Creador Solitario",
-          stack: ["Python", "Textual", "Rich", "Numpy"],
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
         },
         {
           year: "2024",
@@ -52,15 +98,7 @@ const ArchiveIndexContent: React.FC = () => {
           category: "Fintech Móvil",
           role: "Ingeniero Flutter",
           stack: ["Flutter", "Dart", "SQLite", "Firebase"],
-          links: [{ label: "Google Play", url: "#" }]
-        },
-        {
-          year: "2023",
-          title: "App Ecology Suite",
-          category: "Aplicaciones Móviles",
-          role: "Líder de Desarrollo Móvil",
-          stack: ["Flutter", "Kotlin", "SQLite", "Play Store CLI"],
-          links: [{ label: "En vivo", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
         },
         {
           year: "2023",
@@ -68,31 +106,23 @@ const ArchiveIndexContent: React.FC = () => {
           category: "EdTech Móvil",
           role: "Ingeniero Móvil",
           stack: ["Flutter", "SQLite", "Node.js"],
-          links: [{ label: "Google Play", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
         },
         {
-          year: "2022",
-          title: "SAP OData Query Builder",
-          category: "Integración de Sistemas",
-          role: "Desarrollador Backend",
-          stack: ["Python", "OData v4", "REST API"],
-          links: [{ label: "GitHub", url: "#" }]
+          year: "2023",
+          title: "Arcons App (Portal Principal)",
+          category: "Portal Móvil",
+          role: "Desarrollador Flutter",
+          stack: ["Flutter", "Dart", "APIs REST"],
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
         },
         {
-          year: "2021",
-          title: "Curses Audio Engine Bindings",
-          category: "Biblioteca de Audio",
-          role: "Ingeniero de Sistemas",
-          stack: ["C++", "FFmpeg", "PortAudio"],
-          links: [{ label: "GitHub", url: "#" }]
-        },
-        {
-          year: "2020",
-          title: "Minimal Shell Utils",
-          category: "Herramienta CLI",
-          role: "Creador",
-          stack: ["Bash", "Go"],
-          links: [{ label: "GitHub", url: "#" }]
+          year: "2023",
+          title: "Arcons Company",
+          category: "Herramienta Corporativa",
+          role: "Desarrollador Flutter",
+          stack: ["Flutter", "Dart", "Sincronización"],
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
         }
       ];
     } else {
@@ -102,25 +132,9 @@ const ArchiveIndexContent: React.FC = () => {
           year: "2025",
           title: "B1 Route",
           category: "Enterprise Logistics",
-          role: "Lead Frontend Architect",
-          stack: ["SAPUI5", "OpenUI5", "OData", "JavaScript"],
+          role: "Lead Architect — Web & Mobile",
+          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
           links: [{ label: "Case Study", url: "/#works" }]
-        },
-        {
-          year: "2025",
-          title: "StrixUI Dashboard",
-          category: "Developer Tooling (SaaS)",
-          role: "Full Stack Developer",
-          stack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/strixui" }]
-        },
-        {
-          year: "2024",
-          title: "Cyberdeck Term-OS Music Player",
-          category: "Multimedia / CLI Utility",
-          role: "Solo Creator",
-          stack: ["Python", "Textual", "Rich", "Numpy"],
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
         },
         {
           year: "2024",
@@ -128,15 +142,7 @@ const ArchiveIndexContent: React.FC = () => {
           category: "Mobile Fintech",
           role: "Flutter Engineer",
           stack: ["Flutter", "Dart", "SQLite", "Firebase"],
-          links: [{ label: "Google Play", url: "#" }]
-        },
-        {
-          year: "2023",
-          title: "App Ecology Suite",
-          category: "Mobile Product Suite",
-          role: "Lead Mobile Developer",
-          stack: ["Flutter", "Kotlin", "SQLite", "Play Store CLI"],
-          links: [{ label: "Live", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
         },
         {
           year: "2023",
@@ -144,35 +150,70 @@ const ArchiveIndexContent: React.FC = () => {
           category: "Mobile EdTech",
           role: "Mobile Engineer",
           stack: ["Flutter", "SQLite", "Node.js"],
-          links: [{ label: "Google Play", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
         },
         {
-          year: "2022",
-          title: "SAP OData Query Builder",
-          category: "Enterprise Middleware",
-          role: "Backend Developer",
-          stack: ["Python", "OData v4", "REST API"],
-          links: [{ label: "GitHub", url: "#" }]
+          year: "2023",
+          title: "Arcons App (Main Portal)",
+          category: "Mobile Portal",
+          role: "Flutter Developer",
+          stack: ["Flutter", "Dart", "REST APIs"],
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
         },
         {
-          year: "2021",
-          title: "Curses Audio Engine Bindings",
-          category: "Low-Level Audio Library",
-          role: "Systems Engineer",
-          stack: ["C++", "FFmpeg", "PortAudio"],
-          links: [{ label: "GitHub", url: "#" }]
-        },
-        {
-          year: "2020",
-          title: "Minimal Shell Utils",
-          category: "CLI System Utility",
-          role: "Developer",
-          stack: ["Bash", "Go"],
-          links: [{ label: "GitHub", url: "#" }]
+          year: "2023",
+          title: "Arcons Company",
+          category: "Enterprise Mobile Tool",
+          role: "Flutter Developer",
+          stack: ["Flutter", "Dart", "Synchronization"],
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
         }
       ];
     }
   }, [lang]);
+
+  // Map and sort all projects by year (descending), filtering duplicates
+  const allProjects = useMemo<ArchiveProject[]>(() => {
+    const staticUrls = new Set(
+      staticProjects.flatMap((p) => p.links.map((l) => l.url.toLowerCase()))
+    );
+
+    const mappedRepos: ArchiveProject[] = repos
+      .filter((repo) => {
+        const url = repo.html_url?.toLowerCase() || '';
+        return !staticUrls.has(url);
+      })
+      .map((repo) => {
+        const stack: string[] = [];
+        if (repo.language) stack.push(repo.language);
+        if (repo.topics && Array.isArray(repo.topics)) {
+          repo.topics.forEach((topic: string) => {
+            if (!stack.includes(topic)) stack.push(topic);
+          });
+        }
+
+        const links = [{ label: 'GitHub', url: repo.html_url }];
+        if (repo.homepage) {
+          links.push({ label: lang === 'es' ? 'Web' : 'Web', url: repo.homepage });
+        }
+
+        return {
+          year: repo.created_at ? repo.created_at.substring(0, 4) : new Date().getFullYear().toString(),
+          title: repo.name,
+          category: lang === 'es' ? 'Repositorio Público' : 'Public Repository',
+          role: repo.description || (lang === 'es' ? 'Repositorio de GitHub' : 'GitHub Repository'),
+          stack: stack.length > 0 ? stack : ['Repository'],
+          links: links
+        };
+      });
+
+    const merged = [...staticProjects, ...mappedRepos];
+    return merged.sort((a, b) => {
+      const yearA = parseInt(a.year) || 0;
+      const yearB = parseInt(b.year) || 0;
+      return yearB - yearA;
+    });
+  }, [lang, staticProjects, repos]);
 
   // Filtering based on search queries
   const filteredProjects = useMemo(() => {
@@ -207,8 +248,13 @@ const ArchiveIndexContent: React.FC = () => {
             
             {/* Header section with sharp layout architecture */}
             <div className="mb-12 border-b border-border-custom pb-8 mt-12 lg:mt-0">
-              <div className="font-mono text-[10px] tracking-widest text-accent mb-2 uppercase">
-                {lang === 'es' ? 'REGISTRO DE INGENIERÍA' : 'ENGINEERING DIRECTORY'}
+              <div className="font-mono text-[10px] tracking-widest text-accent mb-2 uppercase flex items-center gap-3">
+                <span>{lang === 'es' ? 'REGISTRO DE INGENIERÍA' : 'ENGINEERING DIRECTORY'}</span>
+                {isLoading && (
+                  <span className="text-[9px] text-text-secondary animate-pulse normal-case font-medium">
+                    {lang === 'es' ? '// Sincronizando repositorios...' : '// Syncing repositories...'}
+                  </span>
+                )}
               </div>
               <h2 className="font-serif text-4xl md:text-5xl tracking-wide uppercase text-text-primary mb-4">
                 {lang === 'es' ? 'Archivo Completo' : 'Complete Archive'}
@@ -397,6 +443,19 @@ const ArchiveIndexContent: React.FC = () => {
                   {lang === 'es' ? 'NINGÚN PROYECTO COINCIDE CON TU BÚSQUEDA' : 'NO PROJECTS MATCHED YOUR FILTER QUERY'}
                 </div>
               )}
+            </div>
+
+            {/* Sentinel for infinite scroll */}
+            <div ref={sentinelRef} className="py-8 mt-4 w-full flex items-center justify-center font-mono text-[9px] tracking-widest text-text-secondary select-none border-t border-border-custom/20">
+              {isLoading ? (
+                <span className="animate-pulse">
+                  {lang === 'es' ? '// CARGANDO MÁS REPOSITORIOS...' : '// LOADING MORE REPOSITORIES...'}
+                </span>
+              ) : hasMore ? (
+                <span className="opacity-60">{lang === 'es' ? '[ DESPLAZAR PARA CARGAR MÁS ]' : '[ SCROLL TO LOAD MORE ]'}</span>
+              ) : repos.length > 0 ? (
+                <span className="text-accent/50">{lang === 'es' ? '// FIN DEL REGISTRO' : '// END OF DIRECTORY'}</span>
+              ) : null}
             </div>
 
             {/* Footer inside the main flow */}

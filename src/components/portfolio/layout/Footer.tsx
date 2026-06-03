@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
       
       <div className="font-mono text-xs tracking-widest flex flex-col sm:flex-row gap-6">
         <a 
-          href="mailto:anthony.escalante.soluciones@gmail.com" 
+          href="mailto:s.anthony.qr@gmail.com" 
           className="hover:text-accent uppercase transition-colors duration-200 cursor-pointer text-text-primary"
           aria-label="Send email"
         >
