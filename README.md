@@ -50,7 +50,7 @@ To run this project locally, ensure you have [Node.js](https://nodejs.org) and [
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/AnthonyXJ99/mi-portafolio.git
+git clone https://github.com/aescalantedev/mi-portafolio.git
 cd mi-portafolio
 ```
 

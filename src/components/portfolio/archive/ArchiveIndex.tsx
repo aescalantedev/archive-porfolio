@@ -28,7 +28,7 @@ const ArchiveIndexContent: React.FC = () => {
     if (!hasMore) return;
 
     setIsLoading(true);
-    fetch(`https://api.github.com/users/AnthonyXJ99/repos?sort=updated&per_page=5&page=${page}`)
+    fetch(`https://api.github.com/users/aescalantedev/repos?sort=updated&per_page=5&page=${page}`)
       .then((res) => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();

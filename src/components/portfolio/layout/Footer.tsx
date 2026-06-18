@@ -18,14 +18,14 @@ export const Footer: React.FC = () => {
       
       <div className="font-mono text-xs tracking-widest flex flex-col sm:flex-row gap-6">
         <a 
-          href="mailto:s.anthony.qr@gmail.com" 
+          href="mailto:contacto@aescalante.dev" 
           className="hover:text-accent uppercase transition-colors duration-200 cursor-pointer text-text-primary"
           aria-label="Send email"
         >
           {t.contact.email}
         </a>
         <a 
-          href="https://github.com/AnthonyXJ99" 
+          href="https://github.com/aescalantedev" 
           target="_blank" 
           rel="noreferrer" 
           className="hover:text-accent uppercase transition-colors duration-200 cursor-pointer text-text-primary"

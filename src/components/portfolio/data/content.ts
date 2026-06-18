@@ -166,7 +166,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Creator & Lead Engineer",
           challenges: "Engineering a flat, feature-first codebase that decouples auth, settings, users, and complex kanban states cleanly. Optimizing next-generation CSS bundling with Tailwind v4 for sub-millisecond page loads, targeting a 100/100 Lighthouse performance standard.",
           deployment: "Vercel Edge Network // TypeScript Strict",
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/strixui" }]
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/strixui" }]
         },
         {
           id: "03",
@@ -177,7 +177,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Solo Creator & Core Architect",
           challenges: "Designing a non-blocking multi-threaded daemon architecture to compute real-time Fast Fourier Transforms (rfft) on raw audio amplitude chunks at 60 FPS while keeping the Textual UI responsive. Managing background threads, resolving live metadata parsing via Mutagen/PyLRC, and ensuring clean disk teardowns of temporary decoded WAV files on exit.",
           deployment: "Local Terminal // UTF-8 & TrueColor Support",
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
           id: "04",
@@ -335,7 +335,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Creador e Ingeniero Principal",
           challenges: "Diseñar una base de código modular por características que desacopla la autenticación, configuraciones, usuarios y estados Kanban complejos. Optimizar el agrupamiento CSS de nueva generación con Tailwind v4 para cargas sub-milisegundo, logrando un estándar de rendimiento 100/100 en Lighthouse.",
           deployment: "Vercel Edge Network // TypeScript Estricto",
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/strixui" }]
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/strixui" }]
         },
         {
           id: "03",
@@ -346,7 +346,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Creador Único y Arquitecto Principal",
           challenges: "Diseñar una arquitectura multihilo no bloqueante para calcular la Transformada Rápida de Fourier (rfft) en tiempo real sobre bloques de amplitud de audio a 60 FPS sin ralentizar la interfaz de usuario. Administrar la decodificación al vuelo de archivos comprimidos (MP3, FLAC, M4A) mediante pydub y estructurar el formateo cronometrado con PyLRC.",
           deployment: "Terminal Local // Soporte UTF-8 & TrueColor",
-          links: [{ label: "GitHub", url: "https://github.com/AnthonyXJ99/player_cli" }]
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
           id: "04",
