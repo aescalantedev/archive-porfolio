@@ -21,6 +21,7 @@ export interface Project {
   stack: string[];
   image?: string;
   images?: string[];
+  video?: string;
   role?: string;
   challenges?: string;
   deployment?: string;
@@ -149,6 +150,18 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         },
         {
           id: "02",
+          title: "Morph",
+          desc: "A premium, cross-platform multimedia converter engineered for local, secure, and lightning-fast file processing. Built with Flutter and powered by FFmpeg Kit, it enables seamless offline conversion of images (PNG, JPG, WEBP, GIF, PDF), audio, and video formats. Adapts responsively from mobile devices to dense 3-column desktop layouts with integrated drag-and-drop actions, native Windows context menu registry, and interactive circular theme reveal transitions.",
+          stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
+          image: "/images/morph/miniatura.png",
+          video: "/videos/morph.webm",
+          role: "Solo Creator & Core Architect",
+          challenges: "Structuring multi-threaded processing via Dart Isolates to execute heavy image-to-PDF merging and ZIP packaging in the background without dropping UI frames below 60 FPS. Writing a native C++ Win32 registry installer to add custom right-click actions directly in the Windows Explorer shell.",
+          deployment: "Native Desktop (Windows/macOS) // Mobile (Android/iOS)",
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
+        },
+        {
+          id: "03",
           title: "StrixUI",
           desc: "A premium enterprise-grade admin dashboard template and SaaS foundation engineered for maximum performance. Built on Next.js 15 (App Router), React 19, and Tailwind CSS v4, it implements a highly decoupled feature-first modular architecture. Designed to host dense administrative interfaces, dynamic Kanban boards, multi-step wizards, and real-time chat hubs with perfect visual cohesion and near-zero Lighthouse latency.",
           stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
@@ -166,10 +179,13 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Creator & Lead Engineer",
           challenges: "Engineering a flat, feature-first codebase that decouples auth, settings, users, and complex kanban states cleanly. Optimizing next-generation CSS bundling with Tailwind v4 for sub-millisecond page loads, targeting a 100/100 Lighthouse performance standard.",
           deployment: "Vercel Edge Network // TypeScript Strict",
-          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/strixui" }]
+          links: [
+            { label: "Live View", url: "https://aescalantedev.github.io/strixui/" },
+            { label: "GitHub", url: "https://github.com/aescalantedev/strixui.git" }
+          ]
         },
         {
-          id: "03",
+          id: "04",
           title: "Cyberdeck Term-OS",
           desc: "A state-of-the-art retro-futuristic terminal music player (TUI) styled like a vintage AUDIOPHILE-TERM-OS cyberdeck, built with Textual and Rich. It features a real-time log-spaced discrete spectrum visualizer with three frequency rendering modes (bars, waveform, spectrum) togglable live, double-spaced monochromatic karaoke lyrics with Matrix-green typewriter effects, a responsive sidebar ListView for song navigation, and a bulletproof keyboard-driven hotkey guidance bar. Driven by a high-fidelity multi-threaded engine using pygame.mixer and pydub, it integrates automatic ID3 metadata/lyrics extraction via Mutagen and self-generating sync .lrc files.",
           stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
@@ -180,7 +196,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
-          id: "04",
+          id: "05",
           title: "App Ecology",
           desc: "A premium suite of native-performance mobile applications engineered under consistent clean design patterns. It features tailored user interfaces, tactile micro-interactions, robust offline caching, and real-time state synchronization for financial, educational, and corporate operations.",
           stack: ["Flutter", "Dart", "Kotlin", "SQLite", "REST APIs", "State Management"],
@@ -318,6 +334,18 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         },
         {
           id: "02",
+          title: "Morph",
+          desc: "Un conversor multimedia local premium y multiplataforma diseñado para el procesamiento rápido, privado y seguro de archivos. Desarrollado con Flutter y potenciado por FFmpeg Kit, permite convertir imágenes (PNG, JPG, WEBP, GIF, PDF), audio y video localmente sin depender de internet. Se adapta con fluidez desde pantallas táctiles móviles hasta interfaces de escritorio de 3 columnas con soporte para arrastrar y soltar (Drag & Drop), menú contextual nativo de Windows y temas de color dinámicos con revelación circular.",
+          stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
+          image: "/images/morph/miniatura.png",
+          video: "/videos/morph.webm",
+          role: "Creador Único y Arquitecto Principal",
+          challenges: "Estructurar el procesamiento asíncrono en segundo plano mediante Dart Isolates para compilar PDFs multipágina y empaquetar archivos ZIP sin comprometer los 60 FPS en la interfaz de usuario. Desarrollar un instalador de registro en Win32/C++ para acoplar la opción de conversión directa en el menú contextual del Explorador de Windows.",
+          deployment: "Escritorio Nativo (Windows/macOS) // Móvil (Android/iOS)",
+          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
+        },
+        {
+          id: "03",
           title: "StrixUI",
           desc: "Una plantilla premium de panel administrativo de nivel empresarial y fundación SaaS diseñada para el máximo rendimiento. Desarrollada sobre Next.js 15 (App Router), React 19 y Tailwind CSS v4, implementa una arquitectura modular limpia desacoplada por características. Diseñada para albergar interfaces densas, tableros Kanban dinámicos, asistentes paso a paso y chats en tiempo real con una latencia Lighthouse cercana a cero.",
           stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
@@ -335,10 +363,13 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           role: "Creador e Ingeniero Principal",
           challenges: "Diseñar una base de código modular por características que desacopla la autenticación, configuraciones, usuarios y estados Kanban complejos. Optimizar el agrupamiento CSS de nueva generación con Tailwind v4 para cargas sub-milisegundo, logrando un estándar de rendimiento 100/100 en Lighthouse.",
           deployment: "Vercel Edge Network // TypeScript Estricto",
-          links: [{ label: "GitHub", url: "https://github.com/aescalantedev/strixui" }]
+          links: [
+            { label: "Ver en vivo", url: "https://aescalantedev.github.io/strixui/" },
+            { label: "GitHub", url: "https://github.com/aescalantedev/strixui.git" }
+          ]
         },
         {
-          id: "03",
+          id: "04",
           title: "Cyberdeck Term-OS",
           desc: "Un reproductor de música en terminal (TUI) retrofuturista de última generación diseñado como un cyberdeck de audiófilo Term-OS, impulsado por Textual y Rich. Cuenta con un analizador de espectro logarítmico discreto en tiempo real con tres modos de renderizado de frecuencia (barras, forma de onda y espectro) conmutables en vivo, letras de karaoke monocromáticas a doble espacio con efecto de máquina de escribir verde Matrix, navegación lateral mediante ListView y un panel de atajos 100% por teclado. Su motor de audio multihilo asíncrono con pygame.mixer y pydub realiza análisis FFT en segundo plano, extrae letras ID3 con Mutagen y limpia todos los archivos WAV temporales sin dejar residuos.",
           stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
@@ -349,7 +380,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
-          id: "04",
+          id: "05",
           title: "App Ecology",
           desc: "Una suite premium de aplicaciones móviles de alto rendimiento desarrolladas bajo un ecosistema de diseño limpio y unificado. Cuenta con interfaces personalizadas, microinteracciones táctiles fluidas, almacenamiento local optimizado y lógicas de sincronización asíncrona para operaciones financieras, educativas y corporativas.",
           stack: ["Flutter", "Dart", "Kotlin", "SQLite", "APIs REST", "Gestión de Estado"],
