@@ -150,6 +150,34 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         },
         {
           id: "02",
+          title: "JRM Flejes v2.0",
+          desc: "A collaborative desktop and mobile PWA optimized for steel band inventory management, coil stacking visualization, and gravity-based tower movement, connected in real time to Supabase.",
+          stack: ["React 18", "Vite", "Tailwind CSS", "Supabase", "React Query", "PostgreSQL"],
+          role: "Full-Stack Developer",
+          challenges: "Designing server-side atomic physical stacking via PL/pgSQL triggers to handle automatic gravity shifts when coils are inserted or removed. Implementing offline resilience via localStorage and Supabase active_sessions syncing to allow operators to resume tasks seamlessly on device failure.",
+          deployment: "Web PWA // Chilca Plant Production",
+          platforms: [
+            {
+              label: "Desktop",
+              desc: "Interactive tower grid visualization (P01 to P34) displaying real-time occupancy and weight. Features a live admin dashboard with operator turn metrics and active session monitoring, plus a role management interface.",
+              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase RLS", "React Query", "PostgreSQL (PL/pgSQL)"],
+              mockup: "dashboard",
+              image: "/images/jrm/desktop.png"
+            },
+            {
+              label: "Mobile",
+              desc: "A touch-optimized operational mobile PWA with active session recovery, a tactile batch dispatch cart, and client-side WebP image compression to reduce 5MB camera uploads down to 100KB.",
+              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase Storage", "React Query", "WebP Compactor"],
+              mockup: "mobile",
+              image: "/images/jrm/mobile.png"
+            }
+          ],
+          links: [
+            { label: "Live Site", url: "https://frm-flejes.aescalante.dev/" }
+          ]
+        },
+        {
+          id: "03",
           title: "Morph",
           desc: "A premium, cross-platform multimedia converter engineered for local, secure, and lightning-fast file processing. Built with Flutter and powered by FFmpeg Kit, it enables seamless offline conversion of images (PNG, JPG, WEBP, GIF, PDF), audio, and video formats. Adapts responsively from mobile devices to dense 3-column desktop layouts with integrated drag-and-drop actions, native Windows context menu registry, and interactive circular theme reveal transitions.",
           stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
@@ -161,7 +189,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
         },
         {
-          id: "03",
+          id: "04",
           title: "StrixUI",
           desc: "A premium enterprise-grade admin dashboard template and SaaS foundation engineered for maximum performance. Built on Next.js 15 (App Router), React 19, and Tailwind CSS v4, it implements a highly decoupled feature-first modular architecture. Designed to host dense administrative interfaces, dynamic Kanban boards, multi-step wizards, and real-time chat hubs with perfect visual cohesion and near-zero Lighthouse latency.",
           stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
@@ -185,7 +213,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           ]
         },
         {
-          id: "04",
+          id: "05",
           title: "Cyberdeck Term-OS",
           desc: "A state-of-the-art retro-futuristic terminal music player (TUI) styled like a vintage AUDIOPHILE-TERM-OS cyberdeck, built with Textual and Rich. It features a real-time log-spaced discrete spectrum visualizer with three frequency rendering modes (bars, waveform, spectrum) togglable live, double-spaced monochromatic karaoke lyrics with Matrix-green typewriter effects, a responsive sidebar ListView for song navigation, and a bulletproof keyboard-driven hotkey guidance bar. Driven by a high-fidelity multi-threaded engine using pygame.mixer and pydub, it integrates automatic ID3 metadata/lyrics extraction via Mutagen and self-generating sync .lrc files.",
           stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
@@ -196,7 +224,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
-          id: "05",
+          id: "06",
           title: "App Ecology",
           desc: "A premium suite of native-performance mobile applications engineered under consistent clean design patterns. It features tailored user interfaces, tactile micro-interactions, robust offline caching, and real-time state synchronization for financial, educational, and corporate operations.",
           stack: ["Flutter", "Dart", "Kotlin", "SQLite", "REST APIs", "State Management"],
@@ -334,6 +362,34 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         },
         {
           id: "02",
+          title: "JRM Flejes v2.0",
+          desc: "Plataforma Web PWA para escritorio y móvil optimizada para la gestión de inventario, pesaje, apilamiento en torres físicas y trazabilidad en tiempo real de flejes de acero para Planta Chilca.",
+          stack: ["React 18", "Vite", "Tailwind CSS", "Supabase", "React Query", "PostgreSQL"],
+          role: "Desarrollador Full-Stack",
+          challenges: "Diseñar la lógica de apilamiento atómico físico mediante triggers PL/pgSQL en PostgreSQL para simular la gravedad en las torres. Implementar persistencia offline sincronizada contra active_sessions y localStorage para evitar pérdida de progreso ante apagados de dispositivos en planta.",
+          deployment: "Web PWA // Producción Planta Chilca",
+          platforms: [
+            {
+              label: "Escritorio",
+              desc: "Visualización interactiva del mapa físico de torres (P01 a P34) con peso y ocupación en tiempo real. Incluye dashboard administrativo de monitoreo de turnos de operadores y gestión de roles sin consola.",
+              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase RLS", "React Query", "PostgreSQL (PL/pgSQL)"],
+              mockup: "dashboard",
+              image: "/images/jrm/desktop.png"
+            },
+            {
+              label: "Móvil",
+              desc: "Interfaz operativa móvil PWA táctil para ingresos/despachos con carrito de salida táctil, sincronización reactiva de estado y compresor de fotos de evidencia en el cliente a formato WebP optimizado.",
+              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase Storage", "React Query", "WebP Compactor"],
+              mockup: "mobile",
+              image: "/images/jrm/mobile.png"
+            }
+          ],
+          links: [
+            { label: "Sitio en vivo", url: "https://frm-flejes.aescalante.dev/" }
+          ]
+        },
+        {
+          id: "03",
           title: "Morph",
           desc: "Un conversor multimedia local premium y multiplataforma diseñado para el procesamiento rápido, privado y seguro de archivos. Desarrollado con Flutter y potenciado por FFmpeg Kit, permite convertir imágenes (PNG, JPG, WEBP, GIF, PDF), audio y video localmente sin depender de internet. Se adapta con fluidez desde pantallas táctiles móviles hasta interfaces de escritorio de 3 columnas con soporte para arrastrar y soltar (Drag & Drop), menú contextual nativo de Windows y temas de color dinámicos con revelación circular.",
           stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
@@ -345,7 +401,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
         },
         {
-          id: "03",
+          id: "04",
           title: "StrixUI",
           desc: "Una plantilla premium de panel administrativo de nivel empresarial y fundación SaaS diseñada para el máximo rendimiento. Desarrollada sobre Next.js 15 (App Router), React 19 y Tailwind CSS v4, implementa una arquitectura modular limpia desacoplada por características. Diseñada para albergar interfaces densas, tableros Kanban dinámicos, asistentes paso a paso y chats en tiempo real con una latencia Lighthouse cercana a cero.",
           stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
@@ -369,7 +425,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           ]
         },
         {
-          id: "04",
+          id: "05",
           title: "Cyberdeck Term-OS",
           desc: "Un reproductor de música en terminal (TUI) retrofuturista de última generación diseñado como un cyberdeck de audiófilo Term-OS, impulsado por Textual y Rich. Cuenta con un analizador de espectro logarítmico discreto en tiempo real con tres modos de renderizado de frecuencia (barras, forma de onda y espectro) conmutables en vivo, letras de karaoke monocromáticas a doble espacio con efecto de máquina de escribir verde Matrix, navegación lateral mediante ListView y un panel de atajos 100% por teclado. Su motor de audio multihilo asíncrono con pygame.mixer y pydub realiza análisis FFT en segundo plano, extrae letras ID3 con Mutagen y limpia todos los archivos WAV temporales sin dejar residuos.",
           stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
@@ -380,7 +436,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
-          id: "05",
+          id: "06",
           title: "App Ecology",
           desc: "Una suite premium de aplicaciones móviles de alto rendimiento desarrolladas bajo un ecosistema de diseño limpio y unificado. Cuenta con interfaces personalizadas, microinteracciones táctiles fluidas, almacenamiento local optimizado y lógicas de sincronización asíncrona para operaciones financieras, educativas y corporativas.",
           stack: ["Flutter", "Dart", "Kotlin", "SQLite", "APIs REST", "Gestión de Estado"],
