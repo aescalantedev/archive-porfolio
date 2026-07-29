@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
 import AmbientBackground from '../layout/AmbientBackground';
-import Sidebar from '../layout/Sidebar';
+import BackgroundCanvas from '../layout/BackgroundCanvas';
+import Header from '../layout/Header';
 import Footer from '../layout/Footer';
+import { useLenis } from '../hooks/useLenis';
 
 interface ArchiveProject {
   year: string;
@@ -16,6 +18,7 @@ interface ArchiveProject {
 // Inner component which consumes the portfolio context safely
 const ArchiveIndexContent: React.FC = () => {
   const { lang } = usePortfolio();
+  useLenis(); // Activate smooth scroll
   const [searchQuery, setSearchQuery] = useState('');
   const [repos, setRepos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -230,21 +233,22 @@ const ArchiveIndexContent: React.FC = () => {
   }, [searchQuery, allProjects]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
+    <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300 flex flex-col">
       
+      {/* Fullscreen 3D WebGL Canvas Background */}
+      <BackgroundCanvas />
+
       {/* Dynamic atmospheric ambient gradients & grid */}
       <AmbientBackground />
 
-      <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
-        
-        {/* Persistent Side Navigation */}
-        <Sidebar />
+      {/* Sticky Header Navigation */}
+      <Header />
 
-        {/* Scrollable Work Archive Layout */}
-        <main className="lg:ml-[320px] flex-1 min-w-0 flex flex-col p-6 md:p-12 lg:p-20">
-          
-          {/* Centered max-width boundary for premium aesthetics */}
-          <div className="max-w-5xl w-full mx-auto">
+      {/* Scrollable Work Archive Layout */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-16 relative z-10 flex flex-col">
+        
+        {/* Centered max-width boundary for premium aesthetics */}
+        <div className="max-w-5xl w-full mx-auto">
             
             {/* Header section with sharp layout architecture */}
             <div className="mb-12 border-b border-border-custom pb-8 mt-12 lg:mt-0">
@@ -466,7 +470,6 @@ const ArchiveIndexContent: React.FC = () => {
           </div>
         </main>
       </div>
-    </div>
   );
 };
 

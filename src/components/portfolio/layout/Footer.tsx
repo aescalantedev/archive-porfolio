@@ -7,10 +7,10 @@ export const Footer: React.FC = () => {
   return (
     <footer 
       id="manifesto" 
-      className="border-t border-border-custom px-6 py-12 lg:px-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-bg-primary transition-all duration-300"
+      className="border-t border-border-custom/30 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-transparent transition-all duration-300"
     >
       <div className="max-w-md">
-        <h2 className="font-serif text-2xl mb-4 text-text-primary">Archive.OS</h2>
+        <h2 className="font-heading font-extrabold text-2xl mb-3 text-text-primary uppercase tracking-tight">A. Escalante</h2>
         <p className="font-sans text-sm text-text-secondary mb-4">
           {t.contact.text}
         </p>

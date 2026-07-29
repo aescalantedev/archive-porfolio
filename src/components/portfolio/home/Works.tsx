@@ -1,11 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { useInView } from '../hooks/useInView';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DashboardMockup, TerminalMockup, MobileMockup, AndroidMockup } from './Mockups';
 import type { Project, PlatformVariant } from '../data/content';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, project }) => {
-  const [ref, inView] = useInView<HTMLDivElement>();
   const [activePlatformIdx, setActivePlatformIdx] = useState(0);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
@@ -16,7 +19,7 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
     return project.platforms ? project.platforms[activePlatformIdx] : undefined;
   }, [project.platforms, activePlatformIdx]);
 
-  // Determine current images list based on whether a platform or project has images
+  // Determine current images list
   const images = useMemo<string[]>(() => {
     if (activePlatform) {
       if (activePlatform.images && activePlatform.images.length > 0) {
@@ -37,7 +40,7 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
     return [];
   }, [activePlatform, project.images, project.image]);
 
-  // Determine layout mode ('single' or 'side-by-side')
+  // Determine layout mode
   const layout = useMemo<'single' | 'side-by-side'>(() => {
     if (activePlatform && activePlatform.layout) {
       return activePlatform.layout;
@@ -45,7 +48,7 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
     return 'single';
   }, [activePlatform]);
 
-  // Group images into slides based on layout
+  // Group images into slides
   const slides = useMemo<string[][]>(() => {
     if (images.length === 0) return [];
     
@@ -76,7 +79,6 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
 
   // Render visual content (mockup or carousel)
   const renderVisuals = () => {
-    // If we have a video and the user clicked play, render the video player
     if (project.video && isPlayingVideo) {
       return (
         <div className="relative w-full aspect-[16/10] flex items-center justify-center overflow-hidden bg-bg-secondary">
@@ -88,48 +90,28 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
             muted={isMuted}
             playsInline
           />
-          {/* Floating Unmute/Mute Toggle */}
           <button
             onClick={(e) => {
               e.preventDefault();
               setIsMuted(!isMuted);
             }}
             className="absolute bottom-4 left-4 bg-bg-primary/95 border border-border-custom px-3 py-1.5 font-mono text-[9px] tracking-widest text-text-primary flex items-center gap-2 select-none backdrop-blur-sm shadow-md z-20 hover:text-accent cursor-pointer transition-colors focus:outline-none"
-            aria-label={isMuted ? "Unmute video" : "Mute video"}
           >
-            {isMuted ? (
-              <>
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.3 8.5H1.5v7h2.8l5.2 5.2V3.3L4.3 8.5z" />
-                </svg>
-                <span>SOUND: OFF</span>
-              </>
-            ) : (
-              <>
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                </svg>
-                <span>SOUND: ON</span>
-              </>
-            )}
+            {isMuted ? 'SOUND: OFF' : 'SOUND: ON'}
           </button>
-
-          {/* Floating Close Button */}
           <button
             onClick={(e) => {
               e.preventDefault();
               setIsPlayingVideo(false);
             }}
             className="absolute bottom-4 right-4 bg-bg-primary/95 border border-border-custom px-3 py-1.5 font-mono text-[9px] tracking-widest text-text-primary flex items-center gap-2 select-none backdrop-blur-sm shadow-md z-20 hover:text-accent cursor-pointer transition-colors focus:outline-none"
-            aria-label="Stop and close video"
           >
-            <span>CLOSE PREVIEW</span>
+            CLOSE PREVIEW
           </button>
         </div>
       );
     }
 
-    // If we have platform but no images, fallback to SVG mockup
     if (activePlatform && images.length === 0) {
       return (
         <div className="w-full aspect-[16/10] flex items-center justify-center overflow-hidden">
@@ -141,7 +123,6 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
       );
     }
 
-    // If we have project but no images or video, fallback to default Mockups based on index
     if (!activePlatform && images.length === 0 && !project.video) {
       return (
         <div className="w-full aspect-[16/10] flex items-center justify-center overflow-hidden">
@@ -153,13 +134,12 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
       );
     }
 
-    // Render carousel slide
     const currentSlide = slides[activeImageIdx] || [];
     
     return (
       <div className={`w-full ${layout === 'side-by-side' ? 'aspect-[4/3]' : 'aspect-[16/10]'} flex items-center justify-center overflow-hidden relative group bg-bg-secondary transition-colors duration-300`}>
         {layout === 'side-by-side' ? (
-          <div className="w-full h-full p-4 md:p-6 flex justify-center items-center gap-4 md:gap-8 bg-[#1A1918]/5 hover:bg-[#1A1918]/10 transition-all duration-300">
+          <div className="w-full h-full p-4 md:p-6 flex justify-center items-center gap-4 md:gap-8">
             {currentSlide.map((imgSrc, imgIdx) => (
               <img 
                 key={imgIdx}
@@ -181,12 +161,10 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
                 onClick={(e) => {
                   e.preventDefault();
                   setIsPlayingVideo(true);
-                  setIsMuted(false); // starts with audio since they clicked play
+                  setIsMuted(false);
                 }}
                 className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-text-primary/95 text-bg-primary border border-border-custom flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-accent hover:text-bg-primary shadow-xl z-20 group/play focus:outline-none"
-                aria-label="Play video"
               >
-                {/* SVG Play Icon */}
                 <svg className="w-6 h-6 fill-current translate-x-0.5" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
@@ -195,13 +173,11 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
           </div>
         )}
 
-        {/* Floating Monospace Index Indicator */}
         {slides.length > 1 && (
           <div className="absolute bottom-4 right-4 bg-bg-primary/95 border border-border-custom px-3 py-1.5 font-mono text-[9px] tracking-widest text-text-primary flex items-center gap-3 select-none backdrop-blur-sm shadow-md z-10">
             <button 
               onClick={prevSlide}
               className="hover:text-accent transition-colors cursor-pointer focus:outline-none font-bold"
-              aria-label="Previous slide"
             >
               PREV
             </button>
@@ -211,7 +187,6 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
             <button 
               onClick={nextSlide}
               className="hover:text-accent transition-colors cursor-pointer focus:outline-none font-bold"
-              aria-label="Next slide"
             >
               NEXT
             </button>
@@ -222,110 +197,100 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
   };
 
   return (
-    <div ref={ref} className={`anim-reveal${inView ? ' in-view' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
-      <article className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-16 border-t border-border-custom pt-16 first:border-t-0 first:pt-0">
-        
-        {/* Meta Column */}
-        <div className="xl:col-span-3 font-mono text-[10px] tracking-widest text-text-secondary uppercase">
-          <div className="sticky top-12 space-y-8">
-            <div>
-              <span className="text-accent font-semibold">{project.id}</span> — {project.title}
-            </div>
-
-            {project.role && (
-              <div>
-                <p className="mb-2 text-text-primary border-b border-border-custom pb-1 inline-block font-semibold">ROLE</p>
-                <p className="mt-2 text-text-secondary">{project.role}</p>
-              </div>
-            )}
-            
-            {project.deployment && (
-              <div>
-                <p className="mb-2 text-text-primary border-b border-border-custom pb-1 inline-block font-semibold">DEPLOYMENT</p>
-                <p className="mt-2 leading-relaxed text-text-secondary">{project.deployment}</p>
-              </div>
-            )}
-
-            {project.challenges && (
-              <div className="max-w-[200px]">
-                <p className="mb-2 text-text-primary border-b border-border-custom pb-1 inline-block font-semibold">NOTES</p>
-                <p className="mt-2 leading-relaxed text-[10px] normal-case font-sans text-text-secondary">{project.challenges}</p>
-              </div>
-            )}
+    <div className="project-card-wrap opacity-0 w-full">
+      <article className="bg-bg-secondary/20 border border-border-custom/50 rounded-xl p-6 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 glass-panel flex flex-col gap-6 relative">
+        <div className="flex items-center justify-between border-b border-border-custom/30 pb-4">
+          <div>
+            <h3 className="font-heading font-extrabold text-2xl md:text-3xl text-text-primary tracking-tight uppercase">
+              {project.title}
+            </h3>
           </div>
+          <span className="font-mono text-[10px] tracking-widest text-accent bg-accent/10 px-2.5 py-1 rounded-sm uppercase font-bold">
+            Project {project.id}
+          </span>
         </div>
 
-        {/* Content & Visual Column */}
-        <div className="xl:col-span-9">
-          <h3 className="font-serif text-3xl lg:text-4xl mb-6 text-text-primary">{project.title}</h3>
-          <p className="font-sans text-text-secondary text-sm leading-relaxed max-w-2xl mb-8">
-            {activePlatform && activePlatform.desc ? activePlatform.desc : project.desc}
-          </p>
-
-          {/* Platform Tab Selectors (if project has platforms) */}
-          {project.platforms && (
-            <div className="flex gap-4 mb-4 font-mono text-[10px] tracking-widest uppercase">
-              {project.platforms.map((platform, idx) => (
-                <button
-                  key={platform.label}
-                  onClick={() => {
-                    setActivePlatformIdx(idx);
-                    setActiveImageIdx(0); // Reset carousel to first slide
-                  }}
-                  className={`px-4 py-2 border transition-all duration-200 cursor-pointer ${
-                    activePlatformIdx === idx
-                      ? "bg-text-primary text-bg-primary border-text-primary"
-                      : "border-border-custom hover:bg-bg-secondary text-text-primary hover:border-accent"
-                  }`}
-                >
-                  {platform.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Tech Stack Tags (dynamic for active platform or static for project) */}
-          {activePlatform ? (
-            <div className="flex flex-wrap gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider">
-              {activePlatform.stack.map(tech => (
-                <span key={tech} className="bg-bg-secondary px-3 py-1.5 border border-border-custom text-text-primary transition-colors duration-200 hover:border-accent">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-wrap gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider">
-              {project.stack.map(tech => (
-                <span key={tech} className="bg-bg-secondary px-3 py-1.5 border border-border-custom text-text-primary transition-colors duration-200 hover:border-accent">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Interactive Screen Display (Mockups or Carousel) */}
-          <div className="w-full bg-bg-secondary border border-border-custom p-4 mb-8 transition-colors duration-300">
-            {renderVisuals()}
+        {(project.role || project.deployment) && (
+          <div className="flex flex-wrap gap-x-8 gap-y-2 font-mono text-[10px] text-text-secondary uppercase">
+            {project.role && (
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                <span>Role:</span>
+                <span className="text-text-primary normal-case font-sans text-xs font-semibold">{project.role}</span>
+              </span>
+            )}
+            {project.deployment && (
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                <span>Deployment:</span>
+                <span className="text-text-primary normal-case font-sans text-xs font-semibold">{project.deployment}</span>
+              </span>
+            )}
           </div>
+        )}
 
-          {/* Action Anchors */}
-          <div className="flex flex-wrap gap-4 font-mono text-[10px] tracking-widest uppercase mb-4">
-            {(activePlatform ? activePlatform.links || [] : project.links).map((link, idx) => (
-              <a 
-                key={`${link.label}-${idx}`} 
-                href={link.url} 
-                className={`px-6 py-3 transition-all duration-200 flex items-center gap-2 cursor-pointer ${
-                  idx === 0 
-                    ? "bg-text-primary text-bg-primary border border-text-primary hover:bg-accent hover:border-accent" 
-                    : "border border-border-custom hover:bg-bg-secondary text-text-primary hover:border-accent"
+        <p className="font-sans text-text-secondary text-sm leading-relaxed max-w-4xl">
+          {activePlatform && activePlatform.desc ? activePlatform.desc : project.desc}
+        </p>
+
+        {project.platforms && (
+          <div className="flex gap-3 font-mono text-[10px] tracking-widest uppercase">
+            {project.platforms.map((platform, idx) => (
+              <button
+                key={platform.label}
+                onClick={() => {
+                  setActivePlatformIdx(idx);
+                  setActiveImageIdx(0);
+                }}
+                className={`px-4 py-2 border rounded-sm transition-all duration-200 cursor-pointer ${
+                  activePlatformIdx === idx
+                    ? "bg-text-primary text-bg-primary border-text-primary shadow-sm"
+                    : "border-border-custom hover:bg-bg-secondary text-text-primary hover:border-accent"
                 }`}
               >
-                {link.label} <span className="text-[14px]">↗</span>
-              </a>
+                {platform.label}
+              </button>
             ))}
           </div>
+        )}
 
+        <div className="flex flex-wrap gap-2 font-mono text-[9px] uppercase tracking-widest">
+          {(activePlatform ? activePlatform.stack : project.stack).map(tech => (
+            <span 
+              key={tech} 
+              className="bg-bg-secondary/70 px-3 py-1.5 border border-border-custom/50 text-text-primary transition-all duration-200 rounded-sm hover:border-accent hover:text-accent"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
+
+        <div className="w-full bg-bg-secondary/40 border border-border-custom/50 p-4 transition-colors duration-300 rounded-lg shadow-lg glass-panel">
+          {renderVisuals()}
+        </div>
+
+        <div className="flex flex-wrap gap-4 font-mono text-[10px] tracking-widest uppercase mt-2">
+          {(activePlatform ? activePlatform.links || [] : project.links).map((link, idx) => (
+            <a 
+              key={`${link.label}-${idx}`} 
+              href={link.url} 
+              className={`px-6 py-3.5 transition-all duration-300 flex items-center gap-2 cursor-pointer rounded-sm shadow-sm font-semibold ${
+                idx === 0 
+                  ? "bg-accent text-white border border-accent hover:bg-accent/90 hover:scale-[1.03] shadow-lg shadow-accent/25 hover:shadow-accent/40" 
+                  : "border border-border-custom/80 hover:bg-bg-secondary hover:border-accent hover:scale-[1.03] text-text-primary"
+              }`}
+            >
+              {link.label} <span className="text-[12px] font-sans">↗</span>
+            </a>
+          ))}
+        </div>
+
+        {project.challenges && (
+          <div className="border-t border-border-custom/30 pt-4 mt-2">
+            <span className="font-mono text-[9px] text-text-primary font-bold uppercase tracking-wider block mb-1">Architectural Notes</span>
+            <p className="font-sans text-[11px] text-text-secondary leading-relaxed">{project.challenges}</p>
+          </div>
+        )}
       </article>
     </div>
   );
@@ -333,17 +298,59 @@ const ProjectCard: React.FC<{ index: number; project: Project }> = ({ index, pro
 
 export const Works: React.FC = () => {
   const { t } = usePortfolio();
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (typeof window === 'undefined') return;
+
+    // Animate title and subtitle using fromTo to fix opacity-0 bug
+    gsap.fromTo('.works-header',
+      { y: 40, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+      }
+    );
+
+    // Stagger slide up project cards using fromTo
+    const cards = gsap.utils.toArray('.project-card-wrap');
+    cards.forEach((card: any) => {
+      gsap.fromTo(card,
+        { y: 60, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+        }
+      );
+    });
+  }, { scope: sectionRef });
 
   return (
-    <section id="works" className="px-6 py-20 lg:px-16 bg-bg-primary transition-all duration-300">
-      <div className="max-w-3xl mb-24">
-        <h2 className="font-serif text-4xl lg:text-5xl mb-6 text-text-primary">{t.works.title}</h2>
+    <section ref={sectionRef} id="works" className="py-20 bg-transparent transition-all duration-300">
+      <div className="works-header max-w-3xl mb-20 opacity-0">
+        <h2 className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl mb-6 text-text-primary tracking-tight uppercase bg-gradient-to-r from-text-primary to-text-primary/60 bg-clip-text text-transparent">
+          {t.works.title}
+        </h2>
         <p className="font-sans text-text-secondary leading-relaxed text-sm">
           {t.works.subtitle}
         </p>
       </div>
 
-      <div className="space-y-32">
+      <div className="flex flex-col gap-12">
         {t.works.projects.map((project, index) => (
           <ProjectCard key={project.id} index={index} project={project} />
         ))}

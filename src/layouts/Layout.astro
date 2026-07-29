@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import CustomCursor from '../components/portfolio/layout/CustomCursor';
 
 interface Props {
 	title?: string;
@@ -50,10 +49,8 @@ const {
 		<meta name="theme-color" content="#F6F4EB" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#1A1918" media="(prefers-color-scheme: dark)" />
 
-		{/* Font preconnect & preload to prevent render blocking */}
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@100;300;400&display=swap" />
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;300;400&display=swap" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;300;400&display=swap" />
 
 		{/* JSON-LD Structured Data */}
 		<script type="application/ld+json" set:html={JSON.stringify({
@@ -75,27 +72,26 @@ const {
 				const theme = localStorage.getItem('portfolio-theme') || 'light';
 				const root = document.documentElement;
 				if (theme === 'light') {
-					root.style.setProperty('--bg-primary', '#F6F4EB');
-					root.style.setProperty('--bg-secondary', '#EBE9DF');
-					root.style.setProperty('--text-primary', '#1A1C20');
-					root.style.setProperty('--text-secondary', '#646464');
-					root.style.setProperty('--accent', '#8C7355');
-					root.style.setProperty('--border', '#D8D2C5');
+					root.style.setProperty('--bg-primary', '#FFFFFF');
+					root.style.setProperty('--bg-secondary', '#FAFAFA');
+					root.style.setProperty('--text-primary', '#18181B');
+					root.style.setProperty('--text-secondary', '#71717A');
+					root.style.setProperty('--accent', '#4F46E5');
+					root.style.setProperty('--border', '#E4E4E7');
 					root.classList.remove('dark');
 				} else {
-					root.style.setProperty('--bg-primary', '#1A1918');
-					root.style.setProperty('--bg-secondary', '#242220');
-					root.style.setProperty('--text-primary', '#E3E1D9');
-					root.style.setProperty('--text-secondary', '#8A8680');
-					root.style.setProperty('--accent', '#A68A64');
-					root.style.setProperty('--border', '#34302C');
+					root.style.setProperty('--bg-primary', '#09090B');
+					root.style.setProperty('--bg-secondary', '#18181B');
+					root.style.setProperty('--text-primary', '#FAFAFA');
+					root.style.setProperty('--text-secondary', '#A1A1AA');
+					root.style.setProperty('--accent', '#6366F1');
+					root.style.setProperty('--border', '#27272A');
 					root.classList.add('dark');
 				}
 			})();
 		</script>
 	</head>
 	<body class="bg-bg-primary text-text-primary antialiased font-sans transition-colors duration-300">
-		<CustomCursor client:load />
 		<slot />
 	</body>
 </html>

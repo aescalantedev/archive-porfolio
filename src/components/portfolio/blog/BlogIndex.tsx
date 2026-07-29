@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
 import AmbientBackground from '../layout/AmbientBackground';
-import Sidebar from '../layout/Sidebar';
+import BackgroundCanvas from '../layout/BackgroundCanvas';
+import Header from '../layout/Header';
 import Footer from '../layout/Footer';
+import { useLenis } from '../hooks/useLenis';
 
 interface PostData {
   slug: string;
@@ -20,6 +22,9 @@ interface BlogIndexProps {
 // Inner component which consumes the portfolio context safely
 const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
   const { lang } = usePortfolio();
+
+  // Activate Lenis smooth scroll
+  useLenis();
 
   // Filter posts based on the currently active language context
   const filteredPosts = useMemo(() => {
@@ -44,25 +49,29 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
+    <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300 flex flex-col">
       
+      {/* Fullscreen 3D WebGL Canvas Background */}
+      <BackgroundCanvas />
+
       {/* Decorative ambient background overlays */}
       <AmbientBackground />
 
-      <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
-        
-        {/* Navigation Sidebar */}
-        <Sidebar />
+      {/* Sticky Header Navigation */}
+      <Header />
 
-        {/* Scrollable Blog Content Flow */}
-        <main className="lg:ml-[320px] flex-1 min-w-0 flex flex-col p-6 md:p-12 lg:p-16">
+      {/* Scrollable Blog Content Flow */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-16 relative z-10 flex flex-col">
+        
+        {/* Centered max-width boundary for premium aesthetics */}
+        <div className="max-w-5xl w-full mx-auto">
           
           {/* Section Header */}
-          <div className="mb-16 border-b border-border-custom pb-8 mt-12 lg:mt-0">
-            <div className="font-mono text-[10px] tracking-widest text-accent mb-2 uppercase">
+          <div className="mb-16 border-b border-border-custom/30 pb-8 mt-12 lg:mt-0">
+            <div className="font-mono text-[10px] tracking-[0.25em] text-accent mb-2 uppercase font-bold">
               {lang === 'es' ? 'CONOCIMIENTO Y FILOSOFÍA' : 'KNOWLEDGE & PHILOSOPHY'}
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl tracking-wide uppercase text-text-primary mb-4">
+            <h2 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight uppercase text-text-primary mb-4 bg-gradient-to-r from-text-primary to-text-primary/60 bg-clip-text text-transparent">
               {lang === 'es' ? 'Manifiesto' : 'Manifesto'}
             </h2>
             <p className="font-sans text-sm text-text-secondary leading-relaxed max-w-2xl">
@@ -73,29 +82,29 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
           </div>
 
           {/* Posts Feed */}
-          <div className="flex-1 max-w-3xl w-full mx-auto space-y-12 mb-16">
+          <div className="flex flex-col gap-8 mb-16">
             {filteredPosts.length > 0 ? (
               filteredPosts.map((post) => (
                 <article 
                   key={post.slug}
-                  className="group relative border border-border-custom bg-bg-secondary/10 hover:bg-bg-secondary/40 p-6 md:p-8 transition-all duration-300 flex flex-col justify-between"
+                  className="group relative border border-border-custom/50 bg-bg-secondary/20 rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-accent/40 transition-all duration-300 glass-panel flex flex-col justify-between"
                 >
                   <div>
                     {/* Date and language info */}
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-4 border-b border-border-custom/20 pb-3">
                       <time 
                         dateTime={post.pubDate} 
-                        className="font-mono text-[10px] tracking-widest text-accent"
+                        className="font-mono text-[10px] tracking-widest text-accent font-semibold"
                       >
                         {formatDate(post.pubDate).toUpperCase()}
                       </time>
-                      <span className="font-mono text-[9px] tracking-widest bg-bg-secondary px-2 py-0.5 border border-border-custom/30 text-text-secondary">
+                      <span className="font-mono text-[9px] tracking-widest bg-bg-secondary px-2 py-0.5 border border-border-custom/30 text-text-secondary rounded-sm">
                         {post.lang.toUpperCase()}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-serif text-2xl md:text-3xl tracking-wide text-text-primary group-hover:text-accent transition-colors duration-200 mb-3">
+                    <h3 className="font-heading font-extrabold text-2xl md:text-3xl tracking-tight text-text-primary group-hover:text-accent transition-colors duration-200 mb-3 uppercase">
                       <a href={`/blog/${post.slug}`} className="cursor-pointer focus:outline-none">
                         {post.title}
                       </a>
@@ -108,7 +117,7 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
                   </div>
 
                   {/* Footer metadata */}
-                  <div className="flex flex-wrap items-center justify-between border-t border-border-custom/50 pt-4 mt-4 gap-4">
+                  <div className="flex flex-wrap items-center justify-between border-t border-border-custom/20 pt-4 mt-4 gap-4">
                     {/* Tags */}
                     <div className="flex flex-wrap gap-1.5">
                       {post.tags.map((tag) => (
@@ -124,7 +133,7 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
                     {/* Action button */}
                     <a
                       href={`/blog/${post.slug}`}
-                      className="font-mono text-[10px] tracking-widest text-text-primary hover:text-accent flex items-center gap-1.5 transition-all duration-200 group-hover:translate-x-1 cursor-pointer"
+                      className="font-mono text-[10px] tracking-widest text-text-primary hover:text-accent flex items-center gap-1.5 transition-all duration-200 group-hover:translate-x-1.5 cursor-pointer font-bold"
                     >
                       {lang === 'es' ? 'LEER DOCUMENTO' : 'READ DOCUMENT'}
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +144,7 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
                 </article>
               ))
             ) : (
-              <div className="text-center py-16 border border-border-custom/50 border-dashed">
+              <div className="text-center py-16 border border-border-custom/30 border-dashed rounded-xl">
                 <p className="font-mono text-xs text-text-secondary uppercase tracking-widest">
                   {lang === 'es' 
                     ? 'No se encontraron artículos en este idioma.' 
@@ -146,12 +155,12 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
           </div>
 
           {/* Footer in flow */}
-          <div className="mt-auto border-t border-border-custom pt-8">
+          <div className="border-t border-border-custom/30 pt-8 mt-12">
             <Footer />
           </div>
 
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

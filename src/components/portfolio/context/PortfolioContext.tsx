@@ -112,20 +112,20 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'light') {
-      root.style.setProperty('--bg-primary', '#F6F4EB');
-      root.style.setProperty('--bg-secondary', '#EBE9DF');
-      root.style.setProperty('--text-primary', '#1A1C20');
-      root.style.setProperty('--text-secondary', '#646464');
-      root.style.setProperty('--accent', '#8C7355');
-      root.style.setProperty('--border', '#D8D2C5');
+      root.style.setProperty('--bg-primary', '#FFFFFF');
+      root.style.setProperty('--bg-secondary', '#FAFAFA');
+      root.style.setProperty('--text-primary', '#18181B');
+      root.style.setProperty('--text-secondary', '#71717A');
+      root.style.setProperty('--accent', '#4F46E5');
+      root.style.setProperty('--border', '#E4E4E7');
       root.classList.remove('dark');
     } else {
-      root.style.setProperty('--bg-primary', '#1A1918');
-      root.style.setProperty('--bg-secondary', '#242220');
-      root.style.setProperty('--text-primary', '#E3E1D9');
-      root.style.setProperty('--text-secondary', '#8A8680');
-      root.style.setProperty('--accent', '#A68A64');
-      root.style.setProperty('--border', '#34302C');
+      root.style.setProperty('--bg-primary', '#09090B');
+      root.style.setProperty('--bg-secondary', '#18181B');
+      root.style.setProperty('--text-primary', '#FAFAFA');
+      root.style.setProperty('--text-secondary', '#A1A1AA');
+      root.style.setProperty('--accent', '#6366F1');
+      root.style.setProperty('--border', '#27272A');
       root.classList.add('dark');
     }
     if (typeof window !== 'undefined') {

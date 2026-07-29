@@ -1,37 +1,41 @@
 import React from 'react';
 import { PortfolioProvider } from './context/PortfolioContext';
 import AmbientBackground from './layout/AmbientBackground';
-import Sidebar from './layout/Sidebar';
+import BackgroundCanvas from './layout/BackgroundCanvas';
+import Header from './layout/Header';
 import Hero from './home/Hero';
 import Profile from './home/Profile';
 import Works from './home/Works';
 import TechStack from './home/TechStack';
 import Footer from './layout/Footer';
+import { useLenis } from './hooks/useLenis';
 
 export const PortfolioLayout: React.FC = () => {
+  // Activate Lenis smooth scrolling linked with GSAP
+  useLenis();
+
   return (
     <PortfolioProvider>
-      <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
+      <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300 flex flex-col">
         
+        {/* Fullscreen 3D WebGL Canvas Background */}
+        <BackgroundCanvas />
+
         {/* Atmospheric grid & noise overlays */}
         <AmbientBackground />
         
-        {/* Core Layout Structure */}
-        <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
-          
-          {/* Left Sidebar (fixed on large viewports) */}
-          <Sidebar />
-          
-          {/* Main scrollable section, padded to prevent sidebar overlap */}
-          <main className="lg:ml-[320px] flex-1 min-w-0 flex flex-col">
-            <Hero />
-            <Profile />
-            <Works />
-            <TechStack />
-            <Footer />
-          </main>
-          
-        </div>
+        {/* Sticky Header Navigation */}
+        <Header />
+        
+        {/* Main centered content layout */}
+        <main className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-16 relative z-10 flex flex-col gap-20">
+          <Hero />
+          <Profile />
+          <Works />
+          <TechStack />
+          <Footer />
+        </main>
+        
       </div>
     </PortfolioProvider>
   );
