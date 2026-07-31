@@ -51,6 +51,7 @@ export interface TranslationDictionary {
     lang_es: string;
   };
   hero: {
+    greeting: string;
     title: string;
     subtitle: string;
     btn_projects: string;
@@ -96,13 +97,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       lang_es: "ES"
     },
     hero: {
-      title: "BUILDING ROBUST SOFTWARE SYSTEMS.",
-      subtitle: "FULL-STACK SYSTEMS // MOBILE APPLICATIONS // SCALABLE APIS // ENTERPRISE INTERFACES",
+      greeting: "Hi, I'm Antoni Escalante",
+      title: "FULL-STACK DEVELOPER",
+      subtitle: "Building robust software systems.",
       btn_projects: "EXPLORE PROJECTS",
-      btn_arch: "VIEW ARCHITECTURES"
+      btn_arch: "VIEW SKILLS"
     },
     profile: {
-      title: "// DEVELOPER PROFILE : A. ESCALANTE",
+      title: "DEVELOPER PROFILE",
       body: "Specialized in end-to-end software development. I design fluid and minimalist user experiences on the frontend, powered by scalable backend engines built with FastAPI and ASP.NET 8. An adaptable programmer, focused on delivering quality code and solving complex technical challenges."
     },
     works: {
@@ -308,13 +310,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       lang_es: "ES"
     },
     hero: {
-      title: "CONSTRUYENDO SISTEMAS DE SOFTWARE ROBUSTOS.",
-      subtitle: "SISTEMAS FULL-STACK // APLICACIONES MÓVILES // APIS ESCALABLES // INTERFACES EMPRESARIALES",
+      greeting: "Hola, soy Antoni Escalante",
+      title: "FULL-STACK DEVELOPER",
+      subtitle: "Construyendo sistemas de software robustos.",
       btn_projects: "EXPLORAR PROYECTOS",
-      btn_arch: "VER ARQUITECTURAS"
+      btn_arch: "VER HABILIDADES"
     },
     profile: {
-      title: "// PERFIL DE DESARROLLADOR : A. ESCALANTE",
+      title: "PERFIL DE DESARROLLADOR",
       body: "Especializado en el desarrollo de software de extremo a extremo. Diseño experiencias de usuario fluidas y minimalistas en el frontend, potenciadas por motores backend escalables construidos con FastAPI y ASP.NET 8. Un programador adaptable, enfocado en entregar código de calidad y resolver desafíos técnicos complejos."
     },
     works: {

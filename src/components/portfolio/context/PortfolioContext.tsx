@@ -118,6 +118,10 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       root.style.setProperty('--text-secondary', '#71717A');
       root.style.setProperty('--accent', '#4F46E5');
       root.style.setProperty('--border', '#E4E4E7');
+      root.style.setProperty('--blob-1', '#c7d2fe');
+      root.style.setProperty('--blob-2', '#ddd6fe');
+      root.style.setProperty('--blob-3', '#e0e7ff');
+      root.style.setProperty('--grid-line', 'rgba(0,0,0,0.03)');
       root.classList.remove('dark');
     } else {
       root.style.setProperty('--bg-primary', '#09090B');
@@ -126,6 +130,10 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       root.style.setProperty('--text-secondary', '#A1A1AA');
       root.style.setProperty('--accent', '#6366F1');
       root.style.setProperty('--border', '#27272A');
+      root.style.setProperty('--blob-1', '#312e81');
+      root.style.setProperty('--blob-2', '#1e1b4b');
+      root.style.setProperty('--blob-3', '#0f172a');
+      root.style.setProperty('--grid-line', 'rgba(255,255,255,0.03)');
       root.classList.add('dark');
     }
     if (typeof window !== 'undefined') {

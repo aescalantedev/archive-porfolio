@@ -61,24 +61,30 @@ const ArchiveIndexContent: React.FC = () => {
       });
   }, [page]);
 
-  // Setup intersection observer to trigger loading next page
+  // Setup intersection observer — fires only when sentinel is FULLY visible at bottom
   useEffect(() => {
+    // Don't attach while loading or no more pages
     if (isLoading || !hasMore) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        // Extra guard: only increment page when truly intersecting AND not already loading
+        if (entries[0].isIntersecting && !isLoading && hasMore) {
           setPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1 }
+      {
+        // Negative rootMargin so sentinel must be fully scrolled into view
+        rootMargin: '0px 0px -80px 0px',
+        threshold: 1.0
+      }
     );
 
-    if (sentinelRef.current) {
-      observer.observe(sentinelRef.current);
-    }
+    const sentinel = sentinelRef.current;
+    if (sentinel) observer.observe(sentinel);
 
     return () => {
+      if (sentinel) observer.unobserve(sentinel);
       observer.disconnect();
     };
   }, [isLoading, hasMore]);
@@ -250,23 +256,23 @@ const ArchiveIndexContent: React.FC = () => {
         {/* Centered max-width boundary for premium aesthetics */}
         <div className="max-w-5xl w-full mx-auto">
             
-            {/* Header section with sharp layout architecture */}
-            <div className="mb-12 border-b border-border-custom pb-8 mt-12 lg:mt-0">
-              <div className="font-mono text-[10px] tracking-widest text-accent mb-2 uppercase flex items-center gap-3">
+            {/* Header section */}
+            <div className="mb-12 border-b border-border-custom/30 pb-8 mt-12 lg:mt-0">
+              <div className="font-mono text-[9px] tracking-[0.25em] text-accent mb-2 uppercase font-bold flex items-center gap-3">
                 <span>{lang === 'es' ? 'REGISTRO DE INGENIERÍA' : 'ENGINEERING DIRECTORY'}</span>
                 {isLoading && (
-                  <span className="text-[9px] text-text-secondary animate-pulse normal-case font-medium">
-                    {lang === 'es' ? '// Sincronizando repositorios...' : '// Syncing repositories...'}
+                  <span className="text-[9px] text-text-secondary/60 animate-pulse normal-case font-normal">
+                    {lang === 'es' ? 'Sincronizando repositorios...' : 'Syncing repositories...'}
                   </span>
                 )}
               </div>
-              <h2 className="font-serif text-4xl md:text-5xl tracking-wide uppercase text-text-primary mb-4">
-                {lang === 'es' ? 'Archivo Completo' : 'Complete Archive'}
+              <h2 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight uppercase text-text-primary mb-4">
+                {lang === 'es' ? 'Historial Completo' : 'Complete Archive'}
               </h2>
               <p className="font-sans text-sm text-text-secondary leading-relaxed max-w-2xl">
                 {lang === 'es'
-                  ? 'Un catálogo exhaustivo e inmutable de todos los proyectos desarrollados, sistemas experimentales, herramientas de línea de comandos y aplicaciones distribuidas creadas a lo largo de los años.'
-                  : 'A comprehensive, immutable catalog of all developed systems, experimental setups, command-line interfaces, and distributed applications built across my engineering journey.'}
+                  ? 'Un catálogo de todos los proyectos desarrollados, sistemas, herramientas y aplicaciones creadas a lo largo de los años.'
+                  : 'A complete catalog of all developed systems, command-line tools, and distributed applications built across my engineering journey.'}
               </p>
             </div>
 
@@ -449,16 +455,23 @@ const ArchiveIndexContent: React.FC = () => {
               )}
             </div>
 
-            {/* Sentinel for infinite scroll */}
-            <div ref={sentinelRef} className="py-8 mt-4 w-full flex items-center justify-center font-mono text-[9px] tracking-widest text-text-secondary select-none border-t border-border-custom/20">
+            {/* Sentinel for infinite scroll — MUST be OUTSIDE overflow containers */}
+            <div
+              ref={sentinelRef}
+              className="py-10 mt-6 w-full flex items-center justify-center font-mono text-[9px] tracking-widest text-text-secondary select-none border-t border-border-custom/20"
+            >
               {isLoading ? (
                 <span className="animate-pulse">
-                  {lang === 'es' ? '// CARGANDO MÁS REPOSITORIOS...' : '// LOADING MORE REPOSITORIES...'}
+                  {lang === 'es' ? 'CARGANDO REPOSITORIOS...' : 'LOADING REPOSITORIES...'}
                 </span>
               ) : hasMore ? (
-                <span className="opacity-60">{lang === 'es' ? '[ DESPLAZAR PARA CARGAR MÁS ]' : '[ SCROLL TO LOAD MORE ]'}</span>
+                <span className="opacity-50">
+                  {lang === 'es' ? 'DESPLAZAR PARA VER MÁS' : 'SCROLL TO LOAD MORE'}
+                </span>
               ) : repos.length > 0 ? (
-                <span className="text-accent/50">{lang === 'es' ? '// FIN DEL REGISTRO' : '// END OF DIRECTORY'}</span>
+                <span className="text-accent/40">
+                  {lang === 'es' ? 'FIN DEL HISTORIAL' : 'END OF ARCHIVE'}
+                </span>
               ) : null}
             </div>
 

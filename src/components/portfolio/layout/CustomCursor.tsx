@@ -1,167 +1,161 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const CustomCursor: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const dotInnerRef = useRef<HTMLDivElement>(null);
-  const ringInnerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const { theme } = usePortfolio();
 
-  useEffect(() => {
+  // quickTo for performant GSAP mouse tracking
+  const xInner = useRef<((v: number) => void) | null>(null);
+  const yInner = useRef<((v: number) => void) | null>(null);
+  const xOuter = useRef<((v: number) => void) | null>(null);
+  const yOuter = useRef<((v: number) => void) | null>(null);
+
+  useGSAP(() => {
     if (typeof window === 'undefined') return;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-    let isVisible = false;
+    if (innerRef.current) {
+      xInner.current = gsap.quickTo(innerRef.current, 'x', { duration: 0.05, ease: 'power2.out' });
+      yInner.current = gsap.quickTo(innerRef.current, 'y', { duration: 0.05, ease: 'power2.out' });
+    }
+    
+    if (outerRef.current) {
+      xOuter.current = gsap.quickTo(outerRef.current, 'x', { duration: 0.4, ease: 'power3.out' });
+      yOuter.current = gsap.quickTo(outerRef.current, 'y', { duration: 0.4, ease: 'power3.out' });
+    }
+  }, [isVisible]);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+  useEffect(() => {
+    // Only enable on devices with a fine pointer (desktop)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    setIsVisible(true);
 
-      if (!isVisible) {
-        isVisible = true;
-        if (containerRef.current) {
-          containerRef.current.classList.add('is-visible');
-        }
-      }
-
-      // Position the outer wrapper instantly
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-      }
+    const onMouseMove = (e: MouseEvent) => {
+      // Show cursor on first move
+      gsap.to(innerRef.current, { opacity: 1, scale: 1, duration: 0.15 });
+      gsap.to(outerRef.current, { opacity: 1, scale: 1, duration: 0.15 });
+      
+      // Offset by half the width/height to center the cursor
+      xInner.current?.(e.clientX - 4);
+      yInner.current?.(e.clientY - 4);
+      xOuter.current?.(e.clientX - 16);
+      yOuter.current?.(e.clientY - 16);
     };
 
-    // Smooth animate loop for the tracking ring
-    let animationFrameId: number;
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.35;
-      ringY += (mouseY - ringY) * 0.35;
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
+    const onMouseEnter = () => {
+      gsap.to(innerRef.current, { scale: 1, opacity: 1, duration: 0.3 });
+      gsap.to(outerRef.current, { scale: 1, opacity: 1, duration: 0.3 });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    animationFrameId = requestAnimationFrame(animate);
-
-    // Interactive elements detector using direct DOM class toggles
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target) return;
-
-      const isInteractive = 
-        target.closest('a') || 
-        target.closest('button') || 
-        target.closest('.cursor-pointer') ||
-        target.closest('[role="button"]') ||
-        target.tagName === 'A' ||
-        target.tagName === 'BUTTON';
-
-      const isText = 
-        target.closest('input') || 
-        target.closest('textarea') || 
-        target.closest('[contenteditable="true"]') ||
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA';
-
-      if (ringInnerRef.current && dotInnerRef.current) {
-        if (isInteractive) {
-          ringInnerRef.current.classList.add('is-hovered');
-        } else {
-          ringInnerRef.current.classList.remove('is-hovered');
-        }
-
-        if (isText) {
-          dotInnerRef.current.classList.add('is-text-input');
-          ringInnerRef.current.classList.add('is-text-input');
-        } else {
-          dotInnerRef.current.classList.remove('is-text-input');
-          ringInnerRef.current.classList.remove('is-text-input');
-        }
-      }
+    const onMouseLeave = () => {
+      gsap.to(innerRef.current, { scale: 0, opacity: 0, duration: 0.3 });
+      gsap.to(outerRef.current, { scale: 0, opacity: 0, duration: 0.3 });
     };
 
-    // Click triggers applied to inner elements to prevent transform conflicts
-    const handleMouseDown = () => {
-      if (dotInnerRef.current && ringInnerRef.current) {
-        dotInnerRef.current.classList.add('is-clicked');
-        ringInnerRef.current.classList.add('is-clicked');
-      }
+    // Magnetic / scale effect on interactive elements
+    const onHoverEnter = () => {
+      gsap.to(innerRef.current, { scale: 0.5, duration: 0.3, ease: 'power3.out' });
+      gsap.to(outerRef.current, { 
+        scale: 1.8, 
+        backgroundColor: theme === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(79, 70, 229, 0.1)',
+        borderColor: 'transparent',
+        duration: 0.3, 
+        ease: 'power3.out' 
+      });
     };
 
-    const handleMouseUp = () => {
-      if (dotInnerRef.current && ringInnerRef.current) {
-        dotInnerRef.current.classList.remove('is-clicked');
-        ringInnerRef.current.classList.remove('is-clicked');
-      }
+    const onHoverLeave = () => {
+      gsap.to(innerRef.current, { scale: 1, duration: 0.3, ease: 'power3.out' });
+      gsap.to(outerRef.current, { 
+        scale: 1, 
+        backgroundColor: 'transparent',
+        borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)',
+        duration: 0.3, 
+        ease: 'power3.out' 
+      });
     };
 
-    const handleMouseLeave = () => {
-      isVisible = false;
-      if (containerRef.current) {
-        containerRef.current.classList.remove('is-visible');
-      }
-    };
+    // Attach global listeners
+    window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseenter', onMouseEnter);
+    document.addEventListener('mouseleave', onMouseLeave);
 
-    const handleMouseEnter = () => {
-      isVisible = true;
-      if (containerRef.current) {
-        containerRef.current.classList.add('is-visible');
-      }
-    };
+    // Attach listeners to all interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"], .interactive');
+    interactiveElements.forEach((el) => {
+      el.addEventListener('mouseenter', onHoverEnter);
+      el.addEventListener('mouseleave', onHoverLeave);
+    });
 
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
+    // Observer to attach hover events to dynamically added elements
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // ELEMENT_NODE
+            const element = node as Element;
+            if (element.matches('a, button, input, textarea, select, [role="button"], .interactive')) {
+              element.addEventListener('mouseenter', onHoverEnter);
+              element.addEventListener('mouseleave', onHoverLeave);
+            }
+            // Check children
+            const children = element.querySelectorAll('a, button, input, textarea, select, [role="button"], .interactive');
+            children.forEach((child) => {
+              child.addEventListener('mouseenter', onHoverEnter);
+              child.addEventListener('mouseleave', onHoverLeave);
+            });
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      
+      interactiveElements.forEach((el) => {
+        el.removeEventListener('mouseenter', onHoverEnter);
+        el.removeEventListener('mouseleave', onHoverLeave);
+      });
+      observer.disconnect();
     };
-  }, []);
-
-  if (typeof window === 'undefined') return null;
+  }, [theme]);
 
   return (
-    <div 
-      ref={containerRef}
-      className="custom-cursor-container fixed inset-0 z-[9999] opacity-0 transition-opacity duration-300 [&.is-visible]:opacity-100 pointer-events-none"
-    >
-      {/* Center dot positioner */}
-      <div 
-        ref={dotRef}
-        className="fixed left-0 top-0 pointer-events-none"
-        style={{ willChange: 'transform' }}
-      >
-        <div 
-          ref={dotInnerRef}
-          className="custom-cursor-dot-inner"
-        />
-      </div>
-
-      {/* Outer tracking ring positioner */}
-      <div 
-        ref={ringRef}
-        className="fixed left-0 top-0 pointer-events-none"
-        style={{ willChange: 'transform' }}
-      >
-        <div 
-          ref={ringInnerRef}
-          className="custom-cursor-ring-inner"
-        />
-      </div>
+    <div className={!isVisible ? 'hidden' : ''}>
+      <style>
+        {`
+          @media (pointer: fine) {
+            * {
+              cursor: none !important;
+            }
+          }
+        `}
+      </style>
+      
+      {/* Inner Dot — Fast tracking */}
+      <div
+        ref={innerRef}
+        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] mix-blend-difference bg-white"
+        style={{ willChange: 'transform', opacity: 0 }}
+      />
+      
+      {/* Outer Ring — Spring tracking */}
+      <div
+        ref={outerRef}
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] transition-colors duration-300"
+        style={{ 
+          willChange: 'transform',
+          opacity: 0,
+          border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'}`,
+        }}
+      />
     </div>
   );
 };

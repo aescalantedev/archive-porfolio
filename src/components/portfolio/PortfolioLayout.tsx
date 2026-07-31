@@ -2,6 +2,7 @@ import React from 'react';
 import { PortfolioProvider } from './context/PortfolioContext';
 import AmbientBackground from './layout/AmbientBackground';
 import BackgroundCanvas from './layout/BackgroundCanvas';
+import CustomCursor from './layout/CustomCursor';
 import Header from './layout/Header';
 import Hero from './home/Hero';
 import Profile from './home/Profile';
@@ -18,6 +19,9 @@ export const PortfolioLayout: React.FC = () => {
     <PortfolioProvider>
       <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300 flex flex-col">
         
+        {/* Custom Premium Animated Cursor */}
+        <CustomCursor />
+
         {/* Fullscreen 3D WebGL Canvas Background */}
         <BackgroundCanvas />
 

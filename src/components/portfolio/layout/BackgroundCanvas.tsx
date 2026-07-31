@@ -1,208 +1,168 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
-
-// 3D Constellation Plexus Graph representing software systems & nodes
-const PlexusNetwork: React.FC<{ count: number }> = ({ count = 65 }) => {
-  const pointsRef = useRef<THREE.Points>(null);
-  const linesRef = useRef<THREE.LineSegments>(null);
-  const { viewport } = useThree();
-
-  // Create randomized particle data
-  const particles = useMemo(() => {
-    const data = [];
-    for (let i = 0; i < count; i++) {
-      data.push({
-        position: new THREE.Vector3(
-          (Math.random() - 0.5) * 16,
-          (Math.random() - 0.5) * 12,
-          (Math.random() - 0.5) * 8
-        ),
-        velocity: new THREE.Vector3(
-          (Math.random() - 0.5) * 0.015,
-          (Math.random() - 0.5) * 0.015,
-          (Math.random() - 0.5) * 0.015
-        ),
-      });
-    }
-    return data;
-  }, [count]);
-
-  // Buffer arrays
-  const pointsPositions = useMemo(() => new Float32Array(count * 3), [count]);
-  
-  // Max possible line connections: count * (count - 1) / 2
-  // We allocate buffer for up to 600 lines (1200 vertices)
-  const maxLineVertices = 1200;
-  const linePositions = useMemo(() => new Float32Array(maxLineVertices * 3), []);
-  const lineColors = useMemo(() => new Float32Array(maxLineVertices * 3), []);
-
-  useFrame((state) => {
-    if (!pointsRef.current || !linesRef.current) return;
-
-    // Read the scroll position from window if available
-    const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-    const maxScroll = typeof window !== 'undefined' ? document.body.scrollHeight - window.innerHeight : 1;
-    const scrollPercent = scrollY / (maxScroll || 1);
-
-    const time = state.clock.getElapsedTime();
-    const scrollOffset = scrollPercent * (viewport.height * 0.8);
-
-    // Apply interactive mouse tracking & scroll movement
-    const mouseX = state.mouse.x * 1.5;
-    const mouseY = state.mouse.y * 1.5;
-
-    // Gentle global rotations
-    const rotY = time * 0.02 + scrollPercent * 0.4;
-    const rotX = time * 0.01;
-
-    pointsRef.current.rotation.y = rotY;
-    pointsRef.current.rotation.x = rotX;
-    linesRef.current.rotation.y = rotY;
-    linesRef.current.rotation.x = rotX;
-
-    // Parallax on translation
-    const targetY = -scrollOffset;
-    pointsRef.current.position.y += (targetY - pointsRef.current.position.y) * 0.08;
-    linesRef.current.position.y += (targetY - linesRef.current.position.y) * 0.08;
-
-    // Mouse parallax tracking
-    pointsRef.current.position.x += (mouseX - pointsRef.current.position.x) * 0.03;
-    linesRef.current.position.x += (mouseX - linesRef.current.position.x) * 0.03;
-
-    // Update positions and bounce particles inside boundaries
-    for (let i = 0; i < count; i++) {
-      const p = particles[i];
-      p.position.add(p.velocity);
-
-      // Boundary check
-      if (Math.abs(p.position.x) > 9) p.velocity.x *= -1;
-      if (Math.abs(p.position.y) > 7) p.velocity.y *= -1;
-      if (Math.abs(p.position.z) > 5) p.velocity.z *= -1;
-
-      pointsPositions[i * 3] = p.position.x;
-      pointsPositions[i * 3 + 1] = p.position.y;
-      pointsPositions[i * 3 + 2] = p.position.z;
-    }
-
-    pointsRef.current.geometry.attributes.position.needsUpdate = true;
-
-    // Calculate dynamic connections
-    let vertexCount = 0;
-    const connectionThreshold = 2.4;
-
-    for (let i = 0; i < count; i++) {
-      for (let j = i + 1; j < count; j++) {
-        const dist = particles[i].position.distanceTo(particles[j].position);
-        
-        if (dist < connectionThreshold && vertexCount < maxLineVertices - 2) {
-          // Fade color opacity as points get farther apart
-          const opacity = 1.0 - (dist / connectionThreshold);
-          
-          // Indigo tone color components
-          const r = 0.5 * opacity; // 129 in hex
-          const g = 0.55 * opacity; // 140 in hex
-          const b = 0.97 * opacity; // 248 in hex
-
-          // Write point 1
-          linePositions[vertexCount * 3] = particles[i].position.x;
-          linePositions[vertexCount * 3 + 1] = particles[i].position.y;
-          linePositions[vertexCount * 3 + 2] = particles[i].position.z;
-
-          lineColors[vertexCount * 3] = r;
-          lineColors[vertexCount * 3 + 1] = g;
-          lineColors[vertexCount * 3 + 2] = b;
-
-          // Write point 2
-          linePositions[(vertexCount + 1) * 3] = particles[j].position.x;
-          linePositions[(vertexCount + 1) * 3 + 1] = particles[j].position.y;
-          linePositions[(vertexCount + 1) * 3 + 2] = particles[j].position.z;
-
-          lineColors[(vertexCount + 1) * 3] = r;
-          lineColors[(vertexCount + 1) * 3 + 1] = g;
-          lineColors[(vertexCount + 1) * 3 + 2] = b;
-
-          vertexCount += 2;
-        }
-      }
-    }
-
-    // Zero out unused coordinates in buffer to hide leftover segments
-    for (let i = vertexCount * 3; i < linePositions.length; i++) {
-      linePositions[i] = 0;
-      lineColors[i] = 0;
-    }
-
-    linesRef.current.geometry.attributes.position.needsUpdate = true;
-    linesRef.current.geometry.attributes.color.needsUpdate = true;
-  });
-
-  return (
-    <group>
-      {/* Node Points */}
-      <points ref={pointsRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[pointsPositions, 3]}
-          />
-        </bufferGeometry>
-        <pointsMaterial
-          size={0.14}
-          color="#818cf8"
-          transparent
-          opacity={0.8}
-          sizeAttenuation
-        />
-      </points>
-
-      {/* Connection Lines (dynamic gradient plexus network) */}
-      <lineSegments ref={linesRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[linePositions, 3]}
-          />
-          <bufferAttribute
-            attach="attributes-color"
-            args={[lineColors, 3]}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial
-          vertexColors
-          transparent
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </lineSegments>
-    </group>
-  );
-};
+import React, { useRef, useEffect } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 export const BackgroundCanvas: React.FC = () => {
-  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
+  const blob3Ref = useRef<HTMLDivElement>(null);
 
+  // QuickTo setters for mouse parallax per blob (different speed each)
+  const b1x = useRef<((v: number) => void) | null>(null);
+  const b1y = useRef<((v: number) => void) | null>(null);
+  const b2x = useRef<((v: number) => void) | null>(null);
+  const b2y = useRef<((v: number) => void) | null>(null);
+  const b3x = useRef<((v: number) => void) | null>(null);
+  const b3y = useRef<((v: number) => void) | null>(null);
+
+  useGSAP(() => {
+    if (typeof window === 'undefined') return;
+
+    // ── Init quickTo setters ─────────────────────────────────────────
+    b1x.current = gsap.quickTo(blob1Ref.current, 'x', { duration: 1.8, ease: 'power2.out' });
+    b1y.current = gsap.quickTo(blob1Ref.current, 'y', { duration: 1.8, ease: 'power2.out' });
+    b2x.current = gsap.quickTo(blob2Ref.current, 'x', { duration: 2.6, ease: 'power2.out' });
+    b2y.current = gsap.quickTo(blob2Ref.current, 'y', { duration: 2.6, ease: 'power2.out' });
+    b3x.current = gsap.quickTo(blob3Ref.current, 'x', { duration: 2.0, ease: 'power2.out' });
+    b3y.current = gsap.quickTo(blob3Ref.current, 'y', { duration: 2.0, ease: 'power2.out' });
+
+    // ── Blob 1 — top-left, slow drift ───────────────────────────────
+    gsap.to(blob1Ref.current, {
+      x: '+=45',
+      y: '-=55',
+      scale: 1.12,
+      duration: 18,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+    });
+
+    // ── Blob 2 — bottom-right, slower ───────────────────────────────
+    gsap.to(blob2Ref.current, {
+      x: '-=50',
+      y: '+=40',
+      scale: 1.08,
+      duration: 24,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 3,
+    });
+
+    // ── Blob 3 — center, mid-speed ───────────────────────────────────
+    gsap.to(blob3Ref.current, {
+      x: '+=30',
+      y: '-=35',
+      scale: 0.92,
+      duration: 20,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 6,
+    });
+
+  }, { scope: containerRef });
+
+  // ── Mouse parallax — each blob drifts at a different rate ──────────
   useEffect(() => {
-    setMounted(true);
+    const onMouseMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const nx = (e.clientX - cx) / cx; // -1 to 1
+      const ny = (e.clientY - cy) / cy;
+
+      // Blob 1: gentle, same direction
+      b1x.current?.(nx * 28);
+      b1y.current?.(ny * 28);
+
+      // Blob 2: a bit stronger, opposite direction
+      b2x.current?.(nx * -38);
+      b2y.current?.(ny * -38);
+
+      // Blob 3: medium, slightly offset
+      b3x.current?.(nx * 18);
+      b3y.current?.(ny * -22);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
-  if (!mounted || typeof window === 'undefined') return null;
-
   return (
-    <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden bg-bg-primary transition-colors duration-300">
-      <Canvas
-        camera={{ position: [0, 0, 10], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-        style={{ background: 'transparent' }}
-      >
-        {/* Ambient & dynamic lighting */}
-        <ambientLight intensity={0.5} />
-        <pointLight position={[-10, 5, -5]} intensity={1.5} color="#6366f1" />
-        <pointLight position={[10, -5, 5]} intensity={1.5} color="#a855f7" />
+    <div
+      ref={containerRef}
+      className="fixed inset-0 w-full h-full z-0 overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+      aria-hidden="true"
+    >
+      {/* ── Blob 1 — top-left ──────────────────────────────────────── */}
+      <div
+        ref={blob1Ref}
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          top: '-10%',
+          left: '-10%',
+          width: '55vw',
+          height: '55vw',
+          filter: 'blur(100px)',
+          opacity: 0.55,
+          willChange: 'transform',
+          background: 'var(--blob-1)',
+        }}
+      />
 
-        {/* 3D Plexus Constellation */}
-        <PlexusNetwork count={70} />
-      </Canvas>
+      {/* ── Blob 2 — bottom-right ──────────────────────────────────── */}
+      <div
+        ref={blob2Ref}
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          bottom: '-20%',
+          right: '-12%',
+          width: '62vw',
+          height: '62vw',
+          filter: 'blur(110px)',
+          opacity: 0.5,
+          willChange: 'transform',
+          background: 'var(--blob-2)',
+        }}
+      />
+
+      {/* ── Blob 3 — center ────────────────────────────────────────── */}
+      <div
+        ref={blob3Ref}
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          top: '35%',
+          left: '35%',
+          width: '42vw',
+          height: '42vw',
+          filter: 'blur(90px)',
+          opacity: 0.4,
+          willChange: 'transform',
+          background: 'var(--blob-3)',
+        }}
+      />
+
+      {/* ── Technical grid overlay ─────────────────────────────────── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)
+          `,
+          backgroundSize: '42px 42px',
+        }}
+      />
+
+      {/* ── Subtle noise grain overlay ─────────────────────────────── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
+      />
     </div>
   );
 };
