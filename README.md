@@ -1,4 +1,4 @@
-# Archive.OS // Personal Portfolio
+# Antoni Escalante // Personal Portfolio
 
 [![Astro](https://img.shields.io/badge/Astro-v6.0+-FF5D01?logo=astro&logoColor=white)](https://astro.build)
 [![React](https://img.shields.io/badge/React-v18.0+-61DAFB?logo=react&logoColor=black)](https://reactjs.org)
@@ -13,7 +13,7 @@ A premium, minimal, cyber-dashboard inspired personal portfolio built for **Anto
 
 ## Screenshot Gallery
 
-Here is a visual overview of **Archive.OS** in action:
+Here is a visual overview of the **Portfolio** in action:
 
 | **01 // Main System Dashboard** | **02 // Developer Profile & Details** |
 |:---:|:---:|

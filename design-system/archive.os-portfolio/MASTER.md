@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** Archive.OS Portfolio
+**Project:** Personal Portfolio
 **Generated:** 2026-05-21 23:52:54
 **Category:** Luxury/Premium Brand
 
