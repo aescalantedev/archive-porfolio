@@ -69,15 +69,15 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
           {/* Section Header */}
           <div className="mb-16 border-b border-border-custom/30 pb-8 mt-12 lg:mt-0">
             <div className="font-mono text-[10px] tracking-[0.25em] text-accent mb-2 uppercase font-bold">
-              {lang === 'es' ? 'CONOCIMIENTO Y FILOSOFÍA' : 'KNOWLEDGE & PHILOSOPHY'}
+              {lang === 'es' ? 'ARTÍCULOS Y APRENDIZAJES' : 'ARTICLES & LEARNINGS'}
             </div>
             <h2 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight uppercase text-text-primary mb-4 bg-gradient-to-r from-text-primary to-text-primary/60 bg-clip-text text-transparent">
-              {lang === 'es' ? 'Manifiesto' : 'Manifesto'}
+              Blog
             </h2>
             <p className="font-sans text-sm text-text-secondary leading-relaxed max-w-2xl">
               {lang === 'es'
-                ? 'Ideas escritas sobre el diseño de software limpio, minimalismo sistémico, automatización táctica y disciplina arquitectónica.'
-                : 'Written thoughts on clean software boundaries, systemic minimalism, tactical automation, and architectural discipline.'}
+                ? 'Un espacio donde comparto guías, experiencias de desarrollo y reflexiones sobre la creación de software.'
+                : 'A space where I share guides, development experiences, and thoughts on building software.'}
             </p>
           </div>
 
@@ -135,7 +135,7 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
                       href={`/blog/${post.slug}`}
                       className="font-mono text-[10px] tracking-widest text-text-primary hover:text-accent flex items-center gap-1.5 transition-all duration-200 group-hover:translate-x-1.5 cursor-pointer font-bold"
                     >
-                      {lang === 'es' ? 'LEER DOCUMENTO' : 'READ DOCUMENT'}
+                      {lang === 'es' ? 'LEER ARTÍCULO' : 'READ ARTICLE'}
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>

@@ -45,7 +45,7 @@ const getIconUrl = (tech: string) => {
 const SkillChip: React.FC<{ name: string }> = ({ name }) => {
   const iconUrl = getIconUrl(name);
   return (
-    <div className="skill-chip opacity-0 flex items-center gap-2 px-3 py-2 rounded-lg border border-border-custom/40 bg-bg-secondary/40 hover:border-accent hover:bg-bg-secondary/70 hover:shadow-md transition-all duration-200 group cursor-default glass-panel">
+    <div className="skill-chip flex items-center gap-2 px-3 py-2 rounded-lg border border-border-custom/40 bg-bg-secondary/40 hover:border-accent hover:bg-bg-secondary/70 hover:shadow-md transition-all duration-200 group cursor-default glass-panel">
       {iconUrl && (
         <img
           src={iconUrl}
@@ -66,7 +66,7 @@ const SkillChip: React.FC<{ name: string }> = ({ name }) => {
 const CategoryBlock: React.FC<{ name: string; tools: string; emoji: string }> = ({ name, tools, emoji }) => {
   const toolsList = tools.split(',').map(t => t.trim());
   return (
-    <div className="category-block opacity-0 p-5 rounded-xl border border-border-custom/40 bg-bg-secondary/20 glass-panel flex flex-col gap-4 hover:border-accent/40 transition-all duration-300 hover:shadow-lg">
+    <div className="category-block p-5 rounded-xl border border-border-custom/40 bg-bg-secondary/20 glass-panel flex flex-col gap-4 hover:border-accent/40 transition-all duration-300 hover:shadow-lg">
       <div className="flex items-center gap-2.5">
         <span className="text-lg">{emoji}</span>
         <h4 className="font-heading font-bold text-sm uppercase tracking-tight text-text-primary">
@@ -101,19 +101,19 @@ export const TechStack: React.FC = () => {
     if (typeof window === 'undefined') return;
 
     gsap.fromTo('.skills-heading', { y: 40, opacity: 0 }, {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', toggleActions: 'play none none reverse' },
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 95%', toggleActions: 'play none none reverse' },
       y: 0, opacity: 1, duration: 1, ease: 'power3.out',
     });
 
     // Category blocks stagger
     gsap.fromTo('.category-block', { y: 35, opacity: 0 }, {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none reverse' },
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 90%', toggleActions: 'play none none reverse' },
       y: 0, opacity: 1, stagger: 0.12, duration: 0.8, ease: 'power3.out',
     });
 
     // Chips stagger after blocks appear
     gsap.fromTo('.skill-chip', { scale: 0.85, opacity: 0 }, {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', toggleActions: 'play none none reverse' },
       scale: 1, opacity: 1, stagger: 0.04, duration: 0.5, ease: 'back.out(1.5)',
     });
   }, { scope: sectionRef });
@@ -122,9 +122,9 @@ export const TechStack: React.FC = () => {
     <section
       ref={sectionRef}
       id="infrastructure"
-      className="py-20 border-t border-border-custom/20 bg-transparent"
+      className="py-20 border-t border-border-custom/20 bg-transparent hidden lg:block"
     >
-      <div className="skills-heading opacity-0 mb-10">
+      <div className="skills-heading mb-10">
         <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-text-primary tracking-tight uppercase">
           {t.infra.title}
         </h2>

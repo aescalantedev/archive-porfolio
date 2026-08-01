@@ -56,10 +56,19 @@ export interface TranslationDictionary {
     subtitle: string;
     btn_projects: string;
     btn_arch: string;
+    btn_contact: string;
+    btn_cv: string;
   };
   profile: {
     title: string;
     body: string;
+    role: string;
+    journey: string;
+    yearsExp: string;
+    projectsCount: string;
+    expert: string;
+    advanced: string;
+    connect: string;
   };
   works: {
     title: string;
@@ -82,49 +91,58 @@ export interface TranslationDictionary {
 export const content: Record<'en' | 'es', TranslationDictionary> = {
   en: {
     sidebar: {
-      index: "[01] INDEX",
-      projects: "[02] PROJECTS",
-      archive: "[03] ARCHIVE",
-      infrastructure: "[04] TECH STACK",
-      manifesto: "[05] MANIFESTO",
-      operator: "OPR: ANTONI ESCALANTE",
-      status: "STATUS: ACTIVE",
-      region: "REGION: LATAM",
-      build: "BUILD: v2.4",
-      theme_light: "THEME: LIGHT",
-      theme_dark: "THEME: DARK",
+      index: "INDEX",
+      projects: "PROJECTS",
+      archive: "ARCHIVE",
+      infrastructure: "TECH STACK",
+      manifesto: "BLOG",
+      operator: "Antoni Escalante",
+      status: "Available for work",
+      region: "Based in LATAM",
+      build: "Portfolio v2.4",
+      theme_light: "Light Mode",
+      theme_dark: "Dark Mode",
       lang_en: "EN",
       lang_es: "ES"
     },
     hero: {
       greeting: "Hi, I'm Antoni Escalante",
-      title: "FULL-STACK DEVELOPER",
-      subtitle: "Building robust software systems.",
-      btn_projects: "EXPLORE PROJECTS",
-      btn_arch: "VIEW SKILLS"
+      title: "FULL STACK DEVELOPER.",
+      subtitle: "I build applications that solve real problems.",
+      btn_projects: "VIEW PROJECTS",
+      btn_arch: "TECH SKILLS",
+      btn_contact: "CONTACT ME",
+      btn_cv: "VIEW CV"
     },
     profile: {
-      title: "DEVELOPER PROFILE",
-      body: "Specialized in end-to-end software development. I design fluid and minimalist user experiences on the frontend, powered by scalable backend engines built with FastAPI and ASP.NET 8. An adaptable programmer, focused on delivering quality code and solving complex technical challenges."
+      title: "ABOUT ME",
+      body: "I am a full-stack developer focused on creating useful and reliable software. I enjoy designing clean user interfaces and connecting them to solid backend systems. I adapt quickly to new tools and always prioritize delivering practical solutions over unnecessary complexity.",
+      role: "Senior Software Engineer",
+      journey: "My Journey",
+      yearsExp: "Years Exp.",
+      projectsCount: "Projects",
+      expert: "Expert",
+      advanced: "Advanced",
+      connect: "Connect with me"
     },
     works: {
-      title: "ENGINEERED WORKS.",
-      subtitle: "Built from the ground up. End-to-end software solutions and mobile ecosystems.",
+      title: "MY PROJECTS",
+      subtitle: "A selection of tools and applications I've built to solve specific challenges.",
       projects: [
         {
           id: "01",
           title: "B1 Route",
-          desc: "Enterprise logistics and last-mile dispatch ecosystem for large-scale fleet management, connecting a 3-column SAPUI5 FCL Fiori client with a native Android app via a secure ASP.NET OData v4 backend. Engineered with modules for drivers, vehicles, helper crews, security personnel, territorial zones, and business partners. Supports multi-locale i18n (CL, MX, PE, US), dynamic Horizon/Quartz light-dark themes, and real-time push notification dispatches.",
-          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
-          role: "Lead Architect — Web & Mobile",
-          challenges: "Integrating multi-platform synchronization via an external ASP.NET OData v4 server. Consuming rich master data configurations including business partners, security groups, license validations, and vehicle categories. Managing multi-region translation bundles and seamless switching between Horizon and Quartz custom high-contrast stylesheets.",
+          desc: "A logistics system for large-scale fleet management. It connects drivers on the road with administrators in the office, making package delivery and route tracking much simpler and more organized.",
+          stack: ["SAPUI5", "Kotlin", "Jetpack Compose", "Mapbox", "OData"],
+          role: "Web & Mobile Developer",
+          challenges: "The main challenge was keeping the mobile app and the web portal perfectly synced so that administrators always knew the exact location and status of every delivery in real-time.",
           platforms: [
             {
               label: "Web",
-              desc: "A premium enterprise-grade web frontend designed under SAP Fiori 3 guidelines, supporting Horizon and Quartz (light/dark) themes. Built with SAPUI5 and strict TypeScript, it consumes OData v4 services from an ASP.NET backend. Houses 12+ corporate operational modules—including Drivers, Security Personnel, Helpers, Territories, Business Partners, and Device configurations—integrated with an interactive 3-column Mapbox GL JS stop-reordering engine.",
-              stack: ["SAPUI5 1.141", "TypeScript 5.3", "Mapbox GL JS 3", "OData v4", "UI5 CLI", "Turf.js 7"],
+              desc: "A dashboard for the logistics team to organize routes, assign drivers, and monitor deliveries on an interactive map. It replaces manual paperwork with a clear digital flow.",
+              stack: ["SAPUI5", "TypeScript", "Mapbox GL JS", "OData v4"],
               mockup: "dashboard",
-              image: "/images/b1route.webp",
+              image: "/images/b1route/b1route.webp",
               images: [
                 "/images/b1route/web/01.webp",
                 "/images/b1route/web/02.webp",
@@ -132,12 +150,12 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
                 "/images/b1route/web/04.webp"
               ],
               layout: "single",
-              links: [{ label: "Live View", url: "#" }]
+              links: [{ label: "View Project", url: "#" }]
             },
             {
               label: "Android",
-              desc: "A high-performance native Android application engineered using Kotlin (v2.3.20) and Jetpack Compose (Material 3). It adheres strictly to MVVM and Clean Architecture principles, leveraging Room SQLite as a Single Source of Truth (SSOT). Integrates Mapbox Maps SDK (v11.15) and Mapbox Navigation (v3.12) for voice-guided turn-by-turn navigation, along with a custom dynamic OData engine that parses SAP XML metadata to render Fiori-compliant forms on-the-fly. Powered by Hilt DI, Navigation3 type-safe routes, and WorkManager background tasks for automated encrypted database backups. Receives real-time push notifications via Firebase Cloud Messaging (FCM) triggered from the web portal. Features a custom Material 3 UI design inspired by SAP Fiori Horizon and Quartz themes (light/dark), adhering strictly to corporate color palettes and visual guidelines.",
-              stack: ["Kotlin 2.3", "Jetpack Compose", "Mapbox Nav 3", "Room SQLite", "Hilt DI", "WorkManager", "Firebase FCM"],
+              desc: "An app for drivers that works like a GPS navigator, showing them their daily route, allowing them to confirm deliveries, and automatically syncing data even when they lose internet connection on the road.",
+              stack: ["Kotlin", "Jetpack Compose", "Mapbox Nav", "Room SQLite"],
               mockup: "android",
               images: [
                 "/images/b1route/android/01.webp",
@@ -148,28 +166,28 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "GitHub", url: "#" }]
             }
           ],
-          links: [{ label: "Live View", url: "#" }, { label: "GitHub", url: "#" }]
+          links: [{ label: "View Project", url: "#" }, { label: "GitHub", url: "#" }]
         },
         {
           id: "02",
-          title: "JRM Flejes v2.0",
-          desc: "A collaborative desktop and mobile PWA optimized for steel band inventory management, coil stacking visualization, and gravity-based tower movement, connected in real time to Supabase.",
-          stack: ["React 18", "Vite", "Tailwind CSS", "Supabase", "React Query", "PostgreSQL"],
+          title: "JRM Flejes",
+          desc: "An inventory tool made for a steel plant. It helps operators track heavy steel coils, know exactly where they are stacked, and manage daily shipments without relying on spreadsheets.",
+          stack: ["React", "Tailwind CSS", "Supabase", "PostgreSQL"],
           role: "Full-Stack Developer",
-          challenges: "Designing server-side atomic physical stacking via PL/pgSQL triggers to handle automatic gravity shifts when coils are inserted or removed. Implementing offline resilience via localStorage and Supabase active_sessions syncing to allow operators to resume tasks seamlessly on device failure.",
-          deployment: "Web PWA // Chilca Plant Production",
+          challenges: "The factory has areas with poor Wi-Fi. The biggest challenge was making sure the app could save changes offline and sync them back to the server automatically once the connection returned.",
+          deployment: "Web App // Used in production",
           platforms: [
             {
               label: "Desktop",
-              desc: "Interactive tower grid visualization (P01 to P34) displaying real-time occupancy and weight. Features a live admin dashboard with operator turn metrics and active session monitoring, plus a role management interface.",
-              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase RLS", "React Query", "PostgreSQL (PL/pgSQL)"],
+              desc: "A visual map of the factory where managers can see how many steel coils are in each tower and track operator activity in real-time.",
+              stack: ["React", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
               image: "/images/jrm/desktop.png"
             },
             {
               label: "Mobile",
-              desc: "A touch-optimized operational mobile PWA with active session recovery, a tactile batch dispatch cart, and client-side WebP image compression to reduce 5MB camera uploads down to 100KB.",
-              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase Storage", "React Query", "WebP Compactor"],
+              desc: "A mobile-friendly version for workers on the floor to quickly scan or register coil movements and take photo evidence right from their phones.",
+              stack: ["React", "Supabase Storage", "React Query"],
               mockup: "mobile",
               image: "/images/jrm/mobile.png"
             }
@@ -181,21 +199,21 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
         {
           id: "03",
           title: "Morph",
-          desc: "A premium, cross-platform multimedia converter engineered for local, secure, and lightning-fast file processing. Built with Flutter and powered by FFmpeg Kit, it enables seamless offline conversion of images (PNG, JPG, WEBP, GIF, PDF), audio, and video formats. Adapts responsively from mobile devices to dense 3-column desktop layouts with integrated drag-and-drop actions, native Windows context menu registry, and interactive circular theme reveal transitions.",
-          stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
+          desc: "A desktop app to convert images, audio, and video formats locally. It does not use the internet, meaning users can convert private or sensitive files without uploading them to a random website.",
+          stack: ["Flutter", "Dart", "FFmpeg", "C++"],
           image: "/images/morph/miniatura.png",
           video: "/videos/morph.webm",
-          role: "Solo Creator & Core Architect",
-          challenges: "Structuring multi-threaded processing via Dart Isolates to execute heavy image-to-PDF merging and ZIP packaging in the background without dropping UI frames below 60 FPS. Writing a native C++ Win32 registry installer to add custom right-click actions directly in the Windows Explorer shell.",
-          deployment: "Native Desktop (Windows/macOS) // Mobile (Android/iOS)",
+          role: "Solo Developer",
+          challenges: "I had to figure out how to process heavy video files in the background without making the app freeze, ensuring a smooth experience for the user.",
+          deployment: "Windows & macOS",
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
         },
         {
           id: "04",
           title: "StrixUI",
-          desc: "A premium enterprise-grade admin dashboard template and SaaS foundation engineered for maximum performance. Built on Next.js 15 (App Router), React 19, and Tailwind CSS v4, it implements a highly decoupled feature-first modular architecture. Designed to host dense administrative interfaces, dynamic Kanban boards, multi-step wizards, and real-time chat hubs with perfect visual cohesion and near-zero Lighthouse latency.",
-          stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
-          image: "/images/strixui.webp",
+          desc: "A starter template for developers who need to build administrative dashboards quickly. It includes ready-to-use components like tables, charts, and Kanban boards, saving weeks of initial setup time.",
+          stack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+          image: "/images/strixui/strixui.webp",
           images: [
             "/images/strixui/01.webp",
             "/images/strixui/02.webp",
@@ -206,39 +224,39 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             "/images/strixui/07.webp",
             "/images/strixui/08.webp"
           ],
-          role: "Creator & Lead Engineer",
-          challenges: "Engineering a flat, feature-first codebase that decouples auth, settings, users, and complex kanban states cleanly. Optimizing next-generation CSS bundling with Tailwind v4 for sub-millisecond page loads, targeting a 100/100 Lighthouse performance standard.",
-          deployment: "Vercel Edge Network // TypeScript Strict",
+          role: "Developer",
+          challenges: "Making sure the code remained clean and easy for other developers to understand and modify, while keeping the web pages loading almost instantly.",
+          deployment: "Vercel",
           links: [
-            { label: "Live View", url: "https://aescalantedev.github.io/strixui/" },
+            { label: "Live Demo", url: "https://aescalantedev.github.io/strixui/" },
             { label: "GitHub", url: "https://github.com/aescalantedev/strixui.git" }
           ]
         },
         {
           id: "05",
           title: "Cyberdeck Term-OS",
-          desc: "A state-of-the-art retro-futuristic terminal music player (TUI) styled like a vintage AUDIOPHILE-TERM-OS cyberdeck, built with Textual and Rich. It features a real-time log-spaced discrete spectrum visualizer with three frequency rendering modes (bars, waveform, spectrum) togglable live, double-spaced monochromatic karaoke lyrics with Matrix-green typewriter effects, a responsive sidebar ListView for song navigation, and a bulletproof keyboard-driven hotkey guidance bar. Driven by a high-fidelity multi-threaded engine using pygame.mixer and pydub, it integrates automatic ID3 metadata/lyrics extraction via Mutagen and self-generating sync .lrc files.",
-          stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
+          desc: "A music player that runs entirely in the terminal. Designed for programmers or power users who prefer to use keyboard shortcuts instead of a mouse to browse and play their local music library.",
+          stack: ["Python", "Textual", "Pygame", "Audio Processing"],
           image: "/images/playercli.webp",
-          role: "Solo Creator & Core Architect",
-          challenges: "Designing a non-blocking multi-threaded daemon architecture to compute real-time Fast Fourier Transforms (rfft) on raw audio amplitude chunks at 60 FPS while keeping the Textual UI responsive. Managing background threads, resolving live metadata parsing via Mutagen/PyLRC, and ensuring clean disk teardowns of temporary decoded WAV files on exit.",
-          deployment: "Local Terminal // UTF-8 & TrueColor Support",
+          role: "Developer",
+          challenges: "Drawing the audio spectrum visualizer in real-time using text characters was tricky, as it required precise timing to sync the visual bars with the music beats.",
+          deployment: "Local Terminal",
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
           id: "06",
-          title: "App Ecology",
-          desc: "A premium suite of native-performance mobile applications engineered under consistent clean design patterns. It features tailored user interfaces, tactile micro-interactions, robust offline caching, and real-time state synchronization for financial, educational, and corporate operations.",
-          stack: ["Flutter", "Dart", "Kotlin", "SQLite", "REST APIs", "State Management"],
+          title: "Arcons Apps",
+          desc: "A collection of mobile applications created for a corporate client. They help users manage their digital wallets, access accounting tools, and sync their business data safely from their phones.",
+          stack: ["Flutter", "SQLite", "REST APIs"],
           image: "/images/appsarcons/01.webp",
-          role: "Lead Mobile Architect",
-          challenges: "Designing a shared codebase framework to coordinate features across 4 distinct corporate apps. Optimizing local encrypted databases, ensuring secure background synchronization, and managing complex real-time balance calculations with zero latency.",
-          deployment: "Google Play Store // Flutter Release Channels",
+          role: "Mobile Developer",
+          challenges: "Sharing the same core code structure across four different apps so that fixing a bug in one app would easily fix it in the others, saving a lot of maintenance time.",
+          deployment: "Google Play Store",
           platforms: [
             {
               label: "Billetera",
-              desc: "A digital wallet mobile application focused on the efficient management of financial transactions. Engineered with strict security protocols, high legibility for numerical data, and a robust state management system to reflect balances and transaction history in real time.",
-              stack: ["Flutter", "Dart", "SQLite", "State Management", "Encrypted Storage"],
+              desc: "A digital wallet app that makes it easy for users to check their balances and transaction history.",
+              stack: ["Flutter", "SQLite"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -246,8 +264,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Contabilidad",
-              desc: "A specialized mobile solution designed specifically for the accounting sector. Facilitates seamless access to tools, profile management, and resources for accounting professionals, prioritizing a clean user interface and intuitive navigation for dense information layouts.",
-              stack: ["Flutter", "Dart", "Local Cache", "JSON Parsing", "Clean UI"],
+              desc: "A tool for accountants to easily look up information and manage their profiles on the go.",
+              stack: ["Flutter", "JSON Parsing"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -255,8 +273,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Portal",
-              desc: "The central application of the Arcons ecosystem, acting as the main portal for clients. Integrates multiple diverse services into a single hub, delivering a fluid user experience through tactile micro-interactions and an optimized data syncing architecture.",
-              stack: ["Flutter", "Dart", "Ecosystem Integration", "Micro-interactions", "REST APIs"],
+              desc: "The main hub app where clients can access all the different services offered by the company.",
+              stack: ["Flutter", "REST APIs"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -264,8 +282,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Company",
-              desc: "An enterprise tool engineered for internal and operational management. Implements corporate business logic into an elegant mobile interface, enabling secure synchronization of business data and reliable operation monitoring.",
-              stack: ["Flutter", "Dart", "Enterprise Sync", "Operational Security", "Data Encryption"],
+              desc: "An internal app for the company's employees to manage operations and sync daily reports securely.",
+              stack: ["Flutter", "Data Encryption"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -277,16 +295,16 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       ]
     },
     infra: {
-      title: "TECH STACK",
+      title: "TOOLS & TECH",
       categories: [
-        { name: "Frontend Systems", tools: "Astro, Next.js, React, SAPUI5, OpenUI5" },
-        { name: "Backend Architecture", tools: "ASP.NET, Python, Node.js" },
-        { name: "Mobile Engineering", tools: "Flutter, Kotlin, Jetpack Compose" },
-        { name: "Databases & Infra", tools: "PostgreSQL, Docker, OData v4" }
+        { name: "Frontend", tools: "React, Next.js, Astro, Tailwind CSS, SAPUI5" },
+        { name: "Backend", tools: "Node.js, Python, ASP.NET, Supabase" },
+        { name: "Mobile", tools: "Flutter, Kotlin, Android" },
+        { name: "Databases & DevOps", tools: "PostgreSQL, SQLite, Docker, Git" }
       ]
     },
     contact: {
-      text: "Currently available for engineering collaborations and selected software projects.",
+      text: "I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
       email: "EMAIL",
       github: "GITHUB",
       linkedin: "LINKEDIN",
@@ -295,49 +313,58 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
   },
   es: {
     sidebar: {
-      index: "[01] ÍNDICE",
-      projects: "[02] PROYECTOS",
-      archive: "[03] ARCHIVO",
-      infrastructure: "[04] STACK TÉCNICO",
-      manifesto: "[05] MANIFIESTO",
-      operator: "OPR: ANTONI ESCALANTE",
-      status: "ESTADO: ACTIVO",
-      region: "REGIÓN: LATAM",
-      build: "COMPILACIÓN: v2.4",
-      theme_light: "TEMA: CLARO",
-      theme_dark: "TEMA: OSCURO",
+      index: "INICIO",
+      projects: "PROYECTOS",
+      archive: "ARCHIVO",
+      infrastructure: "TECNOLOGÍAS",
+      manifesto: "BLOG",
+      operator: "Antoni Escalante",
+      status: "Disponible",
+      region: "Ubicación: LATAM",
+      build: "Portafolio v2.4",
+      theme_light: "Modo Claro",
+      theme_dark: "Modo Oscuro",
       lang_en: "EN",
       lang_es: "ES"
     },
     hero: {
       greeting: "Hola, soy Antoni Escalante",
-      title: "FULL-STACK DEVELOPER",
-      subtitle: "Construyendo sistemas de software robustos.",
-      btn_projects: "EXPLORAR PROYECTOS",
-      btn_arch: "VER HABILIDADES"
+      title: "DESARROLLADOR FULL STACK.",
+      subtitle: "Construyo aplicaciones que resuelven problemas reales.",
+      btn_projects: "VER PROYECTOS",
+      btn_arch: "HABILIDADES",
+      btn_contact: "CONTÁCTAME",
+      btn_cv: "VER CV"
     },
     profile: {
-      title: "PERFIL DE DESARROLLADOR",
-      body: "Especializado en el desarrollo de software de extremo a extremo. Diseño experiencias de usuario fluidas y minimalistas en el frontend, potenciadas por motores backend escalables construidos con FastAPI y ASP.NET 8. Un programador adaptable, enfocado en entregar código de calidad y resolver desafíos técnicos complejos."
+      title: "SOBRE MÍ",
+      body: "Soy un desarrollador enfocado en crear software útil y confiable. Disfruto diseñando interfaces limpias y conectándolas con sistemas backend robustos. Me adapto rápidamente a nuevas herramientas y siempre priorizo entregar soluciones prácticas en lugar de agregar complejidad innecesaria.",
+      role: "Desarrollador Full-Stack",
+      journey: "Mi Trayectoria",
+      yearsExp: "Años Exp.",
+      projectsCount: "Proyectos",
+      expert: "Experto",
+      advanced: "Avanzado",
+      connect: "Conecta conmigo"
     },
     works: {
-      title: "PROYECTOS TÉCNICOS.",
-      subtitle: "Construidos desde cero. Soluciones de software integrales y ecosistemas móviles.",
+      title: "MIS PROYECTOS",
+      subtitle: "Una selección de aplicaciones y herramientas que he construido para resolver problemas específicos.",
       projects: [
         {
           id: "01",
           title: "B1 Route",
-          desc: "Ecosistema empresarial de logística y despacho de última milla para flotas a gran escala, que conecta un cliente SAPUI5 Fiori FCL de 3 columnas con una aplicación nativa de Android a través de un backend ASP.NET OData v4. Diseñado con módulos de conductores, vehículos, ayudantes, personal de seguridad, territorios y socios de negocio. Soporta i18n multirregión (CL, MX, PE, US), temas Horizon/Quartz (claro/oscuro) y envío de notificaciones push.",
-          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
-          role: "Arquitecto Principal — Web y Móvil",
-          challenges: "Integrar la sincronización multiplataforma mediante un servidor OData v4 externo en ASP.NET. Consumir y mapear datos maestros complejos como socios de negocio, grupos de seguridad, licencias y categorías vehiculares. Gestionar i18n localizado por país y la alternancia de temas Quartz y Horizon de alta densidad visual.",
+          desc: "Un sistema de logística para gestionar flotas de entrega. Conecta a los conductores en la calle con los administradores en la oficina, haciendo que el seguimiento de rutas y entregas sea mucho más sencillo y organizado.",
+          stack: ["SAPUI5", "Kotlin", "Jetpack Compose", "Mapbox", "OData"],
+          role: "Desarrollador Web y Móvil",
+          challenges: "El mayor reto fue mantener la app móvil y el portal web perfectamente sincronizados para que los administradores siempre supieran la ubicación exacta de los paquetes en tiempo real.",
           platforms: [
             {
               label: "Web",
-              desc: "Un frontend web premium de nivel empresarial diseñado bajo las directrices de SAP Fiori 3, compatible con temas Horizon y Quartz (claro/oscuro). Construido con SAPUI5 y TypeScript estricto, consume servicios OData v4 desde un backend ASP.NET. Alberga más de 12 módulos operativos—incluyendo Conductores, Personal de Seguridad, Ayudantes, Territorios, Socios de Negocio y Configuración de Dispositivos—integrados con un motor Mapbox GL JS interactivo de 3 columnas para reordenar paradas.",
-              stack: ["SAPUI5 1.141", "TypeScript 5.3", "Mapbox GL JS 3", "OData v4", "UI5 CLI", "Turf.js 7"],
+              desc: "Un panel de control para que el equipo de logística organice rutas, asigne conductores y monitoree entregas en un mapa interactivo. Reemplaza el papeleo manual con un flujo digital claro.",
+              stack: ["SAPUI5", "TypeScript", "Mapbox GL JS", "OData v4"],
               mockup: "dashboard",
-              image: "/images/b1route.webp",
+              image: "/images/b1route/b1route.webp",
               images: [
                 "/images/b1route/web/01.webp",
                 "/images/b1route/web/02.webp",
@@ -345,12 +372,12 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
                 "/images/b1route/web/04.webp"
               ],
               layout: "single",
-              links: [{ label: "Ver en vivo", url: "#" }]
+              links: [{ label: "Ver Proyecto", url: "#" }]
             },
             {
               label: "Android",
-              desc: "Una aplicación nativa de Android de alto rendimiento desarrollada en Kotlin (v2.3.20) y Jetpack Compose (Material 3). Se adhiere estrictamente a los principios de MVVM y Arquitectura Limpia, utilizando Room SQLite como Fuente Única de Verdad (SSOT). Integra Mapbox Maps SDK (v11.15) y Mapbox Navigation (v3.12) para navegación turn-by-turn guiada por voz, junto con un motor OData dinámico que parsea metadatos XML de SAP para generar formularios Fiori sobre la marcha. Potenciada por Hilt DI, rutas tipo-safe con Navigation3 y WorkManager para tareas en segundo plano. Recibe notificaciones push en tiempo real a través de Firebase Cloud Messaging (FCM) enviadas desde el portal web de administración. Cuenta con un diseño personalizado en Material 3 inspirado en los temas Horizon y Quartz (claro/oscuro) de SAP Fiori, alineado con sus paletas de colores y guías visuales.",
-              stack: ["Kotlin 2.3", "Jetpack Compose", "Mapbox Nav 3", "Room SQLite", "Hilt DI", "WorkManager", "Firebase FCM"],
+              desc: "Una aplicación para los conductores que funciona como un navegador GPS. Les muestra su ruta diaria, permite confirmar entregas y guarda los datos incluso si se quedan sin internet en la carretera.",
+              stack: ["Kotlin", "Jetpack Compose", "Mapbox Nav", "Room SQLite"],
               mockup: "android",
               images: [
                 "/images/b1route/android/01.webp",
@@ -361,54 +388,54 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "GitHub", url: "#" }]
             }
           ],
-          links: [{ label: "Ver en vivo", url: "#" }, { label: "GitHub", url: "#" }]
+          links: [{ label: "Ver Proyecto", url: "#" }, { label: "GitHub", url: "#" }]
         },
         {
           id: "02",
-          title: "JRM Flejes v2.0",
-          desc: "Plataforma Web PWA para escritorio y móvil optimizada para la gestión de inventario, pesaje, apilamiento en torres físicas y trazabilidad en tiempo real de flejes de acero para Planta Chilca.",
-          stack: ["React 18", "Vite", "Tailwind CSS", "Supabase", "React Query", "PostgreSQL"],
+          title: "JRM Flejes",
+          desc: "Una herramienta de inventario creada para una planta de acero. Ayuda a los operadores a registrar enormes bobinas de acero, saber exactamente en qué torre están apiladas y gestionar despachos sin usar hojas de Excel.",
+          stack: ["React", "Tailwind CSS", "Supabase", "PostgreSQL"],
           role: "Desarrollador Full-Stack",
-          challenges: "Diseñar la lógica de apilamiento atómico físico mediante triggers PL/pgSQL en PostgreSQL para simular la gravedad en las torres. Implementar persistencia offline sincronizada contra active_sessions y localStorage para evitar pérdida de progreso ante apagados de dispositivos en planta.",
-          deployment: "Web PWA // Producción Planta Chilca",
+          challenges: "La fábrica tiene zonas con mala señal de Wi-Fi. El mayor desafío fue lograr que la app guardara los cambios sin internet y los sincronizara automáticamente al recuperar la conexión.",
+          deployment: "App Web // En producción",
           platforms: [
             {
               label: "Escritorio",
-              desc: "Visualización interactiva del mapa físico de torres (P01 a P34) con peso y ocupación en tiempo real. Incluye dashboard administrativo de monitoreo de turnos de operadores y gestión de roles sin consola.",
-              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase RLS", "React Query", "PostgreSQL (PL/pgSQL)"],
+              desc: "Un mapa visual de la fábrica donde los gerentes pueden ver cuántas bobinas hay en cada torre y monitorear la actividad en tiempo real.",
+              stack: ["React", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
               image: "/images/jrm/desktop.png"
             },
             {
               label: "Móvil",
-              desc: "Interfaz operativa móvil PWA táctil para ingresos/despachos con carrito de salida táctil, sincronización reactiva de estado y compresor de fotos de evidencia en el cliente a formato WebP optimizado.",
-              stack: ["React 18", "Vite", "Tailwind CSS", "Supabase Storage", "React Query", "WebP Compactor"],
+              desc: "Una versión móvil para que los trabajadores en planta puedan escanear movimientos de bobinas y tomar fotos de evidencia desde su teléfono.",
+              stack: ["React", "Supabase Storage", "React Query"],
               mockup: "mobile",
               image: "/images/jrm/mobile.png"
             }
           ],
           links: [
-            { label: "Sitio en vivo", url: "https://frm-flejes.aescalante.dev/" }
+            { label: "Sitio Web", url: "https://frm-flejes.aescalante.dev/" }
           ]
         },
         {
           id: "03",
           title: "Morph",
-          desc: "Un conversor multimedia local premium y multiplataforma diseñado para el procesamiento rápido, privado y seguro de archivos. Desarrollado con Flutter y potenciado por FFmpeg Kit, permite convertir imágenes (PNG, JPG, WEBP, GIF, PDF), audio y video localmente sin depender de internet. Se adapta con fluidez desde pantallas táctiles móviles hasta interfaces de escritorio de 3 columnas con soporte para arrastrar y soltar (Drag & Drop), menú contextual nativo de Windows y temas de color dinámicos con revelación circular.",
-          stack: ["Flutter", "Dart", "BLoC", "FFmpeg Kit", "Isolates", "C++ / Win32"],
+          desc: "Un programa de escritorio para convertir imágenes, audio y video localmente. Funciona sin internet, lo que significa que puedes convertir archivos privados sin tener que subirlos a páginas de terceros.",
+          stack: ["Flutter", "Dart", "FFmpeg", "C++"],
           image: "/images/morph/miniatura.png",
           video: "/videos/morph.webm",
-          role: "Creador Único y Arquitecto Principal",
-          challenges: "Estructurar el procesamiento asíncrono en segundo plano mediante Dart Isolates para compilar PDFs multipágina y empaquetar archivos ZIP sin comprometer los 60 FPS en la interfaz de usuario. Desarrollar un instalador de registro en Win32/C++ para acoplar la opción de conversión directa en el menú contextual del Explorador de Windows.",
-          deployment: "Escritorio Nativo (Windows/macOS) // Móvil (Android/iOS)",
+          role: "Desarrollador Único",
+          challenges: "Tuve que idear cómo procesar videos pesados de fondo sin que el programa se congelara, asegurando que la interfaz siempre se sintiera fluida.",
+          deployment: "Windows y macOS",
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/morph.git" }]
         },
         {
           id: "04",
           title: "StrixUI",
-          desc: "Una plantilla premium de panel administrativo de nivel empresarial y fundación SaaS diseñada para el máximo rendimiento. Desarrollada sobre Next.js 15 (App Router), React 19 y Tailwind CSS v4, implementa una arquitectura modular limpia desacoplada por características. Diseñada para albergar interfaces densas, tableros Kanban dinámicos, asistentes paso a paso y chats en tiempo real con una latencia Lighthouse cercana a cero.",
-          stack: ["Next.js 15", "React 19", "Tailwind v4", "TypeScript", "Shadcn/UI", "Radix UI"],
-          image: "/images/strixui.webp",
+          desc: "Una plantilla de inicio para desarrolladores que necesitan construir paneles de administración rápidamente. Incluye componentes listos para usar como tablas y gráficos, ahorrando semanas de configuración.",
+          stack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+          image: "/images/strixui/strixui.webp",
           images: [
             "/images/strixui/01.webp",
             "/images/strixui/02.webp",
@@ -419,39 +446,39 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             "/images/strixui/07.webp",
             "/images/strixui/08.webp"
           ],
-          role: "Creador e Ingeniero Principal",
-          challenges: "Diseñar una base de código modular por características que desacopla la autenticación, configuraciones, usuarios y estados Kanban complejos. Optimizar el agrupamiento CSS de nueva generación con Tailwind v4 para cargas sub-milisegundo, logrando un estándar de rendimiento 100/100 en Lighthouse.",
-          deployment: "Vercel Edge Network // TypeScript Estricto",
+          role: "Desarrollador",
+          challenges: "Mantener el código limpio y fácil de entender para otros programadores, logrando al mismo tiempo que las páginas cargaran casi de forma instantánea.",
+          deployment: "Vercel",
           links: [
-            { label: "Ver en vivo", url: "https://aescalantedev.github.io/strixui/" },
+            { label: "Ver Demo", url: "https://aescalantedev.github.io/strixui/" },
             { label: "GitHub", url: "https://github.com/aescalantedev/strixui.git" }
           ]
         },
         {
           id: "05",
           title: "Cyberdeck Term-OS",
-          desc: "Un reproductor de música en terminal (TUI) retrofuturista de última generación diseñado como un cyberdeck de audiófilo Term-OS, impulsado por Textual y Rich. Cuenta con un analizador de espectro logarítmico discreto en tiempo real con tres modos de renderizado de frecuencia (barras, forma de onda y espectro) conmutables en vivo, letras de karaoke monocromáticas a doble espacio con efecto de máquina de escribir verde Matrix, navegación lateral mediante ListView y un panel de atajos 100% por teclado. Su motor de audio multihilo asíncrono con pygame.mixer y pydub realiza análisis FFT en segundo plano, extrae letras ID3 con Mutagen y limpia todos los archivos WAV temporales sin dejar residuos.",
-          stack: ["Python", "Textual TUI", "Rich Library", "Numpy (FFT)", "Pygame Mixer", "Pydub", "Mutagen ID3"],
+          desc: "Un reproductor de música que funciona completamente en la terminal. Diseñado para programadores que prefieren usar atajos de teclado en lugar del ratón para explorar y escuchar su música local.",
+          stack: ["Python", "Textual", "Pygame"],
           image: "/images/playercli.webp",
-          role: "Creador Único y Arquitecto Principal",
-          challenges: "Diseñar una arquitectura multihilo no bloqueante para calcular la Transformada Rápida de Fourier (rfft) en tiempo real sobre bloques de amplitud de audio a 60 FPS sin ralentizar la interfaz de usuario. Administrar la decodificación al vuelo de archivos comprimidos (MP3, FLAC, M4A) mediante pydub y estructurar el formateo cronometrado con PyLRC.",
-          deployment: "Terminal Local // Soporte UTF-8 & TrueColor",
+          role: "Desarrollador",
+          challenges: "Dibujar el visualizador de audio en tiempo real usando caracteres de texto fue complejo, ya que requería mucha precisión para sincronizar las barras visuales con el ritmo de la música.",
+          deployment: "Terminal Local",
           links: [{ label: "GitHub", url: "https://github.com/aescalantedev/player_cli" }]
         },
         {
           id: "06",
-          title: "App Ecology",
-          desc: "Una suite premium de aplicaciones móviles de alto rendimiento desarrolladas bajo un ecosistema de diseño limpio y unificado. Cuenta con interfaces personalizadas, microinteracciones táctiles fluidas, almacenamiento local optimizado y lógicas de sincronización asíncrona para operaciones financieras, educativas y corporativas.",
-          stack: ["Flutter", "Dart", "Kotlin", "SQLite", "APIs REST", "Gestión de Estado"],
+          title: "Arcons Apps",
+          desc: "Una colección de aplicaciones móviles creadas para un cliente corporativo. Ayudan a los usuarios a gestionar sus billeteras digitales y herramientas contables de forma segura desde sus teléfonos.",
+          stack: ["Flutter", "SQLite", "APIs REST"],
           image: "/images/appsarcons/01.webp",
-          role: "Arquitecto Móvil Principal",
-          challenges: "Diseñar un núcleo de desarrollo compartido (shared framework) para coordinar las lógicas de 4 aplicaciones corporativas distintas. Optimizar bases de datos locales SQLite encriptadas, asegurar la sincronización en segundo plano y calcular saldos en tiempo real sin latencia.",
-          deployment: "Google Play Store // Canales de Distribución Flutter",
+          role: "Desarrollador Móvil",
+          challenges: "Compartir la misma base de código entre cuatro aplicaciones distintas para que corregir un error en una, automáticamente lo arreglara en las demás, ahorrando mucho tiempo de mantenimiento.",
+          deployment: "Google Play Store",
           platforms: [
             {
               label: "Billetera",
-              desc: "Aplicación móvil de billetera digital orientada a la gestión eficiente de transacciones financieras. Diseñada con un enfoque en la seguridad, alta legibilidad de datos numéricos y una gestión de estado robusta para reflejar saldos e historial de movimientos en tiempo real.",
-              stack: ["Flutter", "Dart", "SQLite", "Gestión de Estado", "Almacenamiento Seguro"],
+              desc: "Una billetera digital que facilita a los usuarios revisar sus saldos e historial de transacciones diarias.",
+              stack: ["Flutter", "SQLite"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -459,8 +486,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Contabilidad",
-              desc: "Solución móvil desarrollada específicamente para el sector contable. Facilita el acceso a herramientas, gestión de perfiles y recursos para profesionales de la contabilidad, priorizando una interfaz limpia y una navegación intuitiva para el manejo de información densa.",
-              stack: ["Flutter", "Dart", "Caché Local", "Procesamiento JSON", "UI Limpia"],
+              desc: "Una herramienta para contadores que permite buscar información y gestionar perfiles fácilmente desde el celular.",
+              stack: ["Flutter", "Procesamiento JSON"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -468,8 +495,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Portal",
-              desc: "Aplicación central del ecosistema Arcons. Actúa como el portal principal para los clientes, integrando diversos servicios en un solo lugar y ofreciendo una experiencia de usuario fluida mediante micro-interacciones táctiles y una arquitectura de datos optimizada.",
-              stack: ["Flutter", "Dart", "Integración de Ecosistemas", "Microinteracciones", "APIs REST"],
+              desc: "La aplicación central donde los clientes pueden acceder a todos los servicios ofrecidos por la empresa.",
+              stack: ["Flutter", "APIs REST"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -477,8 +504,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             },
             {
               label: "Company",
-              desc: "Herramienta corporativa diseñada para la gestión interna y operativa. Implementa lógicas de negocio en una interfaz móvil elegante, permitiendo la sincronización de datos empresariales y el monitoreo de operaciones con alta fiabilidad.",
-              stack: ["Flutter", "Dart", "Sincronización Corporativa", "Seguridad Operativa", "Encriptación de Datos"],
+              desc: "Una aplicación interna para los empleados de la empresa, diseñada para gestionar operaciones y sincronizar reportes.",
+              stack: ["Flutter", "Encriptación de Datos"],
               mockup: "android",
               image: "/images/appsarcons/01.webp",
               layout: "single",
@@ -490,16 +517,16 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       ]
     },
     infra: {
-      title: "STACK TÉCNICO",
+      title: "TECNOLOGÍAS",
       categories: [
-        { name: "Sistemas Frontend", tools: "Astro, Next.js, React, SAPUI5, OpenUI5" },
-        { name: "Arquitectura Backend", tools: "ASP.NET, Python, Node.js" },
-        { name: "Ingeniería Móvil", tools: "Flutter, Kotlin, Jetpack Compose" },
-        { name: "Bases de Datos e Infra", tools: "PostgreSQL, Docker, OData v4" }
+        { name: "Frontend", tools: "React, Next.js, Astro, Tailwind CSS, SAPUI5" },
+        { name: "Backend", tools: "Node.js, Python, ASP.NET, Supabase" },
+        { name: "Móvil", tools: "Flutter, Kotlin, Android" },
+        { name: "Bases de Datos e Infra", tools: "PostgreSQL, SQLite, Docker, Git" }
       ]
     },
     contact: {
-      text: "Actualmente disponible para colaboraciones de ingeniería y proyectos de software seleccionados.",
+      text: "Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o colaborar en la creación de buen software.",
       email: "CORREO",
       github: "GITHUB",
       linkedin: "LINKEDIN",

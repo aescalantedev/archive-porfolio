@@ -61,34 +61,6 @@ const ArchiveIndexContent: React.FC = () => {
       });
   }, [page]);
 
-  // Setup intersection observer — fires only when sentinel is FULLY visible at bottom
-  useEffect(() => {
-    // Don't attach while loading or no more pages
-    if (isLoading || !hasMore) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Extra guard: only increment page when truly intersecting AND not already loading
-        if (entries[0].isIntersecting && !isLoading && hasMore) {
-          setPage((prev) => prev + 1);
-        }
-      },
-      {
-        // Negative rootMargin so sentinel must be fully scrolled into view
-        rootMargin: '0px 0px -80px 0px',
-        threshold: 1.0
-      }
-    );
-
-    const sentinel = sentinelRef.current;
-    if (sentinel) observer.observe(sentinel);
-
-    return () => {
-      if (sentinel) observer.unobserve(sentinel);
-      observer.disconnect();
-    };
-  }, [isLoading, hasMore]);
-
   // Structured multi-lingual list of static Play Store mobile apps
   const staticProjects = useMemo<ArchiveProject[]>(() => {
     if (lang === 'es') {
@@ -238,8 +210,19 @@ const ArchiveIndexContent: React.FC = () => {
     });
   }, [searchQuery, allProjects]);
 
+  // Force Lenis to recalculate scroll bounds when content changes (e.g., after loading more repos)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).lenis) {
+      // Small timeout to allow DOM to render the new elements before recalculating height
+      const timeoutId = setTimeout(() => {
+        (window as any).lenis.resize();
+      }, 150);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [filteredProjects, page]);
+
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden transition-colors duration-300 flex flex-col">
+    <div className="relative w-full transition-colors duration-300 flex flex-col min-h-screen">
       
       {/* Fullscreen 3D WebGL Canvas Background */}
       <BackgroundCanvas />
@@ -310,166 +293,106 @@ const ArchiveIndexContent: React.FC = () => {
               )}
             </div>
 
-            {/* DESKTOP & TABLET VIEW: Luxurious, perfectly proportioned table layout */}
-            <div className="hidden md:block overflow-hidden border border-border-custom bg-bg-secondary/10">
-              <table className="w-full text-left border-collapse table-fixed">
-                <thead>
-                  <tr className="border-b border-border-custom font-mono text-[10px] tracking-widest text-text-secondary uppercase bg-bg-secondary/30">
-                    <th className="py-4 px-5 w-[10%]">{lang === 'es' ? 'AÑO' : 'YEAR'}</th>
-                    <th className="py-4 px-5 w-[32%]">{lang === 'es' ? 'PROYECTO' : 'PROJECT'}</th>
-                    <th className="py-4 px-5 w-[24%]">{lang === 'es' ? 'CATEGORÍA' : 'CATEGORY'}</th>
-                    <th className="py-4 px-5 w-[22%]">{lang === 'es' ? 'TECNOLOGÍAS' : 'BUILT WITH'}</th>
-                    <th className="py-4 px-5 text-right w-[12%]">{lang === 'es' ? 'ENLACES' : 'LINKS'}</th>
-                  </tr>
-                </thead>
-                <tbody className="font-sans text-xs divide-y divide-border-custom/40">
-                  {filteredProjects.length > 0 ? (
-                    filteredProjects.map((project, index) => (
-                      <tr 
-                        key={`${project.title}-${index}`}
-                        className="hover:bg-bg-secondary/40 transition-all duration-200 group border-l-2 border-l-transparent hover:border-l-accent"
-                      >
-                        {/* Year */}
-                        <td className="py-6 px-5 font-mono text-accent text-xs font-semibold align-middle">
-                          {project.year}
-                        </td>
-
-                        {/* Project Title & Subtitle */}
-                        <td className="py-6 px-5 align-middle">
-                          <div className="font-serif text-[15px] font-semibold text-text-primary group-hover:text-accent transition-colors duration-150">
-                            {project.title}
-                          </div>
-                          <div className="font-mono text-[9px] text-text-secondary tracking-widest uppercase mt-1">
-                            {project.role}
-                          </div>
-                        </td>
-
-                        {/* Category */}
-                        <td className="py-6 px-5 text-text-secondary font-mono text-[10px] tracking-wider align-middle">
-                          {project.category}
-                        </td>
-
-                        {/* Stack Tags */}
-                        <td className="py-6 px-5 align-middle">
-                          <div className="flex flex-wrap gap-1.5 max-w-xs">
-                            {project.stack.map((tech) => (
-                              <span 
-                                key={tech}
-                                className="font-mono text-[9px] tracking-wider bg-bg-secondary/80 text-text-secondary px-2.5 py-0.5 border border-border-custom/25 rounded-sm hover:border-accent hover:text-text-primary transition-all duration-200"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-
-                        {/* Links */}
-                        <td className="py-6 px-5 text-right align-middle">
-                          <div className="inline-flex justify-end gap-3.5 font-mono text-[10px] tracking-widest">
-                            {project.links.map((link) => (
-                              <a
-                                key={link.label}
-                                href={link.url}
-                                target={link.url.startsWith('http') ? '_blank' : '_self'}
-                                rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                className="text-text-primary hover:text-accent border-b border-transparent hover:border-accent transition-all duration-150 cursor-pointer py-1 inline-flex items-center gap-0.5 font-medium"
-                              >
-                                {link.label.toUpperCase()} <span className="text-[9px] font-sans">↗</span>
-                              </a>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={5} className="py-20 text-center font-mono text-xs text-text-secondary">
-                        {lang === 'es' ? 'NINGÚN PROYECTO COINCIDE CON TU BÚSQUEDA' : 'NO PROJECTS MATCHED YOUR FILTER QUERY'}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {/* MOBILE VIEW: Luxurious vertical card-style directory (Under 768px viewports) */}
-            <div className="block md:hidden space-y-6">
+            {/* UNIFIED GALLERY VIEW: Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {filteredProjects.length > 0 ? (
-                filteredProjects.map((project, index) => (
-                  <div 
-                    key={`mob-${project.title}-${index}`}
-                    className="border border-border-custom bg-bg-secondary/15 p-5 transition-all duration-200 hover:bg-bg-secondary/35 flex flex-col justify-between relative group border-l-2 border-l-transparent hover:border-l-accent"
-                  >
-                    {/* Top Row: Year and Category */}
-                    <div className="flex items-center justify-between mb-3.5">
-                      <span className="font-mono text-accent text-xs font-semibold">
-                        {project.year}
-                      </span>
-                      <span className="font-mono text-[9px] tracking-widest text-text-secondary uppercase">
-                        {project.category}
-                      </span>
-                    </div>
+                filteredProjects.map((project, index) => {
+                  const primaryUrl = project.links[0]?.url || '#';
+                  return (
+                    <div 
+                      key={`grid-${project.title}-${index}`}
+                      className="group relative bg-bg-secondary/20 hover:bg-bg-secondary/40 p-6 rounded-2xl border border-border-custom/50 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-lg shadow-black/20 hover:-translate-y-1 flex flex-col justify-between h-full"
+                    >
+                      {/* Subtle hover gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-accent/0 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                      
+                      {/* Invisible absolute link for entire card */}
+                      <a href={primaryUrl} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-0 cursor-pointer" aria-label={`Ver ${project.title}`}></a>
 
-                    {/* Middle: Title & Role */}
-                    <div className="mb-4">
-                      <h4 className="font-serif text-lg font-semibold text-text-primary group-hover:text-accent transition-colors duration-150">
-                        {project.title}
-                      </h4>
-                      <p className="font-mono text-[9px] text-text-secondary tracking-widest uppercase mt-1">
-                        {project.role}
-                      </p>
-                    </div>
+                      <div>
+                        {/* Header row: Year & Category */}
+                        <div className="flex items-center justify-between mb-5 relative z-10 pointer-events-none">
+                          <span className="font-mono text-accent text-xs font-bold bg-accent/10 px-3 py-1 rounded-md border border-accent/20">
+                            {project.year}
+                          </span>
+                          <span className="font-mono text-[10px] tracking-widest text-text-secondary/70 uppercase">
+                            {project.category}
+                          </span>
+                        </div>
 
-                    {/* Technologies pills */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {project.stack.map((tech) => (
-                        <span 
-                          key={`mob-tech-${tech}`}
-                          className="font-mono text-[9px] tracking-wider bg-bg-secondary text-text-secondary px-2 py-0.5 border border-border-custom/30 rounded-sm"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                        {/* Main Info */}
+                        <div className="mb-6 relative z-10 pointer-events-none">
+                          <h4 className="font-serif text-xl md:text-2xl font-bold text-text-primary/95 group-hover:text-accent transition-colors duration-200">
+                            {project.title}
+                          </h4>
+                          <p className="font-mono text-[11px] tracking-widest uppercase text-text-secondary mt-2.5 leading-relaxed">
+                            {project.role}
+                          </p>
+                        </div>
 
-                    {/* Action Links row */}
-                    <div className="border-t border-border-custom/30 pt-3 flex justify-end gap-4 font-mono text-[10px] tracking-widest">
-                      {project.links.map((link) => (
-                        <a
-                          key={`mob-link-${link.label}`}
-                          href={link.url}
-                          target={link.url.startsWith('http') ? '_blank' : '_self'}
-                          rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className="text-text-primary hover:text-accent border-b border-transparent hover:border-accent transition-all duration-150 cursor-pointer py-1 inline-flex items-center gap-0.5"
-                        >
-                          {link.label.toUpperCase()} <span className="text-[9px] font-sans">↗</span>
-                        </a>
-                      ))}
+                        {/* Stack */}
+                        <div className="flex flex-wrap gap-2 relative z-10 pointer-events-none mb-6">
+                          {project.stack.map((tech) => (
+                            <span 
+                              key={`grid-tech-${tech}`}
+                              className="font-mono text-[10px] tracking-wider bg-bg-primary text-text-secondary/90 px-3 py-1.5 rounded-full border border-border-custom/60 group-hover:border-accent/40 group-hover:bg-accent/10 group-hover:text-text-primary transition-all duration-300"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action Button Footer */}
+                      <div className="pt-4 border-t border-border-custom/30 mt-auto relative z-10 pointer-events-auto">
+                        <div className="flex flex-wrap gap-3">
+                          {project.links.map((link) => (
+                            <a
+                              key={`grid-link-${link.label}`}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-bg-primary/80 hover:bg-accent hover:text-bg-primary text-text-primary text-xs font-mono tracking-widest uppercase px-4 py-2 rounded-lg border border-border-custom/60 hover:border-accent transition-all duration-300"
+                              title={link.label}
+                            >
+                              {link.label.toLowerCase().includes('github') ? (
+                                <svg className="w-[16px] h-[16px]" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+                              ) : link.label.toLowerCase().includes('play store') ? (
+                                <svg className="w-[16px] h-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 21a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5z"></path><path d="M8 7v10l8-5-8-5z"></path></svg>
+                              ) : (
+                                <svg className="w-[16px] h-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                              )}
+                              <span>{link.label}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               ) : (
-                <div className="py-16 text-center border border-dashed border-border-custom/50 font-mono text-xs text-text-secondary">
-                  {lang === 'es' ? 'NINGÚN PROYECTO COINCIDE CON TU BÚSQUEDA' : 'NO PROJECTS MATCHED YOUR FILTER QUERY'}
+                <div className="col-span-full py-24 text-center rounded-2xl border border-dashed border-border-custom/50 font-mono text-sm text-text-secondary bg-bg-secondary/10">
+                  {lang === 'es' ? 'NINGÚN PROYECTO COINCIDE CON TU BÚSQUEDA' : 'NO MATCHING PROJECTS'}
                 </div>
               )}
             </div>
 
-            {/* Sentinel for infinite scroll — MUST be OUTSIDE overflow containers */}
-            <div
-              ref={sentinelRef}
-              className="py-10 mt-6 w-full flex items-center justify-center font-mono text-[9px] tracking-widest text-text-secondary select-none border-t border-border-custom/20"
-            >
+            {/* Load More Button instead of infinite scroll */}
+            <div className="py-10 mt-6 w-full flex items-center justify-center border-t border-border-custom/20">
               {isLoading ? (
-                <span className="animate-pulse">
-                  {lang === 'es' ? 'CARGANDO REPOSITORIOS...' : 'LOADING REPOSITORIES...'}
+                <span className="animate-pulse font-mono text-xs tracking-widest text-text-secondary uppercase">
+                  {lang === 'es' ? 'Cargando repositorios...' : 'Loading repositories...'}
                 </span>
               ) : hasMore ? (
-                <span className="opacity-50">
-                  {lang === 'es' ? 'DESPLAZAR PARA VER MÁS' : 'SCROLL TO LOAD MORE'}
-                </span>
+                <button
+                  onClick={() => setPage((prev) => prev + 1)}
+                  className="font-mono text-xs tracking-widest text-text-primary uppercase bg-bg-secondary/50 hover:bg-accent/10 border border-border-custom/50 hover:border-accent px-8 py-3 rounded-full transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                >
+                  {lang === 'es' ? 'Cargar Más Proyectos' : 'Load More Projects'}
+                  <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
               ) : repos.length > 0 ? (
-                <span className="text-accent/40">
+                <span className="font-mono text-xs tracking-widest text-accent/40 uppercase">
                   {lang === 'es' ? 'FIN DEL HISTORIAL' : 'END OF ARCHIVE'}
                 </span>
               ) : null}

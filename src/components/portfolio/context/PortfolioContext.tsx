@@ -12,6 +12,8 @@ interface PortfolioContextType {
   t: TranslationDictionary;
   toggleTheme: (event?: React.MouseEvent | MouseEvent) => void;
   setLang: (lang: Language) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
@@ -19,6 +21,7 @@ const PortfolioContext = createContext<PortfolioContextType | undefined>(undefin
 export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
   const [lang, setLang] = useState<Language>('en');
+  const [activeTab, setActiveTab] = useState<string>('home');
 
   // Synchronize initial state from localStorage after mount to prevent SSR hydration mismatch
   useEffect(() => {
@@ -149,7 +152,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [lang]);
 
   return (
-    <PortfolioContext.Provider value={{ theme, lang, t, toggleTheme, setLang: changeLang }}>
+    <PortfolioContext.Provider value={{ theme, lang, t, toggleTheme, setLang: changeLang, activeTab, setActiveTab }}>
       {children}
     </PortfolioContext.Provider>
   );

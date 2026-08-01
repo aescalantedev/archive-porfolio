@@ -6,7 +6,6 @@ import { usePortfolio } from '../context/PortfolioContext';
 export const CustomCursor: React.FC = () => {
   const innerRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const { theme } = usePortfolio();
 
   // quickTo for performant GSAP mouse tracking
@@ -27,12 +26,11 @@ export const CustomCursor: React.FC = () => {
       xOuter.current = gsap.quickTo(outerRef.current, 'x', { duration: 0.4, ease: 'power3.out' });
       yOuter.current = gsap.quickTo(outerRef.current, 'y', { duration: 0.4, ease: 'power3.out' });
     }
-  }, [isVisible]);
+  }, []);
 
   useEffect(() => {
-    // Only enable on devices with a fine pointer (desktop)
-    if (!window.matchMedia('(pointer: fine)').matches) return;
-    setIsVisible(true);
+    if (typeof window === 'undefined') return;
+    // We only attach listeners, CSS handles hiding on mobile
 
     const onMouseMove = (e: MouseEvent) => {
       // Show cursor on first move
@@ -128,10 +126,10 @@ export const CustomCursor: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className={!isVisible ? 'hidden' : ''}>
+    <div className="hidden lg:block pointer-events-none">
       <style>
         {`
-          @media (pointer: fine) {
+          @media (min-width: 1024px) {
             * {
               cursor: none !important;
             }
