@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Project } from '../data/content';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Works: React.FC = () => {
   const { t, lang } = usePortfolio();
   const projects = t.works.projects;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (typeof window === 'undefined') return;
+    
+    gsap.fromTo('.project-card-anim', 
+      { y: 50, opacity: 0 },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 0.8, 
+        stagger: 0.15, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.works-grid',
+          start: 'top 80%',
+        }
+      }
+    );
+  }, { scope: containerRef });
 
   return (
-    <div id="works" className="relative w-full pt-16 lg:pt-24 pb-24 lg:pb-32 overflow-x-hidden">
+    <div id="works" ref={containerRef} className="relative w-full pt-16 lg:pt-24 pb-24 lg:pb-32 overflow-x-hidden">
       
       {/* ── HEADER (Title) ── */}
       <div className="px-6 lg:px-0 mb-8 lg:mb-12">
@@ -20,9 +45,11 @@ export const Works: React.FC = () => {
       </div>
 
       {/* ── PROJECTS GRID ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 px-4 lg:px-0 relative z-10">
+      <div className="works-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 px-4 lg:px-0 relative z-10">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <div key={project.id} className="project-card-anim opacity-0">
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
 

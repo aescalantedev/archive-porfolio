@@ -35,21 +35,7 @@ export interface InfraCategory {
 }
 
 export interface TranslationDictionary {
-  sidebar: {
-    index: string;
-    projects: string;
-    archive: string;
-    infrastructure: string;
-    manifesto: string;
-    operator: string;
-    status: string;
-    region: string;
-    build: string;
-    theme_light: string;
-    theme_dark: string;
-    lang_en: string;
-    lang_es: string;
-  };
+
   hero: {
     greeting: string;
     title: string;
@@ -90,21 +76,7 @@ export interface TranslationDictionary {
 
 export const content: Record<'en' | 'es', TranslationDictionary> = {
   en: {
-    sidebar: {
-      index: "INDEX",
-      projects: "PROJECTS",
-      archive: "ARCHIVE",
-      infrastructure: "TECH STACK",
-      manifesto: "BLOG",
-      operator: "Antoni Escalante",
-      status: "Available for work",
-      region: "Based in LATAM",
-      build: "Portfolio v2.4",
-      theme_light: "Light Mode",
-      theme_dark: "Dark Mode",
-      lang_en: "EN",
-      lang_es: "ES"
-    },
+
     hero: {
       greeting: "Hi, I'm Antoni Escalante",
       title: "FULL STACK DEVELOPER.",
@@ -312,21 +284,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
     }
   },
   es: {
-    sidebar: {
-      index: "INICIO",
-      projects: "PROYECTOS",
-      archive: "ARCHIVO",
-      infrastructure: "TECNOLOGÍAS",
-      manifesto: "BLOG",
-      operator: "Antoni Escalante",
-      status: "Disponible",
-      region: "Ubicación: LATAM",
-      build: "Portafolio v2.4",
-      theme_light: "Modo Claro",
-      theme_dark: "Modo Oscuro",
-      lang_en: "EN",
-      lang_es: "ES"
-    },
+
     hero: {
       greeting: "Hola, soy Antoni Escalante",
       title: "DESARROLLADOR FULL STACK.",
