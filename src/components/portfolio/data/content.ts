@@ -122,7 +122,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
                 "/images/b1route/web/04.webp"
               ],
               layout: "single",
-              links: [{ label: "View Project", url: "#" }]
+              links: [{ label: "View Project", url: "http://74.208.118.110/" }]
             },
             {
               label: "Android",
@@ -138,7 +138,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "GitHub", url: "#" }]
             }
           ],
-          links: [{ label: "View Project", url: "#" }, { label: "GitHub", url: "#" }]
+          links: [{ label: "View Project", url: "http://74.208.118.110/" }]
         },
         {
           id: "02",
@@ -262,7 +262,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
             }
           ],
-          links: [{ label: "Play Store", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/developer?id=Luis+Eduardo+Arroyo+Rodriguez&hl=es_419" }]
         }
       ]
     },
@@ -330,7 +330,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
                 "/images/b1route/web/04.webp"
               ],
               layout: "single",
-              links: [{ label: "Ver Proyecto", url: "#" }]
+              links: [{ label: "Ver Proyecto", url: "http://74.208.118.110/" }]
             },
             {
               label: "Android",
@@ -346,7 +346,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "GitHub", url: "#" }]
             }
           ],
-          links: [{ label: "Ver Proyecto", url: "#" }, { label: "GitHub", url: "#" }]
+          links: [{ label: "Ver Proyecto", url: "http://74.208.118.110/" }]
         },
         {
           id: "02",
@@ -470,7 +470,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
             }
           ],
-          links: [{ label: "Play Store", url: "#" }]
+          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/developer?id=Luis+Eduardo+Arroyo+Rodriguez&hl=es_419" }]
         }
       ]
     },
