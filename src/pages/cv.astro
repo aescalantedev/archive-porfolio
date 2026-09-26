@@ -1,0 +1,274 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Antoni Escalante</title>
+    <!-- Usamos la tipografía Inter (o similar) para imitar el diseño limpio del PDF -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #c2a135; /* El color dorado aproximado del PDF */
+            --color-text: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #52525b; /* Fondo gris oscuro para la vista web */
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Contenedor simulando una hoja A4 */
+        .a4-paper {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 20mm;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            color: var(--color-text);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Configuración estricta para la impresión real a PDF */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                display: block;
+            }
+            .a4-paper {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 15mm 20mm; /* Los márgenes del PDF */
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Clases utilitarias personalizadas para igualar al diseño */
+        .text-gold { color: var(--color-gold); }
+        .border-gold { border-color: var(--color-gold); }
+        
+        .section-title {
+            color: var(--color-gold);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .gold-divider {
+            border: 0;
+            border-top: 1.5px solid var(--color-gold);
+            margin: 1rem 0;
+        }
+
+        .job-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: black;
+        }
+        
+        .job-company {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: black;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-date {
+            font-size: 0.8rem;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 1.2rem;
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: var(--color-text);
+        }
+
+        .bullet-list li {
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Botonera Flotante (Se oculta al imprimir) -->
+    <div class="fixed top-4 right-4 no-print flex flex-col gap-3">
+        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded shadow-lg font-medium transition-colors text-sm flex items-center justify-center gap-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Exportar PDF
+        </button>
+        <a href="/" class="bg-zinc-800 hover:bg-zinc-900 text-white px-5 py-2.5 rounded shadow-lg font-medium transition-colors text-sm text-center">
+            ← Volver al Portafolio
+        </a>
+    </div>
+
+    <!-- Hoja A4 -->
+    <div class="a4-paper">
+        
+        <!-- CABECERA -->
+        <header class="text-center mb-5 mt-2">
+            <h1 class="text-[2.6rem] font-bold tracking-[0.2em] mb-3 leading-none">
+                <span class="text-gold">ANTONI</span> <span class="text-black">ESCALANTE</span>
+            </h1>
+            <div class="flex justify-center items-center gap-4 text-[0.8rem] tracking-wide font-medium">
+                <span>Call. Miraflores Mz a7 LT 12</span>
+                <span class="text-gold opacity-60">|</span>
+                <span>910836088</span>
+                <span class="text-gold opacity-60">|</span>
+                <span>contacto@aescalante.dev</span>
+            </div>
+        </header>
+
+        <hr class="gold-divider" />
+
+        <!-- RESUMEN -->
+        <section class="mb-4">
+            <h2 class="section-title">Resumen</h2>
+            <p class="text-[0.82rem] leading-relaxed text-justify">
+                Soy Desarrollador Full Stack especializado en ecosistemas web modernos y aplicaciones móviles de alto rendimiento. Más que escribir código, me enfoco en entender la lógica del negocio para digitalizar y automatizar procesos reales —desde sistemas de punto de venta (POS) e integraciones logísticas, hasta plataformas empresariales—. Disfruto construyendo el puente entre una experiencia de usuario fluida y atractiva en el frontend, y una arquitectura sólida y escalable en el backend.
+            </p>
+        </section>
+
+        <hr class="gold-divider" />
+
+        <!-- SKILLS -->
+        <div class="grid grid-cols-2 gap-8 mb-4">
+            <section>
+                <h2 class="section-title">Frontend y Móvil</h2>
+                <div class="grid grid-cols-2 gap-y-2 text-[0.85rem]">
+                    <div>Next.js, React, Astro</div>
+                    <div>Kotlin, Compose</div>
+                    <div>SAPUI5, OpenUI5</div>
+                    <div>Flutter, Dart</div>
+                </div>
+            </section>
+            <section>
+                <h2 class="section-title">Backend, BD e Infra</h2>
+                <div class="grid grid-cols-2 gap-y-2 text-[0.85rem]">
+                    <div>ASP.NET, C#</div>
+                    <div>PostgreSQL, SQL Server</div>
+                    <div>Python, Node.js</div>
+                    <div>Docker, OData v4</div>
+                </div>
+            </section>
+        </div>
+
+        <hr class="gold-divider" />
+
+        <!-- EDUCACIÓN -->
+        <section class="mb-4">
+            <h2 class="section-title">Educación</h2>
+            
+            <div class="mb-2 flex justify-between items-baseline">
+                <div>
+                    <h3 class="job-title">Educación Técnica/ Tec. en Sistemas</h3>
+                    <p class="text-[0.82rem] mt-0.5">SENATI - Lima/Callao</p>
+                </div>
+                <span class="job-date">2017 – 2020</span>
+            </div>
+
+            <div class="flex justify-between items-baseline">
+                <div>
+                    <h3 class="job-title">Educación Secundaria</h3>
+                    <p class="text-[0.82rem] mt-0.5">Nuestra Señora de la Asunción - Chilca</p>
+                </div>
+                <span class="job-date">2012 – 2016</span>
+            </div>
+        </section>
+
+        <hr class="gold-divider" />
+
+        <!-- EXPERIENCIA LABORAL -->
+        <section>
+            <h2 class="section-title mb-4">Experiencia Laboral</h2>
+
+            <!-- 1. JRM SAC (Nueva Experiencia) -->
+            <div class="mb-4">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="job-title">Analista Programador / Automatización de Almacén</h3>
+                    <span class="job-date">Julio, 2026 – Presente</span>
+                </div>
+                <p class="job-company">ESTANTERIAS METALICAS JRM SAC.</p>
+                <ul class="bullet-list">
+                    <li>Desarrolló un sistema web para el control de flejes en tiempo real (TypeScript, Vite, Supabase, PostgreSQL) con mapeo 3D, reduciendo el tiempo operativo de ingresos y salidas en más de un 80% (de medio día a 30-60 minutos).</li>
+                    <li>Construyó herramientas de automatización logística integradas al ERP Flex Line (SQL Server) usando VB6, Excel y Python, permitiendo la actualización de stock de materia prima y conciliación de herramientas a un solo clic.</li>
+                    <li>Analizó los flujos operativos físicos del almacén (recepción, inventario, despacho), eliminando cuellos de botella del registro manual en papel para optimizar la trazabilidad de los activos.</li>
+                </ul>
+            </div>
+
+            <!-- 2. FREELANCE (Actualizado) -->
+            <div class="mb-4">
+                <div class="flex justify-between items-baseline mb-1">
+                    <h3 class="job-title">Desarrollador de Software Freelance</h3>
+                    <!-- Cambio: Tiempo completo y parcial agregado -->
+                    <span class="job-date">Julio, 2023 – Junio, 2026 (Tiempo completo y parcial)</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>B1 Route: Frontend web (OpenUI5/OData v4/Mapbox GL) y app Android nativa para conductores (Kotlin/Compose/Mapbox Navigation/Canvas).</li>
+                    <li>Kioskos Bartech (Chile): App de autoservicio (Flutter/BLoC) integrada con terminales GetNet POS e impresoras térmicas.</li>
+                    <li>POS Ventas (Chile): App nativa Android (Kotlin) de alto rendimiento para ventas en dispositivos de pago POS.</li>
+                    <li>Arcons: Desarrollo de 4 aplicativos móviles (Fintech y EdTech) en Flutter/Dart con bases de datos SQLite.</li>
+                </ul>
+            </div>
+
+            <!-- 3. FIBRAFIL SAC -->
+            <div class="mb-4">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="job-title">Programador / Desarrollador de Software</h3>
+                    <span class="job-date">Marzo, 2025 – Octubre, 2025</span>
+                </div>
+                <p class="job-company">Fibrafil SAC</p>
+                <ul class="bullet-list">
+                    <li>Ascendido a Sistemas tras optimizar procesos de despacho y corregir fallas en el software de planta.</li>
+                    <li>App Almacén: App Handheld Android para control de inventarios con Kotlin, Jetpack Compose, Retrofit y Dagger Hilt.</li>
+                    <li>Asistencia: Sistema web (Angular 18, C#, SQL Server) integrado con ZKTeco BioTime, planillas Scire v4 y SAP B1.</li>
+                </ul>
+            </div>
+
+            <!-- 4. SCIMIC -->
+            <div>
+                <div class="flex justify-between items-baseline">
+                    <h3 class="job-title">Programador/ Desarrollador de Software</h3>
+                    <span class="job-date">Marzo, 2019 – Noviembre, 2021</span>
+                </div>
+                <p class="job-company">Scimic Technologies SAC</p>
+                <ul class="bullet-list">
+                    <li>Desarrollo de API de consulta integrada con la SUNAT para obtención automatizada de datos mediante RUC.</li>
+                    <li>Diseño e implementación de aplicación Android nativa con lectura de códigos RFID.</li>
+                    <li>Desarrollo de la página web corporativa posperu.com.</li>
+                    <li>Soporte a software de control de asistencia biométrico y documentación técnica.</li>
+                </ul>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>

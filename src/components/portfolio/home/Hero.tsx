@@ -161,9 +161,8 @@ export const Hero: React.FC = () => {
             {t.hero.btn_contact}
           </a>
           <a 
-            href="/cv/cv-aescalante.pdf"
+            href="/cv"
             target="_blank"
-            download
             className="bg-bg-secondary text-text-primary border border-border-custom/80 font-sans text-xs font-bold px-6 py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-border-custom/40 active:scale-95 transition-all uppercase tracking-wide flex-1"
           >
             {t.hero.btn_cv}
@@ -261,9 +260,8 @@ export const Hero: React.FC = () => {
             {t.hero.btn_contact}
           </a>
           <a 
-            href="/cv/cv-aescalante.pdf"
+            href="/cv"
             target="_blank"
-            download
             className="bg-bg-secondary text-text-primary border border-border-custom/80 font-sans text-sm md:text-base font-bold px-10 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-border-custom/40 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-wide"
           >
             {t.hero.btn_cv}
