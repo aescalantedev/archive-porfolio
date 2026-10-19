@@ -12,20 +12,29 @@ const iconMap: Record<string, string> = {
   'astro': 'astro',
   'next.js': 'nextdotjs',
   'react': 'react',
+  'angular': 'angular',
+  'vite': 'vite',
+  'tailwind css': 'tailwindcss',
   'sapui5': 'sap',
   'openui5': 'sap',
   // Backend
   'asp.net': 'dotnet',
+  'c#': 'dotnet',
   'python': 'python',
   'node.js': 'nodedotjs',
   'fastapi': 'fastapi',
+  'odata / sap b1': 'sap',
   // Mobile
   'flutter': 'flutter',
   'kotlin': 'kotlin',
   'jetpack compose': 'jetpackcompose',
+  'android': 'android',
   // Databases / Infra
   'postgresql': 'postgresql',
+  'sql server': 'microsoftsqlserver',
+  'sqlite': 'sqlite',
   'docker': 'docker',
+  'git': 'git',
   'supabase': 'supabase',
   'firebase': 'firebase',
   // Languages
@@ -83,9 +92,14 @@ const CategoryBlock: React.FC<{ name: string; tools: string; emoji: string }> = 
 };
 
 const categoryEmojis: Record<string, string> = {
+  'Frontend': '🖥',
   'Frontend Systems': '🖥',
+  'Backend': '⚙️',
   'Backend Architecture': '⚙️',
+  'Mobile': '📱',
+  'Móvil': '📱',
   'Mobile Engineering': '📱',
+  'Databases & DevOps': '🗄',
   'Databases & Infra': '🗄',
   'Sistemas Frontend': '🖥',
   'Arquitectura Backend': '⚙️',

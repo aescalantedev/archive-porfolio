@@ -133,140 +133,135 @@ import '../styles/global.css';
     <div class="a4-paper">
         
         <!-- CABECERA -->
-        <header class="text-center mb-5 mt-2">
-            <h1 class="text-[2.6rem] font-bold tracking-[0.2em] mb-3 leading-none">
+        <header class="text-center mb-4 mt-1">
+            <h1 class="text-[2.4rem] font-bold tracking-[0.2em] mb-1.5 leading-none">
                 <span class="text-gold">ANTONI</span> <span class="text-black">ESCALANTE</span>
             </h1>
-            <div class="flex justify-center items-center gap-4 text-[0.8rem] tracking-wide font-medium">
-                <span>Call. Miraflores Mz a7 LT 12</span>
+            <p class="text-[0.8rem] font-semibold tracking-[0.22em] text-zinc-600 uppercase mb-2.5">
+                Desarrollador Full Stack & Mobile
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-[0.76rem] tracking-wide font-medium">
+                <span>Lima, Perú</span>
                 <span class="text-gold opacity-60">|</span>
-                <span>910836088</span>
+                <a href="tel:+51910836088" class="hover:underline">910 836 088</a>
                 <span class="text-gold opacity-60">|</span>
-                <span>contacto@aescalante.dev</span>
+                <a href="mailto:contacto@aescalante.dev" class="hover:underline">contacto@aescalante.dev</a>
+                <span class="text-gold opacity-60">|</span>
+                <a href="https://aescalante.dev" target="_blank" rel="noreferrer" class="hover:underline font-semibold">aescalante.dev</a>
+                <span class="text-gold opacity-60">|</span>
+                <a href="https://linkedin.com/in/antoni-escalante" target="_blank" rel="noreferrer" class="hover:underline">linkedin.com/in/antoni-escalante</a>
+                <span class="text-gold opacity-60">|</span>
+                <a href="https://github.com/aescalantedev" target="_blank" rel="noreferrer" class="hover:underline">github.com/aescalantedev</a>
             </div>
         </header>
 
         <hr class="gold-divider" />
 
         <!-- RESUMEN -->
-        <section class="mb-4">
-            <h2 class="section-title">Resumen</h2>
-            <p class="text-[0.82rem] leading-relaxed text-justify">
-                Soy Desarrollador Full Stack especializado en ecosistemas web modernos y aplicaciones móviles de alto rendimiento. Más que escribir código, me enfoco en entender la lógica del negocio para digitalizar y automatizar procesos reales —desde sistemas de punto de venta (POS) e integraciones logísticas, hasta plataformas empresariales—. Disfruto construyendo el puente entre una experiencia de usuario fluida y atractiva en el frontend, y una arquitectura sólida y escalable en el backend.
+        <section class="mb-3.5">
+            <h2 class="section-title">Perfil Profesional</h2>
+            <p class="text-[0.81rem] leading-relaxed text-justify">
+                Desarrollador Full Stack y Mobile con más de 5 años de experiencia construyendo aplicaciones web, móviles e integraciones con ERPs. Me especializo en digitalizar y automatizar operaciones críticas de negocio —desde sistemas de control de almacén e inventarios en tiempo real, hasta terminales de punto de venta (POS) y plataformas logísticas— combinando interfaces ágiles con arquitecturas backend sólidas y escalables.
             </p>
         </section>
 
         <hr class="gold-divider" />
 
         <!-- SKILLS -->
-        <div class="grid grid-cols-2 gap-8 mb-4">
+        <div class="grid grid-cols-2 gap-10 mb-3.5">
             <section>
                 <h2 class="section-title">Frontend y Móvil</h2>
-                <div class="grid grid-cols-2 gap-y-2 text-[0.85rem]">
-                    <div>Next.js, React, Astro</div>
-                    <div>Kotlin, Compose</div>
-                    <div>SAPUI5, OpenUI5</div>
-                    <div>Flutter, Dart</div>
+                <div class="flex flex-col gap-1.5 text-[0.81rem]">
+                    <div><strong class="font-semibold text-black">Web:</strong> React, Next.js, Angular, Astro, Vite</div>
+                    <div><strong class="font-semibold text-black">UI & Lenguajes:</strong> TypeScript, Tailwind CSS, SAPUI5</div>
+                    <div><strong class="font-semibold text-black">Móvil:</strong> Kotlin, Jetpack Compose, Flutter, Dart</div>
                 </div>
             </section>
             <section>
-                <h2 class="section-title">Backend, BD e Infra</h2>
-                <div class="grid grid-cols-2 gap-y-2 text-[0.85rem]">
-                    <div>ASP.NET, C#</div>
-                    <div>PostgreSQL, SQL Server</div>
-                    <div>Python, Node.js</div>
-                    <div>Docker, OData v4</div>
+                <h2 class="section-title">Backend, BD e Integraciones</h2>
+                <div class="flex flex-col gap-1.5 text-[0.81rem]">
+                    <div><strong class="font-semibold text-black">Backend:</strong> C#, ASP.NET, Node.js, Python</div>
+                    <div><strong class="font-semibold text-black">Bases de Datos:</strong> PostgreSQL, SQL Server, Supabase</div>
+                    <div><strong class="font-semibold text-black">Infra & ERP:</strong> Docker, Git, REST APIs, OData, SAP B1</div>
                 </div>
             </section>
         </div>
 
         <hr class="gold-divider" />
 
-        <!-- EDUCACIÓN -->
-        <section class="mb-4">
-            <h2 class="section-title">Educación</h2>
-            
-            <div class="mb-2 flex justify-between items-baseline">
-                <div>
-                    <h3 class="job-title">Educación Técnica/ Tec. en Sistemas</h3>
-                    <p class="text-[0.82rem] mt-0.5">SENATI - Lima/Callao</p>
-                </div>
-                <span class="job-date">2017 – 2020</span>
-            </div>
-
-            <div class="flex justify-between items-baseline">
-                <div>
-                    <h3 class="job-title">Educación Secundaria</h3>
-                    <p class="text-[0.82rem] mt-0.5">Nuestra Señora de la Asunción - Chilca</p>
-                </div>
-                <span class="job-date">2012 – 2016</span>
-            </div>
-        </section>
-
-        <hr class="gold-divider" />
-
         <!-- EXPERIENCIA LABORAL -->
-        <section>
-            <h2 class="section-title mb-4">Experiencia Laboral</h2>
+        <section class="mb-3.5">
+            <h2 class="section-title mb-3">Experiencia Laboral</h2>
 
-            <!-- 1. JRM SAC (Nueva Experiencia) -->
-            <div class="mb-4">
+            <!-- 1. JRM SAC -->
+            <div class="mb-3.5">
                 <div class="flex justify-between items-baseline">
                     <h3 class="job-title">Analista Programador / Automatización de Almacén</h3>
-                    <span class="job-date">Julio, 2026 – Presente</span>
+                    <span class="job-date">Julio, 2026 – Octubre, 2026</span>
                 </div>
-                <p class="job-company">ESTANTERIAS METALICAS JRM SAC.</p>
+                <p class="job-company">ESTANTERIAS METALICAS JRM SAC</p>
                 <ul class="bullet-list">
-                    <li>Desarrolló un sistema web para el control de flejes en tiempo real (TypeScript, Vite, Supabase, PostgreSQL) con mapeo 3D, reduciendo el tiempo operativo de ingresos y salidas en más de un 80% (de medio día a 30-60 minutos).</li>
-                    <li>Construyó herramientas de automatización logística integradas al ERP Flex Line (SQL Server) usando VB6, Excel y Python, permitiendo la actualización de stock de materia prima y conciliación de herramientas a un solo clic.</li>
-                    <li>Analizó los flujos operativos físicos del almacén (recepción, inventario, despacho), eliminando cuellos de botella del registro manual en papel para optimizar la trazabilidad de los activos.</li>
+                    <li>Desarrollé un sistema web para el control de flejes en tiempo real (React, TypeScript, Vite, Supabase, PostgreSQL) con mapeo 3D, reduciendo el tiempo operativo de ingresos y salidas en más de un 80% (de medio día a 30–60 minutos).</li>
+                    <li>Construí herramientas de automatización logística integradas al ERP Flexline (SQL Server) usando VB6, Excel y Python, permitiendo la actualización de stock de materia prima y conciliación de herramientas a un solo clic.</li>
+                    <li>Analicé y digitalicé los flujos operativos físicos del almacén (recepción, inventario y despacho), eliminando cuellos de botella del registro manual en papel para optimizar la trazabilidad de los activos.</li>
                 </ul>
             </div>
 
-            <!-- 2. FREELANCE (Actualizado) -->
-            <div class="mb-4">
+            <!-- 2. FREELANCE -->
+            <div class="mb-3.5">
                 <div class="flex justify-between items-baseline mb-1">
-                    <h3 class="job-title">Desarrollador de Software Freelance</h3>
-                    <!-- Cambio: Tiempo completo y parcial agregado -->
-                    <span class="job-date">Julio, 2023 – Junio, 2026 (Tiempo completo y parcial)</span>
+                    <h3 class="job-title">Desarrollador de Software Full Stack & Mobile (Freelance)</h3>
+                    <span class="job-date">Julio, 2023 – Presente (Tiempo completo y parcial)</span>
                 </div>
                 <ul class="bullet-list">
-                    <li>B1 Route: Frontend web (OpenUI5/OData v4/Mapbox GL) y app Android nativa para conductores (Kotlin/Compose/Mapbox Navigation/Canvas).</li>
-                    <li>Kioskos Bartech (Chile): App de autoservicio (Flutter/BLoC) integrada con terminales GetNet POS e impresoras térmicas.</li>
-                    <li>POS Ventas (Chile): App nativa Android (Kotlin) de alto rendimiento para ventas en dispositivos de pago POS.</li>
-                    <li>Arcons: Desarrollo de 4 aplicativos móviles (Fintech y EdTech) en Flutter/Dart con bases de datos SQLite.</li>
+                    <li><strong>B1 Route:</strong> Desarrollé una plataforma logística con panel web (SAPUI5, OData v4, Mapbox GL) y app Android nativa para conductores (Kotlin, Jetpack Compose, Room) con rastreo en tiempo real y soporte offline.</li>
+                    <li><strong>Kioskos Bartech (Chile):</strong> Construí aplicaciones de autoservicio en Flutter (BLoC) integradas con terminales de pago GetNet POS e impresoras térmicas.</li>
+                    <li><strong>POS Ventas (Chile):</strong> Implementé una aplicación Android nativa (Kotlin) de alto rendimiento para cobros y facturación en dispositivos POS.</li>
+                    <li><strong>Arcons:</strong> Diseñé y publiqué 4 aplicaciones móviles corporativas (Fintech y EdTech) en Google Play Store usando Flutter, Dart, SQLite y APIs REST.</li>
                 </ul>
             </div>
 
             <!-- 3. FIBRAFIL SAC -->
-            <div class="mb-4">
+            <div class="mb-3.5">
                 <div class="flex justify-between items-baseline">
                     <h3 class="job-title">Programador / Desarrollador de Software</h3>
                     <span class="job-date">Marzo, 2025 – Octubre, 2025</span>
                 </div>
                 <p class="job-company">Fibrafil SAC</p>
                 <ul class="bullet-list">
-                    <li>Ascendido a Sistemas tras optimizar procesos de despacho y corregir fallas en el software de planta.</li>
-                    <li>App Almacén: App Handheld Android para control de inventarios con Kotlin, Jetpack Compose, Retrofit y Dagger Hilt.</li>
-                    <li>Asistencia: Sistema web (Angular 18, C#, SQL Server) integrado con ZKTeco BioTime, planillas Scire v4 y SAP B1.</li>
+                    <li>Fui promovido al área de Sistemas tras optimizar los procesos de despacho y solucionar fallas críticas en el software de planta.</li>
+                    <li>Desarrollé una aplicación Android para terminales Handheld (Kotlin, Jetpack Compose, Retrofit y Dagger Hilt) para agilizar el control de inventarios en almacén.</li>
+                    <li>Construí un sistema web de control de asistencia (Angular 18, C#, SQL Server) integrado con equipos biométricos ZKTeco BioTime, planillas Scire v4 y SAP Business One.</li>
                 </ul>
             </div>
 
             <!-- 4. SCIMIC -->
             <div>
                 <div class="flex justify-between items-baseline">
-                    <h3 class="job-title">Programador/ Desarrollador de Software</h3>
+                    <h3 class="job-title">Programador / Desarrollador de Software</h3>
                     <span class="job-date">Marzo, 2019 – Noviembre, 2021</span>
                 </div>
                 <p class="job-company">Scimic Technologies SAC</p>
                 <ul class="bullet-list">
-                    <li>Desarrollo de API de consulta integrada con la SUNAT para obtención automatizada de datos mediante RUC.</li>
-                    <li>Diseño e implementación de aplicación Android nativa con lectura de códigos RFID.</li>
-                    <li>Desarrollo de la página web corporativa posperu.com.</li>
-                    <li>Soporte a software de control de asistencia biométrico y documentación técnica.</li>
+                    <li>Desarrollé una API de consulta integrada con SUNAT para la validación y extracción automatizada de datos tributarios mediante RUC.</li>
+                    <li>Diseñé e implementé una aplicación Android nativa con integración de lectores RFID para control de activos.</li>
+                    <li>Desarrollé la página web corporativa (posperu.com) y brindé soporte evolutivo a software de control de asistencia biométrico.</li>
                 </ul>
             </div>
+        </section>
 
+        <hr class="gold-divider" />
+
+        <!-- EDUCACIÓN -->
+        <section>
+            <h2 class="section-title mb-2">Educación</h2>
+            <div class="flex justify-between items-baseline">
+                <div>
+                    <h3 class="job-title">Educación Superior Técnica – Computación e Informática (Téc. en Sistemas)</h3>
+                    <p class="text-[0.81rem] mt-0.5">SENATI – Lima / Callao</p>
+                </div>
+                <span class="job-date">2017 – 2020</span>
+            </div>
         </section>
     </div>
 

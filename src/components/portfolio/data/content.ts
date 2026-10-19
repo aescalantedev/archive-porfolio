@@ -144,7 +144,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           id: "02",
           title: "JRM Flejes",
           desc: "An inventory tool made for a steel plant. It helps operators track heavy steel coils, know exactly where they are stacked, and manage daily shipments without relying on spreadsheets.",
-          stack: ["React", "Tailwind CSS", "Supabase", "PostgreSQL"],
+          stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL"],
           role: "Full-Stack Developer",
           challenges: "The factory has areas with poor Wi-Fi. The biggest challenge was making sure the app could save changes offline and sync them back to the server automatically once the connection returned.",
           deployment: "Web App // Used in production",
@@ -152,14 +152,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             {
               label: "Desktop",
               desc: "A visual map of the factory where managers can see how many steel coils are in each tower and track operator activity in real-time.",
-              stack: ["React", "Supabase", "PostgreSQL"],
+              stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
               image: "/images/jrm/desktop.png"
             },
             {
               label: "Mobile",
               desc: "A mobile-friendly version for workers on the floor to quickly scan or register coil movements and take photo evidence right from their phones.",
-              stack: ["React", "Supabase Storage", "React Query"],
+              stack: ["React", "TypeScript", "Supabase Storage", "React Query"],
               mockup: "mobile",
               image: "/images/jrm/mobile.png"
             }
@@ -269,10 +269,10 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
     infra: {
       title: "TOOLS & TECH",
       categories: [
-        { name: "Frontend", tools: "React, Next.js, Astro, Tailwind CSS, SAPUI5" },
-        { name: "Backend", tools: "Node.js, Python, ASP.NET, Supabase" },
-        { name: "Mobile", tools: "Flutter, Kotlin, Android" },
-        { name: "Databases & DevOps", tools: "PostgreSQL, SQLite, Docker, Git" }
+        { name: "Frontend", tools: "React, Next.js, Angular, Astro, Vite, TypeScript, Tailwind CSS, SAPUI5" },
+        { name: "Backend", tools: "ASP.NET, C#, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
+        { name: "Mobile", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Android" },
+        { name: "Databases & DevOps", tools: "PostgreSQL, SQL Server, SQLite, Docker, Git" }
       ]
     },
     contact: {
@@ -352,7 +352,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           id: "02",
           title: "JRM Flejes",
           desc: "Una herramienta de inventario creada para una planta de acero. Ayuda a los operadores a registrar enormes bobinas de acero, saber exactamente en qué torre están apiladas y gestionar despachos sin usar hojas de Excel.",
-          stack: ["React", "Tailwind CSS", "Supabase", "PostgreSQL"],
+          stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL"],
           role: "Desarrollador Full-Stack",
           challenges: "La fábrica tiene zonas con mala señal de Wi-Fi. El mayor desafío fue lograr que la app guardara los cambios sin internet y los sincronizara automáticamente al recuperar la conexión.",
           deployment: "App Web // En producción",
@@ -360,14 +360,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
             {
               label: "Escritorio",
               desc: "Un mapa visual de la fábrica donde los gerentes pueden ver cuántas bobinas hay en cada torre y monitorear la actividad en tiempo real.",
-              stack: ["React", "Supabase", "PostgreSQL"],
+              stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
               image: "/images/jrm/desktop.png"
             },
             {
               label: "Móvil",
               desc: "Una versión móvil para que los trabajadores en planta puedan escanear movimientos de bobinas y tomar fotos de evidencia desde su teléfono.",
-              stack: ["React", "Supabase Storage", "React Query"],
+              stack: ["React", "TypeScript", "Supabase Storage", "React Query"],
               mockup: "mobile",
               image: "/images/jrm/mobile.png"
             }
@@ -477,10 +477,10 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
     infra: {
       title: "TECNOLOGÍAS",
       categories: [
-        { name: "Frontend", tools: "React, Next.js, Astro, Tailwind CSS, SAPUI5" },
-        { name: "Backend", tools: "Node.js, Python, ASP.NET, Supabase" },
-        { name: "Móvil", tools: "Flutter, Kotlin, Android" },
-        { name: "Bases de Datos e Infra", tools: "PostgreSQL, SQLite, Docker, Git" }
+        { name: "Frontend", tools: "React, Next.js, Angular, Astro, Vite, TypeScript, Tailwind CSS, SAPUI5" },
+        { name: "Backend", tools: "ASP.NET, C#, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
+        { name: "Móvil", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Android" },
+        { name: "Bases de Datos e Infra", tools: "PostgreSQL, SQL Server, SQLite, Docker, Git" }
       ]
     },
     contact: {
