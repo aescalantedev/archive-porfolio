@@ -102,6 +102,46 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       subtitle: "A selection of tools and applications I've built to solve specific challenges.",
       projects: [
         {
+          id: "07",
+          title: "Tenyo (天与)",
+          desc: "An intelligent fitness and workout companion app built natively in Kotlin with Jetpack Compose. Features over 1,300 guided exercises for home or gym, interactive 2D anatomical muscle selection powered by Rive, customized routine building, and an offline-first architecture with zero mandatory signups.",
+          stack: ["Kotlin", "Jetpack Compose", "Rive", "Room SQLite", "Koin", "Navigation 3"],
+          image: "/images/tenyo/feature-graphic.png",
+          images: [
+            "/images/tenyo/01_mapa_muscular_rive.png",
+            "/images/tenyo/02_catalogo_ejercicios.png",
+            "/images/tenyo/03_detalle_biomecanica.png",
+            "/images/tenyo/04_rutinas_protocolos.png",
+            "/images/tenyo/05_dashboard_offline.png"
+          ],
+          role: "Lead Android & Systems Developer",
+          challenges: "Integrating real-time Rive state machines with Jetpack Compose for the interactive Toji & Maki 2D body maps, while indexing over 1,300 exercises and anatomical data locally for instant, 100% offline querying.",
+          deployment: "Android (SDK 27 - 37) & Web Landing",
+          platforms: [
+            {
+              label: "Android App",
+              desc: "Full-featured offline-first fitness application with interactive muscle picker, step-by-step exercise guides, rest timer, and weekly volume tracking.",
+              stack: ["Kotlin 2.0+", "Jetpack Compose", "Navigation 3", "Room", "Koin", "Rive"],
+              mockup: "android",
+              image: "/images/tenyo/feature-graphic.png",
+              images: [
+                "/images/tenyo/01_mapa_muscular_rive.png",
+                "/images/tenyo/02_catalogo_ejercicios.png",
+                "/images/tenyo/03_detalle_biomecanica.png",
+                "/images/tenyo/04_rutinas_protocolos.png",
+                "/images/tenyo/05_dashboard_offline.png"
+              ],
+              layout: "side-by-side",
+              links: [
+                { label: "Live Web", url: "https://tenyo.aescalante.dev/" }
+              ]
+            }
+          ],
+          links: [
+            { label: "Live Web", url: "https://tenyo.aescalante.dev/" }
+          ]
+        },
+        {
           id: "01",
           title: "B1 Route",
           desc: "A logistics system for large-scale fleet management. It connects drivers on the road with administrators in the office, making package delivery and route tracking much simpler and more organized.",
@@ -309,6 +349,46 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       title: "MIS PROYECTOS",
       subtitle: "Una selección de aplicaciones y herramientas que he construido para resolver problemas específicos.",
       projects: [
+        {
+          id: "07",
+          title: "Tenyo (天与)",
+          desc: "Aplicación de entrenamiento y fitness desarrollada nativamente en Kotlin y Jetpack Compose. Cuenta con un catálogo de más de 1,300 ejercicios guiados para casa o gimnasio, selector corporal interactivo 2D con Rive, creador de rutinas personalizadas y arquitectura 100% offline-first sin registros obligatorios.",
+          stack: ["Kotlin", "Jetpack Compose", "Rive", "Room SQLite", "Koin", "Navigation 3"],
+          image: "/images/tenyo/feature-graphic.png",
+          images: [
+            "/images/tenyo/01_mapa_muscular_rive.png",
+            "/images/tenyo/02_catalogo_ejercicios.png",
+            "/images/tenyo/03_detalle_biomecanica.png",
+            "/images/tenyo/04_rutinas_protocolos.png",
+            "/images/tenyo/05_dashboard_offline.png"
+          ],
+          role: "Desarrollador Android Principal",
+          challenges: "Conectar las máquinas de estado de Rive 2D en tiempo real con ViewModels en Compose para el mapa anatómico interactivo, optimizando consultas a Room SQLite para navegar instantáneamente por más de 1,300 ejercicios sin conexión a internet.",
+          deployment: "Android (SDK 27 - 37) y Web Landing",
+          platforms: [
+            {
+              label: "App Android",
+              desc: "Aplicación nativa de alto rendimiento con mapa anatómico interactivo, guías biomecánicas paso a paso, cronómetro de descanso y registro de volumen de entrenamiento.",
+              stack: ["Kotlin 2.0+", "Jetpack Compose", "Navigation 3", "Room", "Koin", "Rive"],
+              mockup: "android",
+              image: "/images/tenyo/feature-graphic.png",
+              images: [
+                "/images/tenyo/01_mapa_muscular_rive.png",
+                "/images/tenyo/02_catalogo_ejercicios.png",
+                "/images/tenyo/03_detalle_biomecanica.png",
+                "/images/tenyo/04_rutinas_protocolos.png",
+                "/images/tenyo/05_dashboard_offline.png"
+              ],
+              layout: "side-by-side",
+              links: [
+                { label: "Sitio Web Oficial", url: "https://tenyo.aescalante.dev/" }
+              ]
+            }
+          ],
+          links: [
+            { label: "Ver Proyecto", url: "https://tenyo.aescalante.dev/" }
+          ]
+        },
         {
           id: "01",
           title: "B1 Route",

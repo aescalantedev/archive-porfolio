@@ -29,6 +29,9 @@ const iconMap: Record<string, string> = {
   'kotlin': 'kotlin',
   'jetpack compose': 'jetpackcompose',
   'android': 'android',
+  'rive': 'rive',
+  'room sqlite': 'sqlite',
+  'room': 'sqlite',
   // Databases / Infra
   'postgresql': 'postgresql',
   'sql server': 'microsoftsqlserver',
