@@ -12,6 +12,7 @@ interface PostData {
   description: string;
   pubDate: string;
   tags: string[];
+  image?: string;
   lang: string;
 }
 
@@ -81,65 +82,96 @@ const BlogIndexContent: React.FC<BlogIndexProps> = ({ posts }) => {
             </p>
           </div>
 
-          {/* Posts Feed */}
-          <div className="flex flex-col gap-8 mb-16">
+          {/* Posts Grid (2 Columns on Desktop/Tablet) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
             {filteredPosts.length > 0 ? (
               filteredPosts.map((post) => (
                 <article 
                   key={post.slug}
-                  className="group relative border border-border-custom/50 bg-bg-secondary/20 rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-accent/40 transition-all duration-300 glass-panel flex flex-col justify-between"
+                  className="group relative border border-border-custom/50 bg-bg-secondary/20 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 hover:border-accent/40 transition-all duration-300 glass-panel flex flex-col justify-between h-full"
                 >
-                  <div>
-                    {/* Date and language info */}
-                    <div className="flex items-center justify-between mb-4 border-b border-border-custom/20 pb-3">
-                      <time 
-                        dateTime={post.pubDate} 
-                        className="font-mono text-[10px] tracking-widest text-accent font-semibold"
-                      >
-                        {formatDate(post.pubDate).toUpperCase()}
-                      </time>
-                      <span className="font-mono text-[9px] tracking-widest bg-bg-secondary px-2 py-0.5 border border-border-custom/30 text-text-secondary rounded-sm">
-                        {post.lang.toUpperCase()}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-heading font-extrabold text-2xl md:text-3xl tracking-tight text-text-primary group-hover:text-accent transition-colors duration-200 mb-3 uppercase">
-                      <a href={`/blog/${post.slug}`} className="cursor-pointer focus:outline-none">
-                        {post.title}
-                      </a>
-                    </h3>
-
-                    {/* Description */}
-                    <p className="font-sans text-xs md:text-sm text-text-secondary leading-relaxed mb-6">
-                      {post.description}
-                    </p>
-                  </div>
-
-                  {/* Footer metadata */}
-                  <div className="flex flex-wrap items-center justify-between border-t border-border-custom/20 pt-4 mt-4 gap-4">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {post.tags.map((tag) => (
-                        <span 
-                          key={tag}
-                          className="font-mono text-[8px] md:text-[9px] tracking-wider text-text-secondary bg-bg-secondary/80 px-2 py-0.5 border border-border-custom/25 rounded-sm"
-                        >
-                          #{tag.toUpperCase()}
+                  {/* Top Cover Image or Minimalist Architectural Banner */}
+                  <a href={`/blog/${post.slug}`} className="block w-full h-48 lg:h-52 bg-bg-secondary relative overflow-hidden border-b border-border-custom/30">
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-accent/15 via-bg-secondary to-bg-primary p-6 text-center">
+                        <span className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase font-bold mb-2">
+                          SYSTEM ARCHITECTURE
                         </span>
-                      ))}
+                        <span className="font-heading font-black text-2xl text-text-primary/20 uppercase tracking-widest">
+                          MANIFESTO
+                        </span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute top-3 right-3 font-mono text-[9px] tracking-widest bg-bg-primary/90 backdrop-blur-md px-2.5 py-1 border border-border-custom/40 text-text-primary rounded-md font-bold shadow-sm">
+                      {post.lang.toUpperCase()}
+                    </span>
+                  </a>
+
+                  {/* Card Body */}
+                  <div className="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                      {/* Date */}
+                      <div className="flex items-center justify-between mb-3">
+                        <time 
+                          dateTime={post.pubDate} 
+                          className="font-mono text-[10px] tracking-widest text-accent font-semibold"
+                        >
+                          {formatDate(post.pubDate).toUpperCase()}
+                        </time>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="font-heading font-extrabold text-xl lg:text-2xl tracking-tight text-text-primary group-hover:text-accent transition-colors duration-200 mb-3 uppercase line-clamp-2">
+                        <a href={`/blog/${post.slug}`} className="cursor-pointer focus:outline-none">
+                          {post.title}
+                        </a>
+                      </h3>
+
+                      {/* Description */}
+                      <p className="font-sans text-xs md:text-sm text-text-secondary leading-relaxed mb-6 line-clamp-3">
+                        {post.description}
+                      </p>
                     </div>
 
-                    {/* Action button */}
-                    <a
-                      href={`/blog/${post.slug}`}
-                      className="font-mono text-[10px] tracking-widest text-text-primary hover:text-accent flex items-center gap-1.5 transition-all duration-200 group-hover:translate-x-1.5 cursor-pointer font-bold"
-                    >
-                      {lang === 'es' ? 'LEER ARTÍCULO' : 'READ ARTICLE'}
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </a>
+                    {/* Footer metadata */}
+                    <div className="flex flex-wrap items-center justify-between border-t border-border-custom/20 pt-4 mt-auto gap-3">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <span 
+                            key={tag}
+                            className="font-mono text-[8px] md:text-[9px] tracking-wider text-text-secondary bg-bg-secondary/80 px-2 py-0.5 border border-border-custom/25 rounded-sm"
+                          >
+                            #{tag.toUpperCase()}
+                          </span>
+                        ))}
+                        {post.tags.length > 3 && (
+                          <span className="font-mono text-[8px] md:text-[9px] tracking-wider text-accent bg-accent/10 px-2 py-0.5 border border-accent/20 rounded-sm font-bold">
+                            +{post.tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Action button */}
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="font-mono text-[10px] tracking-widest text-text-primary hover:text-accent flex items-center gap-1.5 transition-all duration-200 group-hover:translate-x-1 cursor-pointer font-bold shrink-0"
+                      >
+                        {lang === 'es' ? 'LEER' : 'READ'}
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </article>
               ))

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
 import AmbientBackground from '../layout/AmbientBackground';
 import BackgroundCanvas from '../layout/BackgroundCanvas';
@@ -8,6 +8,8 @@ import { useLenis } from '../hooks/useLenis';
 
 interface BlogPostLayoutProps {
   children: React.ReactNode;
+  slug?: string;
+  postLang?: 'en' | 'es';
   pubDate: string;
   title: string;
   description: string;
@@ -16,6 +18,8 @@ interface BlogPostLayoutProps {
 
 const BlogPostLayoutContent: React.FC<BlogPostLayoutProps> = ({
   children,
+  slug,
+  postLang,
   pubDate,
   title,
   description,
@@ -25,6 +29,23 @@ const BlogPostLayoutContent: React.FC<BlogPostLayoutProps> = ({
 
   // Initialize Lenis smooth scroll
   useLenis();
+
+  // When the user toggles language (ES <-> EN) while reading a post, navigate to the matching localized post slug
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const storedLang = (localStorage.getItem('portfolio-lang') as 'en' | 'es') || 'es';
+    if (lang !== storedLang) return;
+
+    const currentPath = window.location.pathname.replace(/\/$/, '');
+    const match = currentPath.match(/^(.*)-(es|en)$/);
+    if (match) {
+      const basePath = match[1];
+      const urlLang = match[2];
+      if (urlLang !== lang) {
+        window.location.href = `${basePath}-${lang}`;
+      }
+    }
+  }, [lang, slug, postLang]);
 
   // Format dates beautifully and deterministically to prevent hydration locale mismatch
   const formatDate = (dateStr: string) => {

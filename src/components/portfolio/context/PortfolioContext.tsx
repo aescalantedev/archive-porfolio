@@ -20,7 +20,7 @@ const PortfolioContext = createContext<PortfolioContextType | undefined>(undefin
 
 export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>('es');
   const [activeTab, setActiveTab] = useState<string>('home');
 
   // Synchronize initial state from localStorage after mount to prevent SSR hydration mismatch
@@ -108,44 +108,23 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const changeLang = (newLang: Language) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('portfolio-lang', newLang);
+    }
     setLang(newLang);
   };
 
-  // Sync theme variables on document.documentElement
+  // Sync theme class on document.documentElement (CSS variables live in global.css)
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'light') {
-      root.style.setProperty('--bg-primary', '#FFFFFF');
-      root.style.setProperty('--bg-secondary', '#FAFAFA');
-      root.style.setProperty('--text-primary', '#18181B');
-      root.style.setProperty('--text-secondary', '#71717A');
-      root.style.setProperty('--accent', '#4F46E5');
-      root.style.setProperty('--border', '#E4E4E7');
-      root.style.setProperty('--blob-1', '#c7d2fe');
-      root.style.setProperty('--blob-2', '#ddd6fe');
-      root.style.setProperty('--blob-3', '#e0e7ff');
-      root.style.setProperty('--grid-line', 'rgba(0,0,0,0.03)');
-      root.classList.remove('dark');
-    } else {
-      root.style.setProperty('--bg-primary', '#09090B');
-      root.style.setProperty('--bg-secondary', '#18181B');
-      root.style.setProperty('--text-primary', '#FAFAFA');
-      root.style.setProperty('--text-secondary', '#A1A1AA');
-      root.style.setProperty('--accent', '#6366F1');
-      root.style.setProperty('--border', '#27272A');
-      root.style.setProperty('--blob-1', '#312e81');
-      root.style.setProperty('--blob-2', '#1e1b4b');
-      root.style.setProperty('--blob-3', '#0f172a');
-      root.style.setProperty('--grid-line', 'rgba(255,255,255,0.03)');
-      root.classList.add('dark');
-    }
+    document.documentElement.classList.toggle('dark', theme === 'dark');
     if (typeof window !== 'undefined') {
       localStorage.setItem('portfolio-theme', theme);
     }
   }, [theme]);
 
-  // Sync language selection to localStorage
+  // Sync language selection to localStorage and html[lang]
   useEffect(() => {
+    document.documentElement.lang = lang;
     if (typeof window !== 'undefined') {
       localStorage.setItem('portfolio-lang', lang);
     }

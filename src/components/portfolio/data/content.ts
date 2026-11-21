@@ -34,6 +34,15 @@ export interface InfraCategory {
   tools: string;
 }
 
+export interface ArchiveProject {
+  year: string;
+  title: string;
+  category: string;
+  stack: string[];
+  role: string;
+  links: ProjectLink[];
+}
+
 export interface TranslationDictionary {
 
   hero: {
@@ -142,6 +151,25 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           ]
         },
         {
+          id: "08",
+          title: "Raven",
+          desc: "A high-performance desktop workstation designed to control, inspect, and manage Android devices from a PC. Powered by Rust, Tauri v2, and an embedded scrcpy-server + ADB engine for ultra-low latency screen streaming, automated QR Wi-Fi pairing (mDNS ZeroConf), live hardware telemetry, and APK package administration.",
+          stack: ["Rust", "Tauri v2", "React 19", "TypeScript", "scrcpy", "ADB"],
+          image: "/images/raven/dashboard.webp",
+          images: [
+            "/images/raven/dashboard.webp",
+            "/images/raven/screen-control.webp",
+            "/images/raven/applications.webp",
+            "/images/raven/captures.webp"
+          ],
+          role: "Systems & Desktop Engineer",
+          challenges: "Orchestrating asynchronous TCP socket streams and binary ADB/scrcpy-server processes in Rust (Tokio) while keeping the React 19 UI responsive with zero-friction mDNS wireless device discovery.",
+          deployment: "Windows, Linux & macOS (Tauri v2 // In active development)",
+          links: [
+            { label: "GitHub", url: "https://github.com/aescalantedev/raven" }
+          ]
+        },
+        {
           id: "01",
           title: "B1 Route",
           desc: "A logistics system for large-scale fleet management. It connects drivers on the road with administrators in the office, making package delivery and route tracking much simpler and more organized.",
@@ -194,14 +222,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               desc: "A visual map of the factory where managers can see how many steel coils are in each tower and track operator activity in real-time.",
               stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
-              image: "/images/jrm/desktop.png"
+              image: "/images/jrm/desktop.webp"
             },
             {
               label: "Mobile",
               desc: "A mobile-friendly version for workers on the floor to quickly scan or register coil movements and take photo evidence right from their phones.",
               stack: ["React", "TypeScript", "Supabase Storage", "React Query"],
               mockup: "mobile",
-              image: "/images/jrm/mobile.png"
+              image: "/images/jrm/mobile.webp"
             }
           ],
           links: [
@@ -213,7 +241,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           title: "Morph",
           desc: "A desktop app to convert images, audio, and video formats locally. It does not use the internet, meaning users can convert private or sensitive files without uploading them to a random website.",
           stack: ["Flutter", "Dart", "FFmpeg", "C++"],
-          image: "/images/morph/miniatura.png",
+          image: "/images/morph/miniatura.webp",
           video: "/videos/morph.webm",
           role: "Solo Developer",
           challenges: "I had to figure out how to process heavy video files in the background without making the app freeze, ensuring a smooth experience for the user.",
@@ -310,8 +338,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       title: "TOOLS & TECH",
       categories: [
         { name: "Frontend", tools: "React, Next.js, Angular, Astro, Vite, TypeScript, Tailwind CSS, SAPUI5" },
-        { name: "Backend", tools: "ASP.NET, C#, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
-        { name: "Mobile", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Android" },
+        { name: "Backend", tools: "ASP.NET, C#, Rust, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
+        { name: "Mobile", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Tauri v2, Android" },
         { name: "Databases & DevOps", tools: "PostgreSQL, SQL Server, SQLite, Docker, Git" }
       ]
     },
@@ -390,6 +418,25 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           ]
         },
         {
+          id: "08",
+          title: "Raven",
+          desc: "Estación de trabajo de escritorio ligera y de alto rendimiento diseñada para controlar, inspeccionar y administrar dispositivos Android desde la PC. Integra de forma autónoma un motor en Rust + Tauri v2 con scrcpy-server y ADB para transmisión de pantalla de ultra baja latencia, vinculación inalámbrica Wi-Fi por código QR (mDNS ZeroConf), telemetría de hardware en vivo y gestión de paquetes APK.",
+          stack: ["Rust", "Tauri v2", "React 19", "TypeScript", "scrcpy", "ADB"],
+          image: "/images/raven/dashboard.webp",
+          images: [
+            "/images/raven/dashboard.webp",
+            "/images/raven/screen-control.webp",
+            "/images/raven/applications.webp",
+            "/images/raven/captures.webp"
+          ],
+          role: "Ingeniero de Sistemas y Escritorio",
+          challenges: "Orquestar sockets TCP asíncronos y procesos binarios de ADB y scrcpy-server en Rust (Tokio) manteniendo una interfaz React 19 fluida con auto-descubrimiento inalámbrico mDNS sin intervención manual.",
+          deployment: "Windows, Linux y macOS (Tauri v2 // En desarrollo activo)",
+          links: [
+            { label: "GitHub", url: "https://github.com/aescalantedev/raven" }
+          ]
+        },
+        {
           id: "01",
           title: "B1 Route",
           desc: "Un sistema de logística para gestionar flotas de entrega. Conecta a los conductores en la calle con los administradores en la oficina, haciendo que el seguimiento de rutas y entregas sea mucho más sencillo y organizado.",
@@ -442,14 +489,14 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
               desc: "Un mapa visual de la fábrica donde los gerentes pueden ver cuántas bobinas hay en cada torre y monitorear la actividad en tiempo real.",
               stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
               mockup: "dashboard",
-              image: "/images/jrm/desktop.png"
+              image: "/images/jrm/desktop.webp"
             },
             {
               label: "Móvil",
               desc: "Una versión móvil para que los trabajadores en planta puedan escanear movimientos de bobinas y tomar fotos de evidencia desde su teléfono.",
               stack: ["React", "TypeScript", "Supabase Storage", "React Query"],
               mockup: "mobile",
-              image: "/images/jrm/mobile.png"
+              image: "/images/jrm/mobile.webp"
             }
           ],
           links: [
@@ -461,7 +508,7 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
           title: "Morph",
           desc: "Un programa de escritorio para convertir imágenes, audio y video localmente. Funciona sin internet, lo que significa que puedes convertir archivos privados sin tener que subirlos a páginas de terceros.",
           stack: ["Flutter", "Dart", "FFmpeg", "C++"],
-          image: "/images/morph/miniatura.png",
+          image: "/images/morph/miniatura.webp",
           video: "/videos/morph.webm",
           role: "Desarrollador Único",
           challenges: "Tuve que idear cómo procesar videos pesados de fondo sin que el programa se congelara, asegurando que la interfaz siempre se sintiera fluida.",
@@ -558,8 +605,8 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       title: "TECNOLOGÍAS",
       categories: [
         { name: "Frontend", tools: "React, Next.js, Angular, Astro, Vite, TypeScript, Tailwind CSS, SAPUI5" },
-        { name: "Backend", tools: "ASP.NET, C#, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
-        { name: "Móvil", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Android" },
+        { name: "Backend", tools: "ASP.NET, C#, Rust, Node.js, Python, Supabase, REST APIs, OData / SAP B1" },
+        { name: "Móvil", tools: "Kotlin, Jetpack Compose, Flutter, Dart, Tauri v2, Android" },
         { name: "Bases de Datos e Infra", tools: "PostgreSQL, SQL Server, SQLite, Docker, Git" }
       ]
     },
@@ -571,4 +618,139 @@ export const content: Record<'en' | 'es', TranslationDictionary> = {
       instagram: "INSTAGRAM"
     }
   }
+};
+
+export const archiveProjects: Record<'en' | 'es', ArchiveProject[]> = {
+  es: [
+    {
+      year: "2026",
+      title: "Tenyo (天与)",
+      category: "Fitness & Biomecánica Offline",
+      role: "Desarrollador Android Principal",
+      stack: ["Kotlin 2.0", "Jetpack Compose", "Rive 2D", "Room SQLite", "Koin"],
+      links: [{ label: "Sitio Oficial", url: "https://tenyo.aescalante.dev/" }]
+    },
+    {
+      year: "2026",
+      title: "Raven",
+      category: "Workstation ADB & scrcpy",
+      role: "Ingeniero de Sistemas y Escritorio",
+      stack: ["Rust", "Tauri v2", "React 19", "TypeScript", "scrcpy-server", "ADB"],
+      links: [{ label: "Caso de Estudio", url: "/project/08" }]
+    },
+    {
+      year: "2026",
+      title: "JRM Flejes",
+      category: "Automatización Industrial",
+      role: "Desarrollador Full-Stack",
+      stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
+      links: [{ label: "Sitio Web", url: "https://frm-flejes.aescalante.dev/" }]
+    },
+    {
+      year: "2025",
+      title: "B1 Route",
+      category: "Logística y Transporte",
+      role: "Arquitecto Principal — Web y Móvil",
+      stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
+      links: [{ label: "Caso de Estudio", url: "/project/01" }]
+    },
+    {
+      year: "2024",
+      title: "Arcons Billetera",
+      category: "Fintech Móvil",
+      role: "Ingeniero Flutter",
+      stack: ["Flutter", "Dart", "SQLite", "Firebase"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
+    },
+    {
+      year: "2023",
+      title: "Colegio Contabilidad",
+      category: "EdTech Móvil",
+      role: "Ingeniero Móvil",
+      stack: ["Flutter", "SQLite", "Node.js"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
+    },
+    {
+      year: "2023",
+      title: "Arcons App (Portal Principal)",
+      category: "Portal Móvil",
+      role: "Desarrollador Flutter",
+      stack: ["Flutter", "Dart", "APIs REST"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
+    },
+    {
+      year: "2023",
+      title: "Arcons Company",
+      category: "Herramienta Corporativa",
+      role: "Desarrollador Flutter",
+      stack: ["Flutter", "Dart", "Sincronización"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
+    }
+  ],
+  en: [
+    {
+      year: "2026",
+      title: "Tenyo (天与)",
+      category: "Offline Fitness & Biomechanics",
+      role: "Lead Android Developer",
+      stack: ["Kotlin 2.0", "Jetpack Compose", "Rive 2D", "Room SQLite", "Koin"],
+      links: [{ label: "Official Site", url: "https://tenyo.aescalante.dev/" }]
+    },
+    {
+      year: "2026",
+      title: "Raven",
+      category: "ADB & scrcpy Desktop Workstation",
+      role: "Systems & Desktop Engineer",
+      stack: ["Rust", "Tauri v2", "React 19", "TypeScript", "scrcpy-server", "ADB"],
+      links: [{ label: "Case Study", url: "/project/08" }]
+    },
+    {
+      year: "2026",
+      title: "JRM Flejes",
+      category: "Industrial Warehouse Automation",
+      role: "Full-Stack Developer",
+      stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL"],
+      links: [{ label: "Live Site", url: "https://frm-flejes.aescalante.dev/" }]
+    },
+    {
+      year: "2025",
+      title: "B1 Route",
+      category: "Enterprise Logistics",
+      role: "Lead Architect — Web & Mobile",
+      stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
+      links: [{ label: "Case Study", url: "/project/01" }]
+    },
+    {
+      year: "2024",
+      title: "Arcons Billetera",
+      category: "Mobile Fintech",
+      role: "Flutter Engineer",
+      stack: ["Flutter", "Dart", "SQLite", "Firebase"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
+    },
+    {
+      year: "2023",
+      title: "Colegio Contabilidad",
+      category: "Mobile EdTech",
+      role: "Mobile Engineer",
+      stack: ["Flutter", "SQLite", "Node.js"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
+    },
+    {
+      year: "2023",
+      title: "Arcons App (Main Portal)",
+      category: "Mobile Hub",
+      role: "Flutter Developer",
+      stack: ["Flutter", "Dart", "REST APIs"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
+    },
+    {
+      year: "2023",
+      title: "Arcons Company",
+      category: "Corporate Tool",
+      role: "Flutter Developer",
+      stack: ["Flutter", "Dart", "Data Sync"],
+      links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
+    }
+  ]
 };

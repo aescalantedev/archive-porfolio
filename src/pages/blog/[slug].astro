@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import BlogPostLayout from '../../components/portfolio/blog/BlogPostLayout';
+import { getBlogPostingSchema } from '../../components/portfolio/data/siteConfig';
 
 // Dynamic route calculation for all available collection posts
 export async function getStaticPaths() {
@@ -14,14 +15,27 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const blogSchema = getBlogPostingSchema({
+  slug: entry.id,
+  title: entry.data.title,
+  description: entry.data.description,
+  pubDate: entry.data.pubDate.toISOString(),
+  tags: entry.data.tags,
+  lang: entry.data.lang,
+});
 ---
 
 <Layout 
   title={`${entry.data.title} // Manifesto // Antoni Escalante`} 
   description={entry.data.description}
+  image={entry.data.image}
+  type="article"
+  schema={blogSchema}
 >
   <BlogPostLayout 
     client:load 
+    slug={entry.id}
+    postLang={entry.data.lang}
     title={entry.data.title}
     description={entry.data.description}
     pubDate={entry.data.pubDate.toISOString()}
@@ -33,6 +47,15 @@ const { Content } = await render(entry);
 
 <style is:global>
   /* Custom technical markdown layout styling */
+  .prose-custom img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.25);
+    display: block;
+  }
   .prose-custom h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.8rem;

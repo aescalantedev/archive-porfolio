@@ -20,6 +20,7 @@ const iconMap: Record<string, string> = {
   // Backend
   'asp.net': 'dotnet',
   'c#': 'dotnet',
+  'rust': 'rust',
   'python': 'python',
   'node.js': 'nodedotjs',
   'fastapi': 'fastapi',
@@ -28,6 +29,7 @@ const iconMap: Record<string, string> = {
   'flutter': 'flutter',
   'kotlin': 'kotlin',
   'jetpack compose': 'jetpackcompose',
+  'tauri v2': 'tauri',
   'android': 'android',
   'rive': 'rive',
   'room sqlite': 'sqlite',

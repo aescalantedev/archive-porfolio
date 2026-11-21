@@ -1,5 +1,6 @@
 ﻿---
 import { content } from '../../components/portfolio/data/content';
+import { getProjectSchema } from '../../components/portfolio/data/siteConfig';
 import Layout from '../../layouts/Layout.astro';
 import type { Project } from '../../components/portfolio/data/content';
 
@@ -58,6 +59,9 @@ const iconMap: Record<string, string> = {
   'typescript': 'typescript',
   'javascript': 'javascript',
   'dart': 'dart',
+  'rust': 'rust',
+  'tauri v2': 'tauri',
+  'react 19': 'react',
 };
 
 const getIcon = (tech: string) => {
@@ -66,9 +70,16 @@ const getIcon = (tech: string) => {
   if (!slug) return null;
   return `https://cdn.simpleicons.org/${slug}/currentColor`;
 };
+
+const projectSchema = getProjectSchema(project);
 ---
 
-<Layout title={`${project.title} - Antoni Escalante // Portfolio`}>
+<Layout 
+  title={`${project.title} - Antoni Escalante // Portfolio`}
+  description={project.desc}
+  image={heroImage}
+  schema={projectSchema}
+>
   <div class="bg-bg-primary text-text-primary antialiased min-h-screen flex flex-col relative transition-colors duration-300">
     
     {/* ─── DESKTOP TOP BAR (lg:flex) ─── */}

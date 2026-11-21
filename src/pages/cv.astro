@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import { siteConfig, getPersonSchema } from '../components/portfolio/data/siteConfig';
+
+const cvSchema = getPersonSchema();
 ---
 
 <!DOCTYPE html>
@@ -7,7 +10,16 @@ import '../styles/global.css';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Antoni Escalante</title>
+    <title>CV - Antoni Escalante // Desarrollador Full Stack & Mobile</title>
+    <meta name="description" content="Currículum Vitae de Antoni Escalante: Desarrollador Full Stack y Mobile (+5 años exp.) en React, Next.js, Angular, Kotlin, Jetpack Compose, Flutter, C#, ASP.NET, Python, PostgreSQL y SQL Server." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={`${siteConfig.siteUrl}/cv`} />
+    <meta property="og:title" content="CV - Antoni Escalante // Desarrollador Full Stack & Mobile" />
+    <meta property="og:description" content="Currículum Vitae de Antoni Escalante: Desarrollador Full Stack y Mobile (+5 años exp.)." />
+    <meta property="og:url" content={`${siteConfig.siteUrl}/cv`} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:image" content={siteConfig.defaultSeo.ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(cvSchema)} />
     <!-- Usamos la tipografía Inter (o similar) para imitar el diseño limpio del PDF -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

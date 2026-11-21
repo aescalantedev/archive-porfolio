@@ -1,19 +1,12 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PortfolioProvider, usePortfolio } from '../context/PortfolioContext';
+import { archiveProjects } from '../data/content';
+import type { ArchiveProject } from '../data/content';
 import AmbientBackground from '../layout/AmbientBackground';
 import BackgroundCanvas from '../layout/BackgroundCanvas';
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 import { useLenis } from '../hooks/useLenis';
-
-interface ArchiveProject {
-  year: string;
-  title: string;
-  category: string;
-  stack: string[];
-  role: string;
-  links: { label: string; url: string }[];
-}
 
 // Inner component which consumes the portfolio context safely
 const ArchiveIndexContent: React.FC = () => {
@@ -61,96 +54,9 @@ const ArchiveIndexContent: React.FC = () => {
       });
   }, [page]);
 
-  // Structured multi-lingual list of static Play Store mobile apps
+  // Consume multi-lingual list of static projects from the centralized data layer
   const staticProjects = useMemo<ArchiveProject[]>(() => {
-    if (lang === 'es') {
-      return [
-        {
-          year: "2025",
-          title: "B1 Route",
-          category: "Logística y Transporte",
-          role: "Arquitecto Principal — Web y Móvil",
-          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
-          links: [{ label: "Caso de Estudio", url: "/#works" }]
-        },
-        {
-          year: "2024",
-          title: "Arcons Billetera",
-          category: "Fintech Móvil",
-          role: "Ingeniero Flutter",
-          stack: ["Flutter", "Dart", "SQLite", "Firebase"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
-        },
-        {
-          year: "2023",
-          title: "Colegio Contabilidad",
-          category: "EdTech Móvil",
-          role: "Ingeniero Móvil",
-          stack: ["Flutter", "SQLite", "Node.js"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
-        },
-        {
-          year: "2023",
-          title: "Arcons App (Portal Principal)",
-          category: "Portal Móvil",
-          role: "Desarrollador Flutter",
-          stack: ["Flutter", "Dart", "APIs REST"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
-        },
-        {
-          year: "2023",
-          title: "Arcons Company",
-          category: "Herramienta Corporativa",
-          role: "Desarrollador Flutter",
-          stack: ["Flutter", "Dart", "Sincronización"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
-        }
-      ];
-    } else {
-      // Default English
-      return [
-        {
-          year: "2025",
-          title: "B1 Route",
-          category: "Enterprise Logistics",
-          role: "Lead Architect — Web & Mobile",
-          stack: ["SAPUI5", "OpenUI5", "Fiori 3", "Kotlin", "Jetpack Compose M3", "Mapbox GL JS"],
-          links: [{ label: "Case Study", url: "/#works" }]
-        },
-        {
-          year: "2024",
-          title: "Arcons Billetera",
-          category: "Mobile Fintech",
-          role: "Flutter Engineer",
-          stack: ["Flutter", "Dart", "SQLite", "Firebase"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=arcons.billetera.app" }]
-        },
-        {
-          year: "2023",
-          title: "Colegio Contabilidad",
-          category: "Mobile EdTech",
-          role: "Mobile Engineer",
-          stack: ["Flutter", "SQLite", "Node.js"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.colegiocontabilidad" }]
-        },
-        {
-          year: "2023",
-          title: "Arcons App (Main Portal)",
-          category: "Mobile Portal",
-          role: "Flutter Developer",
-          stack: ["Flutter", "Dart", "REST APIs"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.app.app_arcons" }]
-        },
-        {
-          year: "2023",
-          title: "Arcons Company",
-          category: "Enterprise Mobile Tool",
-          role: "Flutter Developer",
-          stack: ["Flutter", "Dart", "Synchronization"],
-          links: [{ label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.arcons.company" }]
-        }
-      ];
-    }
+    return archiveProjects[lang] || archiveProjects.es;
   }, [lang]);
 
   // Map and sort all projects by year (descending), filtering duplicates
