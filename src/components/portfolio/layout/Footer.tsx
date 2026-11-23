@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           {t.contact.github}
         </a>
         <a 
-          href="https://linkedin.com/in/antoni-escalante" 
+          href="https://www.linkedin.com/in/aescalantedev/" 
           target="_blank" 
           rel="noreferrer" 
           className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-text-primary hover:text-accent border border-border-custom/50 hover:border-accent bg-bg-secondary/30 hover:bg-accent/5 uppercase transition-all duration-300 cursor-pointer px-4 py-2.5 rounded-full"

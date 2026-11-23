@@ -110,4 +110,4 @@ mi-portafolio/
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-Developed by **[Antoni Escalante](https://linkedin.com/in/antoni-escalante)**.
+Developed by **[Antoni Escalante](https://www.linkedin.com/in/aescalantedev/)**.

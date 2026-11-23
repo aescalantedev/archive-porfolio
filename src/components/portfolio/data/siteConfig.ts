@@ -40,7 +40,7 @@ export const siteConfig = {
   },
   socials: {
     github: 'https://github.com/aescalantedev',
-    linkedin: 'https://linkedin.com/in/antoni-escalante',
+    linkedin: 'https://www.linkedin.com/in/aescalantedev/',
     instagram: 'https://instagram.com/a_nthony.r',
     email: 'mailto:contacto@aescalante.dev',
   },
